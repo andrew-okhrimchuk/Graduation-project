@@ -2,6 +2,7 @@ package model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 
 
 @NamedQueries({
@@ -29,8 +30,17 @@ public class Meal  {
     private String name;
 
     @NotNull
-    @Column(name = "name", nullable = false)
+    @Column(name = "cost", nullable = false)
     private long cost;
+
+    @NotNull
+    @Column(name = "date_time", nullable = false)
+    private LocalDateTime dateTime;
+
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "restouran_id")
+    private Restouran restouran;
 
 
     public Meal() {

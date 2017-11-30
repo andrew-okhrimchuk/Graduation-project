@@ -5,11 +5,15 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "history_voting")
+@Table(name = "history_voting") //id, дата, restoran, User)
 public class HistoryVoting {
 
     @NotNull
     @Id
+    @Column(name = "id", nullable = false)
+    private  Integer id;
+
+    @NotNull
     @Column(name = "date_time", nullable = false)
     private LocalDateTime dateTime;
 
@@ -18,16 +22,26 @@ public class HistoryVoting {
     private Restouran restouran;
 
     @NotNull
-    @Column(name = "countVoting", nullable = false)
-    private int countVoting;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @Column(name = "user_id", nullable = false)
+    private User user;
 
-    public HistoryVoting(@NotNull LocalDateTime dateTime, @NotNull Restouran restouran, @NotNull int countVoting) {
+    public HistoryVoting(@NotNull Integer id, @NotNull LocalDateTime dateTime, Restouran restouran, @NotNull User user) {
+        this.id = id;
         this.dateTime = dateTime;
         this.restouran = restouran;
-        this.countVoting = countVoting;
+        this.user = user;
     }
 
     public HistoryVoting() {
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public LocalDateTime getDateTime() {
@@ -46,20 +60,21 @@ public class HistoryVoting {
         this.restouran = restouran;
     }
 
-    public int getCountVoting() {
-        return countVoting;
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override
     public String toString() {
         return "HistoryVoting{" +
-                "dateTime=" + dateTime +
+                "id=" + id +
+                ", dateTime=" + dateTime +
                 ", restouran=" + restouran +
-                ", countVoting=" + countVoting +
+                ", user=" + user +
                 '}';
-    }
-
-    public void setCountVoting(int countVoting) {
-        this.countVoting = countVoting;
     }
 }
