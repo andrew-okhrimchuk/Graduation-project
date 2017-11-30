@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
         @NamedQuery(name = Restouran.getBetween, query = "SELECT u FROM Meal u WHERE u.user.id=:userId AND u.dateTime >=:startDate AND u.dateTime <=:endDate ORDER BY u.dateTime DESC ")
 })
 @Entity
-@Table(name = "Restouran")
+@Table(name = "restouran")
 public class Restouran {
 
     public static final String DELETE1 = "Meal.delete";

@@ -10,7 +10,7 @@ public class HistoryVoting {
 
     @NotNull
     @Id
-    @Column(name = "dateTime", nullable = false)
+    @Column(name = "date_time", nullable = false)
     private LocalDateTime dateTime;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -25,6 +25,9 @@ public class HistoryVoting {
         this.dateTime = dateTime;
         this.restouran = restouran;
         this.countVoting = countVoting;
+    }
+
+    public HistoryVoting() {
     }
 
     public LocalDateTime getDateTime() {

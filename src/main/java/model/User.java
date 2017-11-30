@@ -18,7 +18,7 @@ import java.util.Set;
         @NamedQuery(name = User.ALL_SORTED, query = "SELECT u FROM User u LEFT JOIN FETCH u.roles ORDER BY u.name, u.email"),
 })
 @Entity
-@Table(name = "users", uniqueConstraints = {@UniqueConstraint(columnNames = "email", name = "users_unique_email_idx")})
+@Table(name = "users")
 public class User {
 
     public static final String DELETE = "User.delete";
@@ -30,14 +30,14 @@ public class User {
     @Column(name = "id", nullable = false)
     private int id;
 
+    @NotNull
+    @Column(name = "name", nullable = false)
+    private String name;
+
     @Column(name = "password", nullable = false)
     @NotBlank
     @Size(min = 5, max = 64)
     private String password;
-
-    @NotNull
-    @Column(name = "name", nullable = false)
-    private String name;
 
     @Enumerated(EnumType.STRING)
     @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))

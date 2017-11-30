@@ -13,11 +13,7 @@ public class MealMenu {
     @NotNull
     @Id
     @Column(name = "id", nullable = false)
-    private final Integer id;
-
-    @NotNull
-    @Column(name = "dateTime", nullable = false)
-    private final LocalDateTime dateTime;
+    private Integer id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "restouran_id")
@@ -27,18 +23,19 @@ public class MealMenu {
     @JoinColumn(name = "meal_id")
     private Meal meal;
 
-    public MealMenu(Integer id, LocalDateTime dateTime, Restouran restouran, Meal meal) {
+    public MealMenu(Integer id, Restouran restouran, Meal meal) {
         this.id = id;
-        this.dateTime = dateTime;
         this.restouran = restouran;
         this.meal = meal;
+    }
+
+    public MealMenu() {
     }
 
     @Override
     public String toString() {
         return "MealMenu{" +
                 "id=" + id +
-                ", dateTime=" + dateTime +
                 ", restouran=" + restouran +
                 ", meal=" + meal +
                 '}';
