@@ -25,10 +25,9 @@ public class User {
     public static final String BY_EMAIL = "User.getByEmail";
     public static final String ALL_SORTED = "User.getAllSorted";
 
-    @NotNull
     @Id
     @Column(name = "id", nullable = false)
-    private int id;
+    private Integer id;
 
     @NotNull
     @Column(name = "name", nullable = false)
@@ -45,6 +44,9 @@ public class User {
     @ElementCollection(fetch = FetchType.EAGER)
     private Set<Role> roles;
 
+    public boolean isNew() {
+        return this.id == null;
+    }
 
     public User() {
     }
