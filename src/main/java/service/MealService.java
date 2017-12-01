@@ -10,19 +10,23 @@ import java.time.LocalTime;
 import java.util.List;
 
 public interface MealService {
-    Meal get(int id, int userId) throws NotFoundException;
 
-    void delete(int id, int userId) throws NotFoundException;
+    Meal get(int id);
 
-    default List<Meal> getBetweenDates(LocalDate startDate, LocalDate endDate, int userId) {
-        return getBetweenDateTimes(LocalDateTime.of(startDate, LocalTime.MIN), LocalDateTime.of(endDate, LocalTime.MAX), userId);
-    }
+    List<Meal> getAllMealToday();
 
-    List<Meal> getBetweenDateTimes(LocalDateTime startDateTime, LocalDateTime endDateTime, int userId);
+    List<Meal> getAll();
 
-    List<Meal> getAll(int userId);
+    List<Meal> getBetween(LocalDateTime startDate, LocalDateTime endDate);
 
-    Meal update(Meal meal, int userId) throws NotFoundException;
+    List<Meal> getAllMealOfRestouran(int restouranId);
 
-    Meal create(Meal meal, int userId);
+    boolean delete(int id);
+
+    boolean deleteAll();
+
+    Meal update(Meal meal, int restouranId);
+
+    Meal create(Meal meal, int restouranId);
+
 }

@@ -9,10 +9,8 @@ import java.time.LocalDateTime;
         @NamedQuery(name = Meal.DELETE, query = "DELETE FROM Meal u WHERE u.id=:id"),
         @NamedQuery(name = Meal.DELETE_All, query = "DELETE FROM Meal"),
         @NamedQuery(name = Meal.BY_FIND, query = "SELECT u FROM Meal u WHERE u.id=:id"),
-        @NamedQuery(name = Meal.ALL_SORTED, query = "SELECT u FROM Meal u ORDER BY u.dateTime DESC "),
-        @NamedQuery(name = Meal.ALL_SORTED_RESTOURAN, query = "SELECT u FROM Meal u WHERE u.restouran.id=:restouranId ORDER BY u.dateTime DESC "),
-        @NamedQuery(name = Meal.getMealToday, query = "SELECT u FROM Meal u WHERE u.dateTime =:today ORDER BY u.dateTime DESC "),
-        @NamedQuery(name = Meal.getBetween, query = "SELECT u FROM Meal u WHERE u.dateTime >=:startDate AND u.dateTime <=:endDate ORDER BY u.dateTime DESC ")
+        @NamedQuery(name = Meal.ALL_SORTED, query = "SELECT u FROM Meal u WHERE u.dateTime >=:startDate AND u.dateTime <=:endDate ORDER BY u.dateTime DESC "),
+        @NamedQuery(name = Meal.ALL_SORTED_RESTOURAN, query = "SELECT u FROM Meal u WHERE u.dateTime >=:startDate AND u.dateTime <=:endDate AND u.restouran.id=:restouranId ORDER BY u.dateTime DESC "),
 })
 
 @Entity
@@ -22,8 +20,6 @@ public class Meal  {
     public static final String DELETE = "Meal.delete";
     public static final String DELETE_All = "Meal.deleteAll";
     public static final String BY_FIND = "Meal.getById";
-    public static final String getBetween = "Meal.getBetween";
-    public static final String getMealToday = "Meal.getMealToday";
     public static final String ALL_SORTED = "Meal.getAllSorted";
     public static final String ALL_SORTED_RESTOURAN = "Meal.getAllSortedRestouran";
 

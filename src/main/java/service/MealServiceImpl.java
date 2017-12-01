@@ -3,18 +3,18 @@ package service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
-import ru.javawebinar.topjava.model.Meal;
-import ru.javawebinar.topjava.repository.MealRepository;
-
+import model.Meal;
+import repository.MealRepository;
 import java.time.LocalDateTime;
 import java.util.List;
-
-import static ru.javawebinar.topjava.util.ValidationUtil.checkNotFoundWithId;
+import static util.ValidationUtil.checkNotFoundWithId;
 
 @Service
 public class MealServiceImpl implements MealService {
 
     private final MealRepository repository;
+    private final LocalDateTime MIN = LocalDateTime.MIN;
+    private final LocalDateTime MAX = LocalDateTime.MAX;
 
     @Autowired
     public MealServiceImpl(MealRepository repository) {
@@ -22,35 +22,46 @@ public class MealServiceImpl implements MealService {
     }
 
     @Override
-    public Meal get(int id, int userId) {
-        return checkNotFoundWithId(repository.get(id, userId), id);
+    public Meal get(int id) {
+        return checkNotFoundWithId(repository.get(id), id);
     }
-
     @Override
-    public void delete(int id, int userId) {
-        checkNotFoundWithId(repository.delete(id, userId), id);
+    public List<Meal> getAllMealToday(){
+        LocalDateTime now = LocalDateTime.now();
+        return repository.getBetweenAllMealOfRestouran(now, now, 0);
     }
-
     @Override
-    public List<Meal> getBetweenDateTimes(LocalDateTime startDateTime, LocalDateTime endDateTime, int userId) {
+    public List<Meal> getAll() {
+        return repository.getBetweenAllMealOfRestouran(null, null, 0);
+    }
+    @Override
+    public List<Meal> getBetween(LocalDateTime startDateTime, LocalDateTime endDateTime) {
         Assert.notNull(startDateTime, "startDateTime must not be null");
         Assert.notNull(endDateTime, "endDateTime  must not be null");
-        return repository.getBetween(startDateTime, endDateTime, userId);
+        return repository.getBetweenAllMealOfRestouran(startDateTime, endDateTime, 0);
     }
-
     @Override
-    public List<Meal> getAll(int userId) {
-        return repository.getAll(userId);
+    public List<Meal> getAllMealOfRestouran(int restouranId) {
+        return repository.getBetweenAllMealOfRestouran(MIN, MAX, restouranId);
     }
-
     @Override
-    public Meal update(Meal meal, int userId) {
-        return checkNotFoundWithId(repository.save(meal, userId), meal.getId());
+    public boolean delete(int id) {
+        return (repository.delete(id));
     }
-
     @Override
-    public Meal create(Meal meal, int userId) {
+    public boolean deleteAll() {
+        return repository.deleteAll();
+    }
+    @Override
+    public Meal update(Meal meal, int restouranId) {
+        return checkNotFoundWithId(repository.save(meal, restouranId), meal.getId());
+    }
+    @Override
+    public Meal create(Meal meal, int restouranId) {
         Assert.notNull(meal, "meal must not be null");
-        return repository.save(meal, userId);
+        return repository.save(meal, restouranId);
     }
+
+
+
 }

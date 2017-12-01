@@ -10,6 +10,7 @@ import util.exception.NotFoundException;
 
 import java.util.List;
 
+import static util.ValidationUtil.checkNotFound;
 import static util.ValidationUtil.checkNotFoundWithId;
 
 

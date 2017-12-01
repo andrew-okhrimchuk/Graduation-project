@@ -1,8 +1,7 @@
 package util;
 
 
-import ru.javawebinar.topjava.model.AbstractBaseEntity;
-import ru.javawebinar.topjava.util.exception.NotFoundException;
+import util.exception.NotFoundException;
 
 public class ValidationUtil {
 
