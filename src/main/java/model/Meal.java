@@ -8,9 +8,9 @@ import java.time.LocalDateTime;
 @NamedQueries({
         @NamedQuery(name = Meal.DELETE, query = "DELETE FROM Meal u WHERE u.id=:id"),
         @NamedQuery(name = Meal.DELETE_All, query = "DELETE FROM Meal"),
-        @NamedQuery(name = Meal.BY_FIND, query = "SELECT u FROM Meal u WHERE u.id=:id"),
-        @NamedQuery(name = Meal.ALL_SORTED, query = "SELECT u FROM Meal u WHERE u.dateTime >=:startDate AND u.dateTime <=:endDate ORDER BY u.dateTime DESC "),
-        @NamedQuery(name = Meal.ALL_SORTED_RESTOURAN, query = "SELECT u FROM Meal u WHERE u.dateTime >=:startDate AND u.dateTime <=:endDate AND u.restouran.id=:restouranId ORDER BY u.dateTime DESC "),
+        @NamedQuery(name = Meal.BY_FIND, query = "SELECT u FROM Meal u WHERE u.id=:id")
+       // @NamedQuery(name = Meal.ALL_SORTED, query = "SELECT u FROM Meal u WHERE u.dateTime >=:startDate AND u.dateTime <=:endDate ORDER BY u.dateTime DESC "),
+      //  @NamedQuery(name = Meal.ALL_SORTED_RESTOURAN, query = "SELECT u FROM Meal u WHERE u.dateTime >=:startDate AND u.dateTime <=:endDate AND u.restouran.id=:restouranId ORDER BY u.dateTime DESC "),
 })
 
 @Entity
@@ -36,28 +36,18 @@ public class Meal  {
     @Column(name = "cost", nullable = false)
     private long cost;
 
-    @NotNull
-    @Column(name = "date_time", nullable = false)
-    private LocalDateTime dateTime;
-
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "restouran_id")
-    private Restouran restouran;
-
 
     public Meal() {
     }
 
-    public Meal(@NotNull Integer id, @NotNull String name, @NotNull long cost, @NotNull LocalDateTime dateTime, Restouran restouran) {
+
+    public Meal(@NotNull Integer id, @NotNull String name, @NotNull long cost) {
         this.id = id;
         this.name = name;
         this.cost = cost;
-        this.dateTime = dateTime;
-        this.restouran = restouran;
     }
-    public Meal(String name, long cost, LocalDateTime dateTime, Restouran restouran) {
-        this(null, name, cost, dateTime, restouran);
+    public Meal(String name, long cost, Restouran restouran) {
+        this(null, name, cost);
     }
 
     public Integer getId() {
@@ -84,22 +74,6 @@ public class Meal  {
         this.cost = cost;
     }
 
-    public LocalDateTime getDateTime() {
-        return dateTime;
-    }
-
-    public void setDateTime(LocalDateTime dateTime) {
-        this.dateTime = dateTime;
-    }
-
-    public Restouran getRestouran() {
-        return restouran;
-    }
-
-    public void setRestouran(Restouran restouran) {
-        this.restouran = restouran;
-    }
-
     public boolean isNew() {
         return this.id == null;
     }
@@ -110,8 +84,6 @@ public class Meal  {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", cost=" + cost +
-                ", dateTime=" + dateTime +
-                ", restouran=" + restouran +
                 '}';
     }
 }

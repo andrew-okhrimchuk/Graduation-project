@@ -2,7 +2,7 @@ package util;
 
 
 
-import to.MealWithExceed;
+
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -20,7 +20,7 @@ public class MealsUtil {
     private MealsUtil() {
     }
 
-    public static List<MealWithExceed> getWithExceeded(Collection<Meal> meals, int caloriesPerDay) {
+   /* public static List<MealWithExceed> getWithExceeded(Collection<Meal> meals, int caloriesPerDay) {
         return getFilteredWithExceeded(meals, LocalTime.MIN, LocalTime.MAX, caloriesPerDay);
     }
 

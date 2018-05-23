@@ -1,10 +1,8 @@
-DROP TABLE history_voting;
-DROP TABLE meals;
+DROP TABLE history_voting; -- Оператор DROP TABLE удаляет одну или несколько таблиц.
 DROP TABLE restouran;
+DROP TABLE meals;
 DROP TABLE user_roles;
 DROP TABLE users;
-
-
 
 
 CREATE   TABLE IF NOT EXISTS users
@@ -12,6 +10,13 @@ CREATE   TABLE IF NOT EXISTS users
   id               INTEGER        PRIMARY KEY,
   name             VARCHAR(255)   NOT NULL,
   password         VARCHAR(255)   NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS meals
+(
+  id          INTEGER         PRIMARY KEY,
+  name        VARCHAR(255)    NOT NULL,
+  cost        INTEGER         NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS user_roles
@@ -24,19 +29,13 @@ CREATE TABLE IF NOT EXISTS user_roles
 
 CREATE TABLE IF NOT EXISTS restouran
 ( id          INTEGER PRIMARY KEY,
-  name        VARCHAR(255)    NOT NULL
-);
-
-
-CREATE TABLE IF NOT EXISTS meals
-(
-  id          INTEGER         PRIMARY KEY,
   name        VARCHAR(255)    NOT NULL,
-  cost        INTEGER         NOT NULL,
-  restouran_id INTEGER        NOT NULL,
-  date_time    TIMESTAMP      NOT NULL,
-  FOREIGN KEY (restouran_id)  REFERENCES RESTOURAN (ID) ON DELETE CASCADE
+  date        DATE            NOT NULL,
+  meal_id     INTEGER         NOT NULL,
+  FOREIGN KEY (meal_id)       REFERENCES meals (id) ON DELETE CASCADE
 );
+
+
 
 
 
@@ -46,7 +45,7 @@ CREATE TABLE IF NOT EXISTS history_voting
   date_time    TIMESTAMP       NOT NULL,
   restouran_id INTEGER         NOT NULL,
   user_id      INTEGER         NOT NULL,
-  FOREIGN KEY (restouran_id)   REFERENCES RESTOURAN (id),
+  FOREIGN KEY (restouran_id)   REFERENCES RESTOURAN (id) ON DELETE CASCADE,
   FOREIGN KEY (user_id)        REFERENCES USERS (id) ON DELETE CASCADE
 );
 

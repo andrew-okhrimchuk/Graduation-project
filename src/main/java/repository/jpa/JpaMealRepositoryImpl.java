@@ -48,11 +48,11 @@ public class JpaMealRepositoryImpl implements MealRepository {
     public Meal save(Meal meal, int restouranId) {
         if (meal.isNew()) {
             Restouran ref = em.getReference(Restouran.class, restouranId);
-            meal.setRestouran(ref);
+            //meal.setRestouran(ref);
             em.persist(meal);
             return meal;
         } else {
-            if (meal.getRestouran() == null) {return null;}
+          //  if (meal.getRestouran() == null) {return null;}
             return em.merge(meal);
         }
     }

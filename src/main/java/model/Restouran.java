@@ -2,7 +2,9 @@ package model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @NamedQueries({
         @NamedQuery(name = Restouran.DELETE, query = "DELETE FROM Meal u WHERE u.id=:id AND u.user.id=:userId"),
@@ -33,6 +35,14 @@ public class Restouran {
     @NotNull
     @Column(name = "name", nullable = false)
     private String name;
+
+    @NotNull
+    @Column(name = "date", nullable = false)
+    private LocalDate date;
+
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    private Meal meal;
 
     public Restouran() {
     }
