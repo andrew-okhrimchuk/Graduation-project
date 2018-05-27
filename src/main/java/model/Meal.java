@@ -7,7 +7,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
-
+@SuppressWarnings("JpaQlInspection")
 @NamedQueries({
         @NamedQuery(name = Meal.DELETE, query = "DELETE FROM Meal u WHERE u.id=:id"),
         @NamedQuery(name = Meal.DELETE_All, query = "DELETE FROM Meal"),
@@ -17,21 +17,12 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "meals")
-public class Meal  {
+public class Meal extends AbstractNamedEntity {
 
     public static final String DELETE = "Meal.delete";
     public static final String DELETE_All = "Meal.deleteAll";
     public static final String BY_FIND = "Meal.getById";
     public static final String ALL_SORTED = "Meal.getAllSorted";
-
-    @NotNull
-    @Id
-    @Column(name = "id", nullable = false)
-    private Integer id;
-
-    @NotNull
-    @Column(name = "name", nullable = false, unique = true)
-    private String name;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
@@ -45,8 +36,7 @@ public class Meal  {
     public Meal(@NotNull Integer id,
                 @NotNull String name,
                 @NotNull User user) {
-        this.id = id;
-        this.name = name;
+        super(id, name);
         this.user = user;
     }
 
@@ -56,14 +46,6 @@ public class Meal  {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public User getUser() {
@@ -78,11 +60,19 @@ public class Meal  {
         return this.id == null;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     @Override
     public String toString() {
         return "Meal{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
+                "user=" + user +
+                ", id=" + id +
                 '}';
     }
 }

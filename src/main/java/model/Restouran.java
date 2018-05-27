@@ -16,21 +16,12 @@ import java.util.Set;
 })
 @Entity
 @Table(name = "restouran")
-public class Restouran {
+public class Restouran extends AbstractNamedEntity {
 
 
     public static final String DELETE = "Restouran.delete";
     public static final String BY_FIND = "Restouran.getById";
     public static final String ALL_SORTED = "Restouran.getAllSorted";
-
-    @NotNull
-    @Id
-    @Column(name = "id", nullable = false)
-    private Integer id;
-
-    @NotNull
-    @Column(name = "name", nullable = false, unique = true)
-    private String name;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
@@ -38,12 +29,12 @@ public class Restouran {
     //@NotNull(groups = View.Persist.class)
     private User user;
 
-    public Restouran() {
-    }
+    public Restouran() {}
 
-    public Restouran(@NotNull Integer id, @NotNull String name, @NotNull User user) {
-        this.id = id;
-        this.name = name;
+    public Restouran(@NotNull Integer id,
+                     @NotNull String name,
+                     @NotNull User user) {
+        super(id, name);
         this.user = user;
     }
 
@@ -51,7 +42,6 @@ public class Restouran {
     public String toString() {
         return "Restouran{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
                 ", user=" + user +
                 '}';
     }

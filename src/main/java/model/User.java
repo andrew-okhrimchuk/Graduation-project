@@ -20,19 +20,19 @@ import java.util.Set;
 })
 @Entity
 @Table(name = "users")
-public class User {
+public class User extends AbstractNamedEntity {
 
     public static final String DELETE = "User.delete";
     public static final String BY_EMAIL = "User.getByEmail";
     public static final String ALL_SORTED = "User.getAllSorted";
 
-    @Id
+    /*@Id
     @Column(name = "id", nullable = false)
     private Integer id;
 
     @NotNull
     @Column(name = "name", nullable = false)
-    private String name;
+    private String name;*/
 
     @Column(name = "email", nullable = false, unique = true)
     @Email
@@ -59,8 +59,7 @@ public class User {
         return this.id == null;
     }
 
-    public User() {
-    }
+    public User() {}
 
     public Integer getId() {
         return id;
