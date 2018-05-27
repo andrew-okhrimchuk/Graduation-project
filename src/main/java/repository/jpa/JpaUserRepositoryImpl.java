@@ -1,5 +1,6 @@
 package repository.jpa;
 
+import org.hibernate.jpa.QueryHints;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,15 +14,6 @@ import java.util.List;
 @Repository
 @Transactional(readOnly = true)
 public class JpaUserRepositoryImpl implements UserRepository {
-
-/*
-    @Autowired
-    private SessionFactory sessionFactory;
-
-    private Session openSession() {
-        return sessionFactory.getCurrentSession();
-    }
-*/
 
     @PersistenceContext
     private EntityManager em;
@@ -46,12 +38,6 @@ public class JpaUserRepositoryImpl implements UserRepository {
     @Transactional
     public boolean delete(int id) {
 
-/*      User ref = em.getReference(User.class, id);
-        em.remove(ref);
-
-        Query query = em.createQuery("DELETE FROM User u WHERE u.id=:id");
-        return query.setParameter("id", id).executeUpdate() != 0;
-*/
         return em.createNamedQuery(User.DELETE)
                 .setParameter("id", id)
                 .executeUpdate() != 0;
@@ -61,6 +47,7 @@ public class JpaUserRepositoryImpl implements UserRepository {
     public User getByEmail(String email) {
         List<User> users = em.createNamedQuery(User.BY_EMAIL, User.class)
                 .setParameter(1, email)
+                .setHint(QueryHints.HINT_PASS_DISTINCT_THROUGH, false)
                 .getResultList();
         return DataAccessUtils.singleResult(users);
     }

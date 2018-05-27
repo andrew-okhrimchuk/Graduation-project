@@ -1,6 +1,7 @@
 package model;
 
 import org.hibernate.validator.constraints.Range;
+import org.hibernate.validator.constraints.SafeHtml;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -33,6 +34,13 @@ public class User {
     @Column(name = "name", nullable = false)
     private String name;
 
+    @Column(name = "email", nullable = false, unique = true)
+    @Email
+    @NotBlank
+    @Size(max = 100)
+ //   @SafeHtml(groups = {View.Web.class})  // https://stackoverflow.com/questions/17480809
+    private String email;
+
     @Column(name = "password", nullable = false)
     @NotBlank
     @Size(min = 5, max = 64)
@@ -43,6 +51,9 @@ public class User {
     @Column(name = "role")
     @ElementCollection(fetch = FetchType.EAGER)
     private Set<Role> roles;
+
+    @Transient
+    private boolean enabled;
 
     public boolean isNew() {
         return this.id == null;
@@ -73,5 +84,14 @@ public class User {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    @Transient
+    public boolean isVoting() {
+        return enabled;
+    }
+    @Transient
+    public void setVoting(boolean enabled) {
+        this.enabled = enabled;
     }
 }

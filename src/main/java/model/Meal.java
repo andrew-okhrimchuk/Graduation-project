@@ -1,5 +1,8 @@
 package model;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
@@ -8,9 +11,8 @@ import java.time.LocalDateTime;
 @NamedQueries({
         @NamedQuery(name = Meal.DELETE, query = "DELETE FROM Meal u WHERE u.id=:id"),
         @NamedQuery(name = Meal.DELETE_All, query = "DELETE FROM Meal"),
-        @NamedQuery(name = Meal.BY_FIND, query = "SELECT u FROM Meal u WHERE u.id=:id")
-       // @NamedQuery(name = Meal.ALL_SORTED, query = "SELECT u FROM Meal u WHERE u.dateTime >=:startDate AND u.dateTime <=:endDate ORDER BY u.dateTime DESC "),
-      //  @NamedQuery(name = Meal.ALL_SORTED_RESTOURAN, query = "SELECT u FROM Meal u WHERE u.dateTime >=:startDate AND u.dateTime <=:endDate AND u.restouran.id=:restouranId ORDER BY u.dateTime DESC "),
+        @NamedQuery(name = Meal.BY_FIND, query = "SELECT u FROM Meal u WHERE u.id=:id"),
+        @NamedQuery(name = Meal.ALL_SORTED, query = "SELECT u FROM Meal u ORDER BY u.name DESC ")
 })
 
 @Entity
@@ -21,7 +23,6 @@ public class Meal  {
     public static final String DELETE_All = "Meal.deleteAll";
     public static final String BY_FIND = "Meal.getById";
     public static final String ALL_SORTED = "Meal.getAllSorted";
-    public static final String ALL_SORTED_RESTOURAN = "Meal.getAllSortedRestouran";
 
     @NotNull
     @Id
@@ -29,25 +30,24 @@ public class Meal  {
     private Integer id;
 
     @NotNull
-    @Column(name = "name", nullable = false)
+    @Column(name = "name", nullable = false, unique = true)
     private String name;
 
-    @NotNull
-    @Column(name = "cost", nullable = false)
-    private long cost;
-
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    //@NotNull(groups = View.Persist.class)
+    private User user;
 
     public Meal() {
     }
 
-
-    public Meal(@NotNull Integer id, @NotNull String name, @NotNull long cost) {
+    public Meal(@NotNull Integer id,
+                @NotNull String name,
+                @NotNull User user) {
         this.id = id;
         this.name = name;
-        this.cost = cost;
-    }
-    public Meal(String name, long cost, Restouran restouran) {
-        this(null, name, cost);
+        this.user = user;
     }
 
     public Integer getId() {
@@ -66,12 +66,12 @@ public class Meal  {
         this.name = name;
     }
 
-    public long getCost() {
-        return cost;
+    public User getUser() {
+        return user;
     }
 
-    public void setCost(long cost) {
-        this.cost = cost;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public boolean isNew() {
@@ -83,7 +83,6 @@ public class Meal  {
         return "Meal{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", cost=" + cost +
                 '}';
     }
 }
