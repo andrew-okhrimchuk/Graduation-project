@@ -19,16 +19,18 @@ public class JpaHistoryVotingRepositoryImpl implements HistoryVotingRepository {
 
     @PersistenceContext
     private EntityManager em;
-   /* @Autowired
-    private ThreadLocal tl;*/
+ @Autowired
+    private ThreadLocal tl;
+
 
     @Override
     @Transactional
     public HistoryVoting save(HistoryVoting historyVoting, int restouran, int userId) {
-       /* User user = (User)tl.get();
+ User user = (User)tl.get();
         if (user.isVoting()) {
             return null;
-        }*/
+        }
+
         if (!historyVoting.isNew() && getVotingToday(userId) == null) {
             return null;
         }

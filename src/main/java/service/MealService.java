@@ -17,13 +17,9 @@ public interface MealService {
 
     List<Meal> getAll();
 
-    List<Meal> getBetween(LocalDateTime startDate, LocalDateTime endDate);
-
     List<Meal> getAllMealOfRestouran(int restouranId);
 
     boolean delete(int id);
-
-    boolean deleteAll();
 
     Meal update(Meal meal, int restouranId);
 
