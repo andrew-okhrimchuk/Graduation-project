@@ -8,10 +8,12 @@ import java.util.List;
 public interface HistoryMealRepository {
 
     HistoryMeal save(HistoryMeal historyMeal, int meal, int restouran, int userId);
+    HistoryMeal getId(int id);
+    boolean delete(int historyMeal_id, int user_id);
     List<HistoryMeal> getMealId(int id);
     List<HistoryMeal> getDate(LocalDate date);
     List<HistoryMeal> getRestouranId(int id);
-    List<HistoryMeal> getCost(int id);
+    List<HistoryMeal> getCost(long id);
 
     // ORDERED dateTime desc
     List<HistoryMeal> getAll();

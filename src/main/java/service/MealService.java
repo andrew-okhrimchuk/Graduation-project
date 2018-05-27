@@ -11,18 +11,13 @@ import java.util.List;
 
 public interface MealService {
 
-    Meal get(int id);
+    Meal get(int id, int userId) throws NotFoundException;
 
-    List<Meal> getAllMealToday();
+    boolean delete(int id, int userId) throws NotFoundException;
 
-    List<Meal> getAll();
+    List<Meal> getAll(int userId);
 
-    List<Meal> getAllMealOfRestouran(int restouranId);
+    Meal update(Meal meal, int userId) throws NotFoundException;
 
-    boolean delete(int id);
-
-    Meal update(Meal meal, int restouranId);
-
-    Meal create(Meal meal, int restouranId);
-
+    Meal create(Meal meal, int userId);
 }

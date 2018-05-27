@@ -22,7 +22,7 @@ public class JpaHistoryMealRepositoryImpl implements HistoryMealRepository {
 
     @PersistenceContext
     private EntityManager em;
- @PersistenceContext
+    @PersistenceContext
     private ThreadLocal tl;
 
    @Autowired
@@ -32,7 +32,7 @@ public class JpaHistoryMealRepositoryImpl implements HistoryMealRepository {
     @Override
     @Transactional
     public HistoryMeal save(HistoryMeal historyMeal, int meal, int restouran, int userId) {
- User user = (User)tl.get();
+        User user = (User)tl.get();
         if (user.isVoting()) {
             return null;
         }
@@ -51,9 +51,29 @@ public class JpaHistoryMealRepositoryImpl implements HistoryMealRepository {
     }
 
     @Override
-    public List<HistoryMeal> getMealId(int id) {
+    public HistoryMeal getId(int id){
         return em.createNamedQuery(HistoryMeal.GET_HISTORY_BY_MEAL_ID, HistoryMeal.class)
                 .setParameter("id", id)
+                .getSingleResult();
+    }
+
+    @Override
+    public boolean delete(int historyMeal_id, int user_id){
+        Restouran rest = getId(historyMeal_id).getRestouran();
+
+        if (rest !=null && rest.getUser().getId() == user_id){
+        return em.createNamedQuery(HistoryMeal.DELETE)
+                .setParameter("id", historyMeal_id)
+                .executeUpdate() != 0;
+        }
+        else return false;
+
+    }
+
+    @Override
+    public List<HistoryMeal> getMealId(int meal_id) {
+        return em.createNamedQuery(HistoryMeal.GET_HISTORY_BY_MEAL_ID, HistoryMeal.class)
+                .setParameter("meal_id", meal_id)
                 .getResultList();
     }
 
@@ -72,7 +92,7 @@ public class JpaHistoryMealRepositoryImpl implements HistoryMealRepository {
     }
 
     @Override
-    public List<HistoryMeal> getCost(int cost){
+    public List<HistoryMeal> getCost(long cost){
         return em.createNamedQuery(HistoryMeal.GET_HISTORY_BY_RESTOURAN_ID, HistoryMeal.class)
                 .setParameter("cost", cost)
                 .getResultList();
