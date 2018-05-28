@@ -19,17 +19,17 @@ public class JpaHistoryVotingRepositoryImpl implements HistoryVotingRepository {
 
     @PersistenceContext
     private EntityManager em;
- @Autowired
+ /*@Autowired
     private ThreadLocal tl;
-
+*/
 
     @Override
     @Transactional
     public HistoryVoting save(HistoryVoting historyVoting, int restouran, int userId) {
- User user = (User)tl.get();
+/* User user = (User)tl.get();
         if (user.isVoting()) {
             return null;
-        }
+        }*/
 
         if (!historyVoting.isNew() && getVotingToday(userId) == null) {
             return null;
@@ -44,7 +44,15 @@ public class JpaHistoryVotingRepositoryImpl implements HistoryVotingRepository {
         }
     }
 
-    //@Override
+    @Override
+    public HistoryVoting get(int id) {
+        return em.createNamedQuery(HistoryVoting.GET_VOTING_BY_ID, HistoryVoting.class)
+                .setParameter("id", id)
+                .getSingleResult();
+    }
+
+
+    @Override
     public HistoryVoting getVotingToday(int userId) {
         return em.createNamedQuery(HistoryVoting.GET_VOTING_BY_DATE_BY_USER_ID, HistoryVoting.class)
                 .setParameter("userId", userId)
@@ -54,9 +62,10 @@ public class JpaHistoryVotingRepositoryImpl implements HistoryVotingRepository {
 
 
     @Override
-    public List<HistoryVoting>  getDate(LocalDateTime dateTime){
-        return em.createNamedQuery(HistoryVoting.GET_VOTING_BY_DATE, HistoryVoting.class)
-                .setParameter("dateTime", dateTime)
+    public List<HistoryVoting>  getByDateBetween(LocalDateTime startDateTime, LocalDateTime endDateTime){
+        return em.createNamedQuery(HistoryVoting.GET_VOTING_BY_DATE_Between, HistoryVoting.class)
+                .setParameter("start", startDateTime)
+                .setParameter("end", endDateTime)
                 .getResultList();
     }
 

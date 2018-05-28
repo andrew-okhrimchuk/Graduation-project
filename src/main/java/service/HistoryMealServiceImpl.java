@@ -24,7 +24,8 @@ public class HistoryMealServiceImpl implements HistoryMealService {
 
     @Override
     public List<HistoryMeal> getByMealId(int id){
-            return repository.getMealId(id);
+        Assert.notNull(id, "meal_id must not be null");
+        return repository.getMealId(id);
     }
 
     @Override
@@ -38,26 +39,34 @@ public class HistoryMealServiceImpl implements HistoryMealService {
     }
 
     @Override
-    public boolean delete(int historyMeal_id, int user_id) {
-            return repository.delete(historyMeal_id, user_id);
+    public void delete(int historyMeal_id, int user_id) {
+        checkNotFoundWithId (repository.delete(historyMeal_id, user_id), historyMeal_id);
     }
 
     @Override
-    public List<HistoryMeal> getByDateBetween(LocalDate start, LocalDate end){ return repository.getByDateBetween(start, end);}
+    public List<HistoryMeal> getByDateBetween(LocalDate startDateTime, LocalDate endDateTime){
+        Assert.notNull(startDateTime, "startDateTime must not be null");
+        Assert.notNull(endDateTime, "endDateTime  must not be null");
+        return repository.getByDateBetween(startDateTime, endDateTime);}
 
     @Override
-    public List<HistoryMeal> getByRestouranId(int id){return repository.getRestouranId(id);}
+    public List<HistoryMeal> getByRestouranId(int id){
+        Assert.notNull(id, "RestouranId must not be null");
+        return repository.getRestouranId(id);}
 
     @Override
-    public List<HistoryMeal> getByCost(long id){return repository.getCost(id);}
+    public List<HistoryMeal> getByCost(long id){
+        Assert.notNull(id, "Cost must not be null");
+        return repository.getCost(id);}
 
     @Override
     public HistoryMeal update(HistoryMeal historyMeal, int meal, int restouran, int userId) {
+        Assert.notNull(historyMeal, "HistoryMeal(u) must not be null");
         return checkNotFoundWithId(repository.save(historyMeal,  meal, restouran,  userId), historyMeal.getId());}
 
     @Override
     public HistoryMeal create(HistoryMeal historyMeal, int meal, int restouran, int userId) {
-        Assert.notNull(historyMeal, "historyMeal must not be null");
+        Assert.notNull(historyMeal, "HistoryMeal(c) must not be null");
         return repository.save(historyMeal,  meal, restouran,  userId);
     }
 }

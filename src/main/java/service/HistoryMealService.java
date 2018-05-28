@@ -20,5 +20,5 @@ public interface HistoryMealService {
     HistoryMeal update(HistoryMeal historyMeal, int meal, int restouran, int userId) throws NotFoundException;
     HistoryMeal create(HistoryMeal historyMeal, int meal, int restouran, int userId);
 
-    boolean delete(int historyMeal_id, int user_id);
+    void delete(int historyMeal_id, int user_id);
 }

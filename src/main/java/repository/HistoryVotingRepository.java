@@ -8,8 +8,9 @@ import java.util.List;
 public interface HistoryVotingRepository {
 
     HistoryVoting save(HistoryVoting historyVoting, int restouran, int userId);
+    HistoryVoting get(int id);
     HistoryVoting getVotingToday(int userId);
-    List<HistoryVoting> getDate(LocalDateTime dateTime);
+    List<HistoryVoting> getByDateBetween(LocalDateTime startDateTime, LocalDateTime endDateTime);
     List<HistoryVoting> getRestouranId(int restouranId);
     List<HistoryVoting> getUser(int userId);
 
