@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import repository.HistoryMealRepository;
-import repository.MealRepository;
 import repository.RestouranRepository;
 
 import javax.persistence.EntityManager;
@@ -78,9 +77,10 @@ public class JpaHistoryMealRepositoryImpl implements HistoryMealRepository {
     }
 
     @Override
-    public List<HistoryMeal>  getDate(LocalDate date){
-        return em.createNamedQuery(HistoryMeal.GET_HISTORY_BY_DATE, HistoryMeal.class)
-                .setParameter("date", date)
+    public List<HistoryMeal>  getByDateBetween(LocalDate start, LocalDate end){
+        return em.createNamedQuery(HistoryMeal.GET_HISTORY_BY_DATE_Between, HistoryMeal.class)
+                .setParameter("start", start)
+                .setParameter("end", end)
                 .getResultList();
     }
 

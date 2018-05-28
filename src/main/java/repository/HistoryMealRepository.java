@@ -11,7 +11,7 @@ public interface HistoryMealRepository {
     HistoryMeal getId(int id);
     boolean delete(int historyMeal_id, int user_id);
     List<HistoryMeal> getMealId(int id);
-    List<HistoryMeal> getDate(LocalDate date);
+    List<HistoryMeal> getByDateBetween(LocalDate start, LocalDate end);
     List<HistoryMeal> getRestouranId(int id);
     List<HistoryMeal> getCost(long id);
 

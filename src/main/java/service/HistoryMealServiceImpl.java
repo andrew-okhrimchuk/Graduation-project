@@ -43,7 +43,7 @@ public class HistoryMealServiceImpl implements HistoryMealService {
     }
 
     @Override
-    public List<HistoryMeal> getByDate(LocalDate date){ return repository.getDate(date);}
+    public List<HistoryMeal> getByDateBetween(LocalDate start, LocalDate end){ return repository.getByDateBetween(start, end);}
 
     @Override
     public List<HistoryMeal> getByRestouranId(int id){return repository.getRestouranId(id);}

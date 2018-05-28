@@ -12,7 +12,7 @@ public interface HistoryMealService {
     HistoryMeal get(int historyMeal_id) throws NotFoundException;
 
     List<HistoryMeal> getByMealId(int id);
-    List<HistoryMeal> getByDate(LocalDate date);
+    List<HistoryMeal> getByDateBetween(LocalDate start, LocalDate end);
     List<HistoryMeal> getByRestouranId(int id);
     List<HistoryMeal> getByCost(long id);
     List<HistoryMeal> getAll();
