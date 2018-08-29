@@ -9,7 +9,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import repository.HistoryMealRepository;
 import repository.RestouranRepository;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.time.LocalDate;
@@ -21,8 +20,6 @@ public class JpaHistoryMealRepositoryImpl implements HistoryMealRepository {
 
     @PersistenceContext
     private EntityManager em;
-    @PersistenceContext
-    private ThreadLocal tl;
 
    @Autowired
     RestouranRepository restouranRepository;
@@ -31,11 +28,6 @@ public class JpaHistoryMealRepositoryImpl implements HistoryMealRepository {
     @Override
     @Transactional
     public HistoryMeal save(HistoryMeal historyMeal, int meal, int restouran, int userId) {
-        User user = (User)tl.get();
-        if (user.isVoting()) {
-            return null;
-        }
-
         if (!historyMeal.isNew() && restouranRepository.get(historyMeal.getRestouran().getId(), userId) == null) {
             return null;
         }

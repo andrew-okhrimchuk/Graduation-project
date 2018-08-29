@@ -8,6 +8,9 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.crypto.Data;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.Date;
 import java.util.EnumSet;
 import java.util.Set;
@@ -16,14 +19,17 @@ import java.util.Set;
 @NamedQueries({
         @NamedQuery(name = User.DELETE, query = "DELETE FROM User u WHERE u.id=:id"),
         @NamedQuery(name = User.BY_EMAIL, query = "SELECT u FROM User u LEFT JOIN FETCH u.roles WHERE u.email=?1"),
+        @NamedQuery(name = User.BY_EMAIL_2, query = "SELECT u FROM User u LEFT JOIN FETCH HistoryVoting b LEFT JOIN FETCH HistoryVoting c WHERE b.id=u.id AND b.dateTime=:dateTime AND u.email=:email"),
         @NamedQuery(name = User.ALL_SORTED, query = "SELECT u FROM User u LEFT JOIN FETCH u.roles ORDER BY u.name, u.email"),
 })
 @Entity
 @Table(name = "users")
+@SecondaryTable(name = "HISTORY_VOTING", pkJoinColumns = @PrimaryKeyJoinColumn(name = "ID" ))
 public class User extends AbstractNamedEntity {
 
     public static final String DELETE = "User.delete";
     public static final String BY_EMAIL = "User.getByEmail";
+    public static final String BY_EMAIL_2 = "User.getByEmail";
     public static final String ALL_SORTED = "User.getAllSorted";
 
     /*@Id
@@ -53,7 +59,14 @@ public class User extends AbstractNamedEntity {
     private Set<Role> roles;
 
     @Transient
-    private boolean enabled;
+    @Column(table ="HISTORY_VOTING", nullable = true)
+    private boolean issecondvoitin;
+
+    @Transient
+    @Column(table ="HISTORY_VOTING", nullable = true)
+    private LocalDateTime dateVoitin;
+
+
 
     public boolean isNew() {
         return this.id == null;
@@ -87,10 +100,12 @@ public class User extends AbstractNamedEntity {
 
     @Transient
     public boolean isVoting() {
-        return enabled;
+        return issecondvoitin;
     }
+
     @Transient
-    public void setVoting(boolean enabled) {
-        this.enabled = enabled;
+    public LocalDateTime getDateVoitin() {
+        return dateVoitin;
     }
+
 }

@@ -49,6 +49,7 @@ CREATE TABLE IF NOT EXISTS history_voting
   date_time    TIMESTAMP       NOT NULL,
   restouran_id INTEGER         NOT NULL,
   user_id      INTEGER         NOT NULL,
+  isSecondVotin BOOLEAN        NOT NULL,
   FOREIGN KEY (restouran_id)   REFERENCES RESTOURAN (id) ON DELETE CASCADE,
   FOREIGN KEY (user_id)        REFERENCES USERS (id) ON DELETE CASCADE
 );

@@ -9,6 +9,7 @@ import repository.UserRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
@@ -45,11 +46,19 @@ public class JpaUserRepositoryImpl implements UserRepository {
 
     @Override
     public User getByEmail(String email) {
-        List<User> users = em.createNamedQuery(User.BY_EMAIL, User.class)
-                .setParameter(1, email)
+        ThreadLocal<LocalDateTime> threadLocalScope = new ThreadLocal<>();
+        List<User> users = em.createNamedQuery(User.BY_EMAIL_2, User.class)
+                .setParameter(1, LocalDateTime.now() )
+                .setParameter(2, email )
                 .setHint(QueryHints.HINT_PASS_DISTINCT_THROUGH, false)
                 .getResultList();
-        return DataAccessUtils.singleResult(users);
+        User result = DataAccessUtils.singleResult(users);
+
+        if (result.getDateVoitin()!=null) {
+            threadLocalScope.set(result.getDateVoitin());
+        }else {threadLocalScope.set(null);}
+
+        return result;
     }
 
     @Override

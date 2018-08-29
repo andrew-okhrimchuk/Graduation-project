@@ -17,7 +17,6 @@ public interface HistoryVotingService {
     List<HistoryVoting> getByUserId(int id);
     List<HistoryVoting> getAll();
 
-    HistoryVoting update(HistoryVoting historyVoting, int userId) throws NotFoundException;
-    HistoryVoting create(HistoryVoting historyVoting, int restouran, int userId);
+    HistoryVoting save_a_vote(HistoryVoting historyVoting, int restouran, int userId);
 
 }

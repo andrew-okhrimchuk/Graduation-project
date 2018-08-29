@@ -42,6 +42,10 @@ public class HistoryVoting {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
+    @NotNull
+    @Column(name = "isSecondVotin", nullable = false)
+    private boolean isSecondVotin;
+
     public HistoryVoting(@NotNull Integer id,
                          @NotNull LocalDateTime dateTime,
                          @NotNull Restouran restouran,
@@ -50,6 +54,7 @@ public class HistoryVoting {
         this.dateTime = dateTime;
         this.restouran = restouran;
         this.user = user;
+        this.isSecondVotin = false;
     }
 
     public HistoryVoting() {
@@ -87,6 +92,10 @@ public class HistoryVoting {
         this.user = user;
     }
 
+    public boolean isSecondVotin() {
+        return isSecondVotin;
+    }
+
     @Override
     public String toString() {
         return "HistoryVoting{" +
@@ -94,8 +103,14 @@ public class HistoryVoting {
                 ", dateTime=" + dateTime +
                 ", restouran=" + restouran +
                 ", user=" + user +
+                ", isSecondVotin=" + isSecondVotin +
                 '}';
     }
+
+    public void setSecondVotin(boolean secondVotin) {
+        isSecondVotin = secondVotin;
+    }
+
     public boolean isNew() {
         return this.id == null;
     }
