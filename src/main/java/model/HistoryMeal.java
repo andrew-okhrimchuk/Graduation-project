@@ -1,5 +1,8 @@
 package model;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate; //HISTORY
@@ -16,6 +19,7 @@ import java.time.LocalDate; //HISTORY
 
 @Entity
 @Table(name = "history_meal")  // id, meal_id, data, restoran_id, cost
+@Getter @Setter
 public class HistoryMeal {
     public static final String GET_HISTORY_BY_ID = "HistoryMeal.getByDate";
     public static final String GET_HISTORY_BY_MEAL_ID = "HistoryMeal.getByDate";
@@ -63,45 +67,7 @@ public class HistoryMeal {
     public HistoryMeal() {
     }
 
-    public Integer getId() {
-        return id;
-    }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Meal getMeal() {
-        return meal;
-    }
-
-    public void setMeal(Meal meal) {
-        this.meal = meal;
-    }
-
-    public LocalDate getDate() {
-        return date;
-    }
-
-    public void setDate(LocalDate date) {
-        this.date = date;
-    }
-
-    public Restouran getRestouran() {
-        return restouran;
-    }
-
-    public void setRestouran(Restouran restouran) {
-        this.restouran = restouran;
-    }
-
-    public long getCost() {
-        return cost;
-    }
-
-    public void setCost(long cost) {
-        this.cost = cost;
-    }
 
     @Override
     public String toString() {

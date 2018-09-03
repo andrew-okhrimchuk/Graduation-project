@@ -5,7 +5,8 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
+import lombok.Getter;
+import lombok.Setter;
 
 @SuppressWarnings("JpaQlInspection")
 @NamedQueries({
@@ -17,6 +18,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "meals")
+@Getter @Setter
 public class Meal extends AbstractNamedEntity {
 
     public static final String DELETE = "Meal.delete";
@@ -40,32 +42,8 @@ public class Meal extends AbstractNamedEntity {
         this.user = user;
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
     public boolean isNew() {
         return this.id == null;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     @Override

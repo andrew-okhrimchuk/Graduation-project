@@ -1,5 +1,7 @@
 package model;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.validator.constraints.Range;
 import org.hibernate.validator.constraints.SafeHtml;
 
@@ -25,6 +27,7 @@ import java.util.Set;
 @Entity
 @Table(name = "users")
 @SecondaryTable(name = "HISTORY_VOTING", pkJoinColumns = @PrimaryKeyJoinColumn(name = "ID" ))
+@Getter @Setter
 public class User extends AbstractNamedEntity {
 
     public static final String DELETE = "User.delete";
@@ -74,29 +77,7 @@ public class User extends AbstractNamedEntity {
 
     public User() {}
 
-    public Integer getId() {
-        return id;
-    }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Set<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
-    }
 
     @Transient
     public boolean isVoting() {

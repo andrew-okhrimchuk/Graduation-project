@@ -1,5 +1,8 @@
 package model;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
@@ -15,6 +18,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "history_voting") //id, дата, restoran, User)
+@Getter @Setter
 public class HistoryVoting {
 
     public static final String GET_VOTING_BY_ID = "HistoryVoting.getById";
@@ -60,41 +64,6 @@ public class HistoryVoting {
     public HistoryVoting() {
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public LocalDateTime getDateTime() {
-        return dateTime;
-    }
-
-    public void setDateTime(LocalDateTime dateTime) {
-        this.dateTime = dateTime;
-    }
-
-    public Restouran getRestouran() {
-        return restouran;
-    }
-
-    public void setRestouran(Restouran restouran) {
-        this.restouran = restouran;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public boolean isSecondVotin() {
-        return isSecondVotin;
-    }
 
     @Override
     public String toString() {

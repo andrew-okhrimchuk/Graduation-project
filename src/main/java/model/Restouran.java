@@ -1,5 +1,7 @@
 package model;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -16,8 +18,8 @@ import java.util.Set;
 })
 @Entity
 @Table(name = "restouran")
+@Getter @Setter
 public class Restouran extends AbstractNamedEntity {
-
 
     public static final String DELETE = "Restouran.delete";
     public static final String BY_FIND = "Restouran.getById";
@@ -46,29 +48,7 @@ public class Restouran extends AbstractNamedEntity {
                 '}';
     }
 
-    public Integer getId() {
-        return id;
-    }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
 
     public boolean isNew() {
         return this.id == null;
