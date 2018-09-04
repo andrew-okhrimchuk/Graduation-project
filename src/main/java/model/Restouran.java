@@ -9,6 +9,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Set;
 
 @NamedQueries({
@@ -18,6 +19,10 @@ import java.util.Set;
 })
 @Entity
 @Table(name = "restouran")
+@SecondaryTables(
+        {@SecondaryTable(name = "MEALS", pkJoinColumns = @PrimaryKeyJoinColumn(name = "ID" )),
+         @SecondaryTable(name = "LIST_OF_ADMIN", pkJoinColumns = @PrimaryKeyJoinColumn(name = "ID" ))
+        })
 @Getter @Setter
 public class Restouran extends AbstractNamedEntity {
 
@@ -25,26 +30,32 @@ public class Restouran extends AbstractNamedEntity {
     public static final String BY_FIND = "Restouran.getById";
     public static final String ALL_SORTED = "Restouran.getAllSorted";
 
-    @ManyToOne(fetch = FetchType.LAZY)
+   /* @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     //@NotNull(groups = View.Persist.class)
-    private User user;
+    private User user;*/ //
+
+    @Transient
+    @Column(table ="MEALS", nullable = true)
+    private List<Meal> meals;
+
+    @Transient
+    @Column(table ="LIST_OF_ADMIN", nullable = true)
+    private List<List_of_admin> list_of_admin;
 
     public Restouran() {}
 
     public Restouran(@NotNull Integer id,
-                     @NotNull String name,
-                     @NotNull User user) {
+                     @NotNull String name
+                     ) {
         super(id, name);
-        this.user = user;
     }
 
     @Override
     public String toString() {
         return "Restouran{" +
                 "id=" + id +
-                ", user=" + user +
                 '}';
     }
 

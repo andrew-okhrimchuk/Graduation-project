@@ -11,7 +11,7 @@ import java.time.LocalDate; //HISTORY
         @NamedQuery(name = HistoryMeal.GET_HISTORY_BY_ID, query = "SELECT u FROM HistoryMeal u WHERE u.id=:id"),
         @NamedQuery(name = HistoryMeal.GET_HISTORY_BY_MEAL_ID, query = "SELECT u FROM HistoryMeal u WHERE u.meal=:meal_id"),
         @NamedQuery(name = HistoryMeal.GET_HISTORY_BY_DATE_Between, query = "SELECT u FROM HistoryMeal u WHERE u.date>=:start AND u.date<=:end ORDER BY u.date DESC"),
-        @NamedQuery(name = HistoryMeal.GET_HISTORY_BY_RESTOURAN_ID, query = "SELECT u FROM HistoryMeal u WHERE u.restouran=:restouran"),
+       // @NamedQuery(name = HistoryMeal.GET_HISTORY_BY_RESTOURAN_ID, query = "SELECT u FROM HistoryMeal u WHERE u.restouran=:restouran"),
         @NamedQuery(name = HistoryMeal.GET_HISTORY_BY_COST, query = "SELECT u FROM HistoryMeal u WHERE u.cost=:cost"),
         @NamedQuery(name = HistoryMeal.GET_HISTORY_MEAL_All, query = "SELECT u FROM HistoryMeal u ORDER BY u.date DESC"),
         @NamedQuery(name = HistoryMeal.DELETE, query = "DELETE FROM HistoryMeal u WHERE u.id=:id")
@@ -44,10 +44,6 @@ public class HistoryMeal {
     @Column(name = "date", nullable = false)
     private LocalDate date;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "restouran_id", nullable = false)
-    private Restouran restouran;
-
     @NotNull
     @Column(name = "cost", nullable = false)
     private long cost;
@@ -55,11 +51,9 @@ public class HistoryMeal {
     public HistoryMeal(@NotNull Integer id,
                        @NotNull Meal meal,
                        @NotNull LocalDate date,
-                       @NotNull Restouran restouran,
                        @NotNull long cost) {
         this.id = id;
         this.date = date;
-        this.restouran = restouran;
         this.meal = meal;
         this.cost = cost;
     }
@@ -75,7 +69,7 @@ public class HistoryMeal {
                 "id=" + id +
                 ", meal=" + meal +
                 ", date=" + date +
-                ", restouran=" + restouran +
+                ", restouran=" +
                 ", cost=" + cost +
                 '}';
     }

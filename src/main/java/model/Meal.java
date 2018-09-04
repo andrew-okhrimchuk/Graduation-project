@@ -18,6 +18,7 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "meals")
+@SecondaryTable(name = "HISTORY_MEAL", pkJoinColumns = @PrimaryKeyJoinColumn(name = "ID" ))
 @Getter @Setter
 public class Meal extends AbstractNamedEntity {
 
@@ -27,19 +28,22 @@ public class Meal extends AbstractNamedEntity {
     public static final String ALL_SORTED = "Meal.getAllSorted";
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "restouran_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    //@NotNull(groups = View.Persist.class)
-    private User user;
+    private Restouran restouran;
+
+    @Transient
+    @Column(table ="HISTORY_MEAL", nullable = false)
+    private int cost;
 
     public Meal() {
     }
 
     public Meal(@NotNull Integer id,
                 @NotNull String name,
-                @NotNull User user) {
+                @NotNull Restouran restouran) {
         super(id, name);
-        this.user = user;
+        this.restouran = restouran;
     }
 
     public boolean isNew() {
@@ -49,7 +53,7 @@ public class Meal extends AbstractNamedEntity {
     @Override
     public String toString() {
         return "Meal{" +
-                "user=" + user +
+                "restouran=" + restouran +
                 ", id=" + id +
                 '}';
     }
