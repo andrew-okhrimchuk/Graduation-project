@@ -18,13 +18,13 @@ INSERT INTO user_roles (role, user_id) VALUES
   ('ROLE_USER', 100000),
   ('ROLE_ADMIN', 100001);
 
-INSERT INTO RESTOURAN (ID, NAME, USER_ID) VALUES
-  (1, 'Катруся', 100000),
-  (2, 'Клубничка', 100000),
-  (3, 'Нака-ти-ка', 100001),
-  (4, 'Спотыкач', 100002),
-  (5, 'У Семеныча', 100003),
-  (6, 'Вареничная', 100003);
+INSERT INTO RESTOURAN (ID, NAME) VALUES
+  (1, 'Катруся'),
+  (2, 'Клубничка'),
+  (3, 'Нака-ти-ка'),
+  (4, 'Спотыкач'),
+  (5, 'У Семеныча'),
+  (6, 'Вареничная');
 
 INSERT INTO list_of_admin (ID, RESTOURAN_ID, USER_ID_ADMIN) VALUES
   (1, 1, 100000),

@@ -24,7 +24,7 @@ public class HistoryMealServiceImpl implements HistoryMealService {
     @Override
     public List<HistoryMeal> getByMealId(int id){
         Assert.notNull(id, "meal_id must not be null");
-        return repository.getMealId(id);
+        return repository.getByMealId(id);
     }
 
     @Override
@@ -59,13 +59,13 @@ public class HistoryMealServiceImpl implements HistoryMealService {
         return repository.getCost(id);}
 
     @Override
-    public HistoryMeal update(HistoryMeal historyMeal, int meal, int restouran, int userId) {
+    public HistoryMeal update(HistoryMeal historyMeal, int meal, int cost, LocalDate date, int userId) {
         Assert.notNull(historyMeal, "HistoryMeal(u) must not be null");
-        return checkNotFoundWithId(repository.save(historyMeal,  meal, restouran,  userId), historyMeal.getId());}
+        return checkNotFoundWithId(repository.save(historyMeal,  meal, cost, date,  userId), historyMeal.getId());}
 
     @Override
-    public HistoryMeal create(HistoryMeal historyMeal, int meal, int restouran, int userId) {
+    public HistoryMeal create(HistoryMeal historyMeal, int meal, int cost, int userId) {
         Assert.notNull(historyMeal, "HistoryMeal(c) must not be null");
-        return repository.save(historyMeal,  meal, restouran,  userId);
+        return repository.save(historyMeal,  meal, cost, LocalDate.now(),  userId);
     }
 }

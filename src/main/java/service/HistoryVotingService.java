@@ -11,7 +11,7 @@ import java.util.List;
 public interface HistoryVotingService {
 
     HistoryVoting get(int historyVoting_id) throws NotFoundException;
-
+    HistoryVoting getVotingTodayByUser(int Id);
     List<HistoryVoting> getByDateBetween(LocalDateTime start, LocalDateTime end);
     List<HistoryVoting> getByRestouranId(int id);
     List<HistoryVoting> getByUserId(int id);

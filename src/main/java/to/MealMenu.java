@@ -1,33 +1,28 @@
 package to;
 
+import lombok.Getter;
+import lombok.Setter;
 import model.Meal;
 import model.Restouran;
-import java.time.LocalDateTime;
 
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import java.time.LocalDateTime;
+@Getter @Setter
 public class MealMenu {
 
-    private  Integer id;
-    private LocalDateTime dateTime;
-    private Restouran restouran;
-    private Meal meal;
+    private String restouranName;
+    private String meal;
+    private long cost;
 
-    public MealMenu(Integer id, LocalDateTime dateTime, Restouran restouran, Meal meal) {
-        this.id = id;
-        this.dateTime = dateTime;
-        this.restouran = restouran;
+    public MealMenu(String restouranName, String meal, long cost) {
+        this.restouranName = restouranName;
         this.meal = meal;
+        this.cost = cost;
     }
 
     public MealMenu() {
     }
 
-    @Override
-    public String toString() {
-        return "MealMenu{" +
-                "id=" + id +
-                ", dateTime=" + dateTime +
-                ", restouran=" + restouran +
-                ", meal=" + meal +
-                '}';
-    }
+
 }

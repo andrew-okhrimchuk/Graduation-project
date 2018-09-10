@@ -31,7 +31,7 @@ public class JpaHistoryVotingRepositoryImpl implements HistoryVotingRepository {
             return null;
         }*/
 
-        if (!historyVoting.isNew() && getVotingToday(userId) == null) {
+        if (!historyVoting.isNew() && getVotingTodayByUser(userId) == null) {
             return null;
         }
         historyVoting.setUser(em.getReference(User.class, userId));
@@ -53,7 +53,7 @@ public class JpaHistoryVotingRepositoryImpl implements HistoryVotingRepository {
 
 
     @Override
-    public HistoryVoting getVotingToday(int userId) {
+    public HistoryVoting getVotingTodayByUser(int userId) {
         return em.createNamedQuery(HistoryVoting.GET_VOTING_BY_DATE_BY_USER_ID, HistoryVoting.class)
                 .setParameter("userId", userId)
                 .setParameter("dateTime", LocalDate.now())
@@ -70,14 +70,14 @@ public class JpaHistoryVotingRepositoryImpl implements HistoryVotingRepository {
     }
 
     @Override
-    public List<HistoryVoting> getRestouranId(int restouran){
+    public List<HistoryVoting> getByRestouranId(int restouran){
         return em.createNamedQuery(HistoryVoting.GET_VOTING_BY_RESTOURAN_ID, HistoryVoting.class)
                 .setParameter("restouran", restouran)
                 .getResultList();
     }
 
     @Override
-    public List<HistoryVoting> getUser(int userId){
+    public List<HistoryVoting> getByUser(int userId){
         return em.createNamedQuery(HistoryVoting.GET_VOTING_BY_USER_ID, HistoryVoting.class)
                 .setParameter("userId", userId)
                 .getResultList();

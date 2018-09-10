@@ -32,8 +32,7 @@ CREATE TABLE IF NOT EXISTS user_roles
 
 CREATE TABLE IF NOT EXISTS restouran
 ( id          INTEGER PRIMARY KEY,
-  name        VARCHAR(255)    NOT NULL,
-  user_id      INTEGER         NOT NULL
+  name        VARCHAR(255)    NOT NULL
 );
 CREATE UNIQUE INDEX restouran_unique_name_idx ON restouran (name);
 

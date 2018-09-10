@@ -17,7 +17,7 @@ import static util.ValidationUtil.checkNotFoundWithId;
 @Service
 public class HistoryVotingServiceImpl implements HistoryVotingService {
     @PersistenceContext
-    private ThreadLocal tl;
+    private ThreadLocal<Boolean> tl;
 
 
     private final HistoryVotingRepository repository;
@@ -33,9 +33,13 @@ public class HistoryVotingServiceImpl implements HistoryVotingService {
     }
 
     @Override
+    public HistoryVoting getVotingTodayByUser(int user_id) {
+        return checkNotFoundWithId(repository.getVotingTodayByUser(user_id), user_id);
+    }
+    @Override
     public List<HistoryVoting> getByUserId(int user_id){
         Assert.notNull(user_id, "user_id must not be null");
-        return repository.getUser(user_id);
+        return repository.getByUser(user_id);
     }
 
     @Override
@@ -52,7 +56,7 @@ public class HistoryVotingServiceImpl implements HistoryVotingService {
     @Override
     public List<HistoryVoting> getByRestouranId(int id){
         Assert.notNull(id, "Restouran_id must not be null");
-        return repository.getRestouranId(id);}
+        return repository.getByRestouranId(id);}
 
 
     @Override

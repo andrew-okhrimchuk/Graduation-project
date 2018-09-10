@@ -5,19 +5,19 @@ import java.util.List;
 
 public interface MealRepository {
 
-    // null if updated meal do not belong to userId
-    Meal save(Meal meal, int userId);
+    // null if updated meal do not belong to restouran_id
+    Meal save(Meal meal, int restouran_id);
 
-    // false if meal do not belong to userId
-    boolean delete(int id, int userId);
+    // false if meal do not belong to restouran_id
+    boolean delete(int id, int restouran_id);
 
-    // null if meal do not belong to userId
-    Meal get(int id, int userId);
+    // null if meal do not belong to restouran_id
+    Meal get(int id, int restouran_id);
 
     // ORDERED dateTime desc
-    List<Meal> getAll(int userId);
+    List<Meal> getAll(int restouran_id);
 
-    default Meal getWithUser(int id, int userId) {
+    default Meal getWithUser(int id, int restouran_id) {
         throw new UnsupportedOperationException();
     }
 }

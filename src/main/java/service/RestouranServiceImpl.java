@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import repository.RestouranRepository;
+import to.MealMenu;
 
 import java.util.List;
 
@@ -22,12 +23,16 @@ public class RestouranServiceImpl implements RestouranService {
 
     @Override
     public Restouran get(int id, int userId) {
-        return checkNotFoundWithId(restouranRepository.get(id, userId), id);
+        return checkNotFoundWithId(restouranRepository.get(id), userId);
+    }
+    @Override
+    public List<MealMenu> getManuToday(){
+       return restouranRepository.getManuToday();
     }
 
     @Override
     public List<Restouran> getAll(int userId) {
-        return restouranRepository.getAll(userId);
+        return restouranRepository.getAll();
     }
 
     @Override

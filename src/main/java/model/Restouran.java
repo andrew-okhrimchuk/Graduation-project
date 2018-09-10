@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import to.MealMenu;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -13,9 +14,10 @@ import java.util.List;
 import java.util.Set;
 
 @NamedQueries({
-        @NamedQuery(name = Restouran.DELETE, query = "DELETE FROM Restouran u WHERE u.id=:id AND u.user.id=:userId"),
-        @NamedQuery(name = Restouran.BY_FIND, query = "SELECT u FROM Restouran u WHERE u.id=:id AND u.user.id=:userId"),
-        @NamedQuery(name = Restouran.ALL_SORTED, query = "SELECT u FROM Restouran u WHERE u.user.id=:userId ORDER BY u.name DESC ")
+        @NamedQuery(name = Restouran.DELETE, query = "DELETE FROM Restouran r WHERE r.id=:id"),
+        @NamedQuery(name = Restouran.BY_FIND, query = "SELECT u FROM Restouran u WHERE u.id=:id"),
+        @NamedQuery(name = Restouran.ALL_SORTED, query = "SELECT u FROM Restouran u ORDER BY u.name DESC "),
+        @NamedQuery(name = Restouran.MANU, query = "SELECT NEW to.MealMenu(r.name, m.name, h.cost) FROM Restouran r JOIN Meal m ON r.id = m.restouran.id JOIN HistoryMeal h ON Meal.id = h.meal.id WHERE h.date=:date")
 })
 @Entity
 @Table(name = "restouran")
@@ -23,12 +25,13 @@ import java.util.Set;
         {@SecondaryTable(name = "MEALS", pkJoinColumns = @PrimaryKeyJoinColumn(name = "ID" )),
          @SecondaryTable(name = "LIST_OF_ADMIN", pkJoinColumns = @PrimaryKeyJoinColumn(name = "ID" ))
         })
-@Getter @Setter
+
 public class Restouran extends AbstractNamedEntity {
 
     public static final String DELETE = "Restouran.delete";
     public static final String BY_FIND = "Restouran.getById";
     public static final String ALL_SORTED = "Restouran.getAllSorted";
+    public static final String MANU = "Restouran.getAllToday";
 
    /* @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)

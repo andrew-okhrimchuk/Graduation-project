@@ -1,5 +1,5 @@
 package repository.jpa;
-import model.User;
+import model.Restouran;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import model.Meal;
@@ -17,11 +17,11 @@ public class JpaMealRepositoryImpl implements MealRepository {
 
     @Override
     @Transactional
-    public Meal save(Meal meal, int userId) {
-        if (!meal.isNew() && get(meal.getId(), userId) == null) {
+    public Meal save(Meal meal, int restouranId) {
+        if (!meal.isNew() && get(meal.getId(), restouranId) == null) {
             return null;
         }
-        meal.setUser(em.getReference(User.class, userId));
+        meal.setRestouran(em.getReference(Restouran.class, restouranId));
         if (meal.isNew()) {
             em.persist(meal);
             return meal;
@@ -32,23 +32,23 @@ public class JpaMealRepositoryImpl implements MealRepository {
 
     @Override
     @Transactional
-    public boolean delete(int id, int userId) {
+    public boolean delete(int id, int restouranId) {
         return em.createNamedQuery(Meal.DELETE)
                 .setParameter("id", id)
-                .setParameter("userId", userId)
+                .setParameter("restouranId", restouranId)
                 .executeUpdate() != 0;
     }
 
     @Override
-    public Meal get(int id, int userId) {
+    public Meal get(int id, int restouranId) {
         Meal meal = em.find(Meal.class, id);
-        return meal != null && meal.getUser().getId() == userId ? meal : null;
+        return meal != null && meal.getRestouran().getId() == restouranId ? meal : null;
     }
 
     @Override
-    public List<Meal> getAll(int userId) {
+    public List<Meal> getAll(int restouranId) {
         return em.createNamedQuery(Meal.ALL_SORTED, Meal.class)
-                .setParameter("userId", userId)
+                .setParameter("restouranId", restouranId)
                 .getResultList();
     }
 
