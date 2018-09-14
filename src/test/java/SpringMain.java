@@ -1,13 +1,10 @@
 import org.springframework.context.support.GenericXmlApplicationContext;
-import model.Role;
-import model.User;
+import andrey.model.Role;
+import andrey.model.User;
 //import ru.javawebinar.topjava.to.MealWithExceed;
 //import ru.javawebinar.topjava.web.meal.MealRestController;
 //import ru.javawebinar.topjava.web.user.AdminRestController;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.Month;
 import java.util.Arrays;
 
 /*

@@ -7,7 +7,7 @@
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
-    <context:component-scan base-package="repository.jpa"/>
+    <context:component-scan base-package="andrey.repository.jpa"/>
 
     <!-- Creates the datasource bean. -->
     <bean id="dataSource"
@@ -65,6 +65,6 @@
 
     <context:property-placeholder location="classpath:db/hsqldb.properties" system-properties-mode="OVERRIDE"/>
 
-    <bean class="repository.jpa.JpaUtil"/>
+    <bean class="andrey.repository.jpa.JpaUtil"/>
 
 </beans>
