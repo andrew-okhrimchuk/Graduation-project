@@ -1,11 +1,13 @@
 package andrey.repository.jpa;
 
+import andrey.model.HistoryMeal;
+import andrey.model.List_of_admin;
+import andrey.model.Meal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import andrey.repository.HistoryMealRepository;
 import andrey.repository.MealRepository;
-import andrey.repository.List_of_AdminRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

@@ -17,7 +17,7 @@ import static andrey.data.MealTestData.*;
 import static andrey.data.UserTestData.ADMIN_ID;
 import static andrey.data.UserTestData.USER_ID;
 
-public abstract class AbstractMealServiceTest extends AbstractServiceTest {
+public  class AbstractMealServiceTest extends AbstractServiceTest {
 
     @Autowired
     protected MealService service;
@@ -43,8 +43,8 @@ public abstract class AbstractMealServiceTest extends AbstractServiceTest {
 
     @Test
     public void get() throws Exception {
-        Meal actual = service.get(ADMIN_MEAL_ID, ADMIN_ID);
-        assertMatch(actual, ADMIN_MEAL1);
+        Meal actual = service.get(100000, ADMIN_ID);
+        assertMatch(actual, MEAL1);
     }
 
     @Test

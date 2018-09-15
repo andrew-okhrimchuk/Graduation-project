@@ -1,5 +1,8 @@
 package andrey.repository.jpa;
 
+import andrey.model.HistoryVoting;
+import andrey.model.Restouran;
+import andrey.model.User;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import andrey.repository.HistoryVotingRepository;

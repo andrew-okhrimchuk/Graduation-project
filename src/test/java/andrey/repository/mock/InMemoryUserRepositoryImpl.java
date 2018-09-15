@@ -1,4 +1,4 @@
-package mock;
+package andrey.repository.mock;
 
 import andrey.data.UserTestData;
 import org.springframework.stereotype.Repository;

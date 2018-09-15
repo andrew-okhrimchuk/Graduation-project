@@ -2,23 +2,21 @@ package andrey.data;
 
 import andrey.model.Role;
 import andrey.model.User;
-import org.springframework.test.web.servlet.ResultMatcher;
-import java.util.*;
+import andrey.model.Restouran;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Set;
 
 import static andrey.model.AbstractBaseEntity.START_SEQ;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 //import static ru.javawebinar.topjava.web.json.JsonUtil.writeIgnoreProps;
 
-public class UserTestData {
-    public static final int USER_ID = START_SEQ;
-    public static final int ADMIN_ID = START_SEQ + 1;
-    public static Set<Role> roles;
-    static {roles.add(Role.ROLE_USER);
-            roles.add(Role.ROLE_ADMIN);}
+public class RestouranTestData {
+    public static final int Restouran_ID = START_SEQ + 9;
 
-    public static final User USER = new User(USER_ID, "User", "user@yandex.ru", "password", Collections.singleton(Role.ROLE_USER));
-    public static final User ADMIN = new User(ADMIN_ID, "Admin", "admin@gmail.com", "admin", roles);
+    public static final Restouran REST1 = new Restouran(1, "Катруся");
+    public static final Restouran REST2 = new Restouran(2, "Клубничка");
 
     public static void assertMatch(User actual, User expected) {
         assertThat(actual).isEqualToIgnoringGivenFields(expected, "registered", "meals", "password");
