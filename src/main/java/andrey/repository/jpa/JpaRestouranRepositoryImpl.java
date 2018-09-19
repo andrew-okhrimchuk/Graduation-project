@@ -1,16 +1,10 @@
 package andrey.repository.jpa;
 
-import andrey.model.List_of_admin;
-import andrey.model.Meal;
 import andrey.model.Restouran;
 import andrey.to.MealMenu;
-import andrey.model.User;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import andrey.repository.MealRepository;
 import andrey.repository.RestouranRepository;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.time.LocalDate;
@@ -22,20 +16,10 @@ public class JpaRestouranRepositoryImpl implements RestouranRepository {
 
     @PersistenceContext
     private EntityManager em;
-    private final JpaUserRepositoryImpl jpaUserRepositoryImpl;
-
-    @Autowired
-    public JpaRestouranRepositoryImpl(JpaUserRepositoryImpl jpaUserRepositoryImpl) {
-        this.jpaUserRepositoryImpl = jpaUserRepositoryImpl;
-    }
 
     @Override
     @Transactional
     public Restouran save(Restouran restouran, int userId) {
-        List_of_admin list_of_admin = jpaUserRepositoryImpl.getList_of_admin().get();
-        if (!restouran.isNew() && list_of_admin != null && list_of_admin.getId() != userId) { //проверка на принадлежность админа к текущему ресторану
-            return null;
-        }
         if (restouran.isNew()) {
             em.persist(restouran);
             return restouran;
@@ -47,10 +31,6 @@ public class JpaRestouranRepositoryImpl implements RestouranRepository {
     @Override
     @Transactional
     public boolean delete(int id, int userId) {
-        List_of_admin list_of_admin = jpaUserRepositoryImpl.getList_of_admin().get();
-        if (list_of_admin != null && list_of_admin.getId() != userId) { //проверка на принадлежность админа к текущему ресторану
-            return false;
-        }
         return em.createNamedQuery(Restouran.DELETE)
                 .setParameter("id", id)
                 .executeUpdate() != 0;

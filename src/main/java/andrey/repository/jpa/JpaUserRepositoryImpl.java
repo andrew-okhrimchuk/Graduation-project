@@ -26,13 +26,6 @@ public class JpaUserRepositoryImpl implements UserRepository {
 
     @PersistenceContext
     private EntityManager em;
-    final List_of_AdminRepository list;
-
-    @Autowired
-    public JpaUserRepositoryImpl(List_of_AdminRepository list) {
-        this.list = list;
-    }
-
 
     @Override
     @Transactional
@@ -61,40 +54,16 @@ public class JpaUserRepositoryImpl implements UserRepository {
 
     @Override
     public User getByEmail(String email) {
-
-
-
         List<User> users = em.createNamedQuery(User.BY_EMAIL_2, User.class)
                 .setParameter(1, LocalDateTime.now() )
                 .setParameter(2, email )
                 .setHint(QueryHints.HINT_PASS_DISTINCT_THROUGH, false)
                 .getResultList();
-        User result = DataAccessUtils.singleResult(users);
-        Raise_in_ThreadLocal(result);
-        return result;
+        return DataAccessUtils.singleResult(users);
     }
 
     @Override
     public List<User> getAll() {
         return em.createNamedQuery(User.ALL_SORTED, User.class).getResultList();
-    }
-
-
-    @Getter @Setter
-    private ThreadLocal<LocalDateTime> threadLocalScope = new ThreadLocal<>();
-    @Getter @Setter
-    private ThreadLocal<List_of_admin> list_of_admin;
-    private void Raise_in_ThreadLocal(@NotNull User user){
-
-        if (user.getDateVoitin()!=null) {
-            threadLocalScope.set(user.getDateVoitin());
-        }else {threadLocalScope.set(null);}
-
-
-        if (user.getRoles().contains(ROLE_ADMIN)) {
-            list_of_admin = new ThreadLocal<>();
-            list_of_admin.set(list.getByAdminId(user.getId()));
-        }
-
     }
 }

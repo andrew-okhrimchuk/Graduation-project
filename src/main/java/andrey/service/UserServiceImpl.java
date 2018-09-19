@@ -1,6 +1,7 @@
 package andrey.service;
 
 import andrey.model.User;
+import andrey.util.ThreadLocalUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
@@ -18,10 +19,12 @@ import static andrey.util.ValidationUtil.checkNotFoundWithId;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository repository;
+    private final ThreadLocalUtil threadLocalUtil;
 
     @Autowired
-    public UserServiceImpl(UserRepository repository) {
+    public UserServiceImpl(UserRepository repository, ThreadLocalUtil threadLocalUtil) {
         this.repository = repository;
+        this.threadLocalUtil = threadLocalUtil;
     }
 
     @Override
@@ -43,7 +46,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getByEmail(String email) throws NotFoundException {
         Assert.notNull(email, "email must not be null");
-        return checkNotFound(repository.getByEmail(email), "email=" + email);
+        User user = repository.getByEmail(email);
+
+        threadLocalUtil.Raise_in_ThreadLocal(user);
+        return checkNotFound((user), "email=" + email);
     }
 
     @Override

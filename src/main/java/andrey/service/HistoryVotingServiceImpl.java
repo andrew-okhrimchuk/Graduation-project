@@ -15,9 +15,6 @@ import static andrey.util.ValidationUtil.checkNotFoundWithId;
 
 @Service
 public class HistoryVotingServiceImpl implements HistoryVotingService {
-    @PersistenceContext
-    private ThreadLocal<Boolean> tl;
-
 
     private final HistoryVotingRepository repository;
 

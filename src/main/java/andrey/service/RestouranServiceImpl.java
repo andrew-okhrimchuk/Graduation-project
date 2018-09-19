@@ -1,6 +1,8 @@
 package andrey.service;
 
+import andrey.model.List_of_admin;
 import andrey.model.Restouran;
+import andrey.util.ThreadLocalUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
@@ -15,10 +17,12 @@ import static andrey.util.ValidationUtil.checkNotFoundWithId;
 public class RestouranServiceImpl implements RestouranService {
 
     private final RestouranRepository restouranRepository;
+    private ThreadLocalUtil threadLocalUtil;
 
     @Autowired
-    public RestouranServiceImpl(RestouranRepository repository) {
+    public RestouranServiceImpl(RestouranRepository repository, ThreadLocalUtil threadLocalUtil ) {
         this.restouranRepository = repository;
+        this.threadLocalUtil = threadLocalUtil;
     }
 
     @Override
@@ -37,17 +41,32 @@ public class RestouranServiceImpl implements RestouranService {
 
     @Override
     public boolean delete(int id, int userId) {
+        List_of_admin list_of_admin = threadLocalUtil.getList_of_admin();
+        if (list_of_admin != null && list_of_admin.getId() != userId) { //проверка на принадлежность админа к текущему ресторану
+            return false;
+        }
         return (restouranRepository.delete(id, userId));
     }
 
     @Override
-    public Restouran update(Restouran restouran, int restouranId) {
-        return checkNotFoundWithId(restouranRepository.save(restouran, restouranId), restouran.getId());
+    public Restouran update(Restouran restouran, int userId) {
+
+        List_of_admin list_of_admin = threadLocalUtil.getList_of_admin();
+        if (!restouran.isNew() && list_of_admin != null && list_of_admin.getId() != userId) { //проверка на принадлежность админа к текущему ресторану
+            return null;
+        }
+        return checkNotFoundWithId(restouranRepository.save(restouran, userId), restouran.getId());
     }
     @Override
-    public Restouran create(Restouran restouran, int restouranId) {
+    public Restouran create(Restouran restouran, int userId) {
         Assert.notNull(restouran, "Restouran must not be null");
-        return restouranRepository.save(restouran, restouranId);
+
+        List_of_admin list_of_admin = threadLocalUtil.getList_of_admin();
+        if (!restouran.isNew() && list_of_admin != null && list_of_admin.getId() != userId) { //проверка на принадлежность админа к текущему ресторану
+            return null;
+        }
+
+        return restouranRepository.save(restouran, userId);
     }
 
 

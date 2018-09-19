@@ -13,8 +13,8 @@ import java.util.Set;
 
 @NamedQueries({
         @NamedQuery(name = User.DELETE, query = "DELETE FROM User u WHERE u.id=:id"),
-        @NamedQuery(name = User.BY_EMAIL, query = "SELECT u FROM User u LEFT JOIN FETCH u.roles WHERE u.email=?1"),
-        @NamedQuery(name = User.BY_EMAIL_2, query = "SELECT u FROM User u LEFT JOIN FETCH HistoryVoting b LEFT JOIN FETCH HistoryVoting c WHERE b.id=u.id AND b.dateTime=:dateTime AND u.email=:email"),
+     //   @NamedQuery(name = User.BY_EMAIL, query = "SELECT u FROM User u LEFT JOIN FETCH u.roles WHERE u.email=?1"),
+        @NamedQuery(name = User.BY_EMAIL_2, query = "SELECT u FROM User u LEFT JOIN FETCH HistoryVoting b LEFT JOIN FETCH HistoryVoting c WHERE b.id = u.id AND b.dateTime=:dateTime AND u.email=:email"),
         @NamedQuery(name = User.ALL_SORTED, query = "SELECT u FROM User u LEFT JOIN FETCH u.roles ORDER BY u.name, u.email"),
 })
 @Entity
@@ -24,7 +24,7 @@ import java.util.Set;
 public class User extends AbstractNamedEntity {
 
     public static final String DELETE = "User.delete";
-    public static final String BY_EMAIL = "User.getByEmail";
+  //  public static final String BY_EMAIL = "User.getByEmail";
     public static final String BY_EMAIL_2 = "User.getByEmail";
     public static final String ALL_SORTED = "User.getAllSorted";
 

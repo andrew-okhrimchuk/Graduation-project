@@ -12,6 +12,9 @@
     <!-- Not necessary, already included with component-scan -->
     <!--<context:annotation-config/>-->
 
+<!--
     <context:component-scan base-package="andrey.repository.jpa"/>
+-->
     <context:component-scan base-package="andrey.service"/>
+    <context:component-scan base-package="andrey.util"/>
 </beans>

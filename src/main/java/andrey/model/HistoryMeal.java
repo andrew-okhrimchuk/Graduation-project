@@ -21,11 +21,11 @@ import java.time.LocalDate; //HISTORY
 @Table(name = "history_meal")  // id, meal_id, data, restoran_id, cost
 @Getter @Setter
 public class HistoryMeal {
-    public static final String GET_HISTORY_BY_ID = "HistoryMeal.getByDate";
+    public static final String GET_HISTORY_BY_ID = "HistoryMeal.getById";
     public static final String GET_HISTORY_BY_MEAL_ID = "HistoryMeal.getByDate";
-    public static final String GET_HISTORY_BY_DATE_Between = "HistoryMeal.getByDate";
+    public static final String GET_HISTORY_BY_DATE_Between = "HistoryMeal.getByDateBetween";
     public static final String GET_HISTORY_BY_RESTOURAN_ID = "HistoryMeal.getByRestouranId";
-    public static final String GET_HISTORY_BY_COST = "HistoryMeal.getByDate";
+    public static final String GET_HISTORY_BY_COST = "HistoryMeal.getByCost";
     public static final String GET_HISTORY_MEAL_All = "HistoryMeal.getAll";
     public static final String DELETE = "HistoryMeal.delete";
 

@@ -10,7 +10,7 @@ import java.util.List;
         @NamedQuery(name = Restouran.DELETE, query = "DELETE FROM Restouran r WHERE r.id=:id"),
         @NamedQuery(name = Restouran.BY_FIND, query = "SELECT u FROM Restouran u WHERE u.id=:id"),
         @NamedQuery(name = Restouran.ALL_SORTED, query = "SELECT u FROM Restouran u ORDER BY u.name DESC "),
-        @NamedQuery(name = Restouran.MANU, query = "SELECT NEW to.MealMenu(r.name, m.name, h.cost) FROM Restouran r JOIN Meal m ON r.id = m.restouran.id JOIN HistoryMeal h ON Meal.id = h.meal.id WHERE h.date=:date")
+        @NamedQuery(name = Restouran.MANU, query = "SELECT NEW andrey.to.MealMenu(r.name, m.name, h.cost) FROM Restouran r JOIN Meal m ON r.id = m.restouran.id JOIN HistoryMeal h ON m.id = h.meal.id WHERE h.date=:date")
 })
 @Entity
 @Table(name = "restouran")

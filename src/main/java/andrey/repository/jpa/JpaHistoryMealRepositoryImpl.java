@@ -1,13 +1,10 @@
 package andrey.repository.jpa;
 
 import andrey.model.HistoryMeal;
-import andrey.model.List_of_admin;
 import andrey.model.Meal;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import andrey.repository.HistoryMealRepository;
-import andrey.repository.MealRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -20,24 +17,11 @@ public class JpaHistoryMealRepositoryImpl implements HistoryMealRepository {
     @PersistenceContext
     private EntityManager em;
 
-   final private MealRepository mealRepository;
-   final private JpaUserRepositoryImpl jpaUserRepositoryImpl;
-
-    @Autowired
-    public JpaHistoryMealRepositoryImpl(MealRepository mealRepository, JpaUserRepositoryImpl jpaUserRepositoryImpl) {
-        this.mealRepository = mealRepository;
-        this.jpaUserRepositoryImpl = jpaUserRepositoryImpl;
-    }
-
     // CRUD
     @Override
     @Transactional
     public HistoryMeal save(HistoryMeal historyMeal, int meal_Id, long cost, LocalDate date, int userId) {
-        List_of_admin admin = jpaUserRepositoryImpl.getList_of_admin().get();
 
-        if (!historyMeal.isNew()&& admin !=null && date!=LocalDate.now() && mealRepository.get(meal_Id, admin.getRestouran().getId()) == null) {
-            return null;
-        }
         historyMeal.setMeal(em.getReference(Meal.class, meal_Id));
         historyMeal.setCost(cost);
         historyMeal.setDate(date);
@@ -53,20 +37,9 @@ public class JpaHistoryMealRepositoryImpl implements HistoryMealRepository {
     @Transactional
     public boolean delete(int historyMeal_id, int user_id){
         //Restouran rest = getId(historyMeal_id).getRestouran();
-        HistoryMeal check_date = getId(historyMeal_id);
-        if (check_date.getDate() != LocalDate.now()){
-            return false;}
-
-        List_of_admin admin = jpaUserRepositoryImpl.getList_of_admin().get(); //проверка - принадлежит ли админ ресторану
-        Meal chekMeal = mealRepository.get(check_date.getMeal().getId() , admin.getRestouran().getId()); // проверка - принадлежит ли еда ресторану
-
-        if (admin.getRestouran().getId() == user_id && chekMeal != null){
         return em.createNamedQuery(HistoryMeal.DELETE)
                 .setParameter("id", historyMeal_id)
                 .executeUpdate() != 0;
-        }
-        else return false;
-
     }
 
 // GET

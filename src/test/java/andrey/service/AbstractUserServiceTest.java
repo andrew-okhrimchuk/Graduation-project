@@ -17,7 +17,7 @@ import java.util.List;
 import static andrey.data.UserTestData.USER_ID;
 import static andrey.data.UserTestData.*;
 
-public  class AbstractUserServiceTest extends AbstractServiceTest {
+public abstract class AbstractUserServiceTest extends AbstractServiceTest {
 
     @Autowired
     protected UserService service;
