@@ -1,79 +1,73 @@
-DROP TABLE history_voting; -- Оператор DROP TABLE удаляет одну или несколько таблиц.
-DROP TABLE history_meal;
-DROP TABLE list_of_admin;
-DROP TABLE meals;
-DROP TABLE user_roles;
-DROP INDEX users_unique_email_idx;
-DROP TABLE users;
+DROP TABLE IF EXISTS HISTORY_VOTING; -- Оператор DROP TABLE удаляет одну или несколько таблиц.
+DROP TABLE IF EXISTS HISTORY_MEAL;
+DROP TABLE IF EXISTS LIST_OF_ADMIN;
+DROP TABLE IF EXISTS MEALS;
+DROP TABLE IF EXISTS USER_ROLES;
+DROP TABLE IF EXISTS USERS;
+DROP TABLE IF EXISTS RESTOURAN;
 
 
-DROP TABLE restouran;
-
-
-
-
-
-CREATE   TABLE IF NOT EXISTS users
+CREATE  TABLE IF NOT EXISTS USERS
 (
-  id               INTEGER        PRIMARY KEY,
-  name             VARCHAR(255)   NOT NULL,
-  email            VARCHAR(255)   NOT NULL,
-  password         VARCHAR(255)   NOT NULL
+  ID               INTEGER        PRIMARY KEY,
+  NAME             VARCHAR(255)   NOT NULL,
+  EMAIL            VARCHAR(255)   NOT NULL,
+  PASSWORD         VARCHAR(255)   NOT NULL
 );
-CREATE UNIQUE INDEX users_unique_email_idx ON users (email);
+CREATE UNIQUE INDEX USERS_UNIQUE_EMAIL_IDX ON USERS (EMAIL);
 
-CREATE TABLE IF NOT EXISTS user_roles
+CREATE TABLE IF NOT EXISTS USER_ROLES
 (
-  user_id     INTEGER         NOT NULL,
-  role        VARCHAR(255),
-  CONSTRAINT user_roles_idx   UNIQUE (user_id, role),
-  FOREIGN KEY (user_id)       REFERENCES USERS (id) ON DELETE CASCADE
+  USER_ID     INTEGER         NOT NULL,
+  ROLE        VARCHAR(255),
+  CONSTRAINT USER_ROLES_IDX   UNIQUE (USER_ID, ROLE),
+  FOREIGN KEY (USER_ID)       REFERENCES USERS (ID) ON DELETE CASCADE
 );
 
-CREATE TABLE IF NOT EXISTS restouran
-( id          INTEGER PRIMARY KEY,
-  name        VARCHAR(255)    NOT NULL
+CREATE TABLE IF NOT EXISTS RESTOURAN
+( ID          INTEGER PRIMARY KEY,
+  NAME        VARCHAR(255)    NOT NULL
 );
-CREATE UNIQUE INDEX restouran_unique_name_idx ON restouran (name);
+CREATE UNIQUE INDEX RESTOURAN_UNIQUE_NAME_IDX ON RESTOURAN (NAME);
 
-CREATE TABLE IF NOT EXISTS meals
+CREATE TABLE IF NOT EXISTS MEALS
 (
-  id                INTEGER         PRIMARY KEY,
-  name              VARCHAR(255)    NOT NULL,
-  restouran_id      INTEGER         NOT NULL,
-  FOREIGN KEY (restouran_id)        REFERENCES RESTOURAN (id) ON DELETE CASCADE
+  ID                INTEGER         PRIMARY KEY,
+  NAME              VARCHAR(255)    NOT NULL,
+  RESTOURAN_ID      INTEGER         NOT NULL,
+  FOREIGN KEY (restouran_id)        REFERENCES RESTOURAN (ID) ON DELETE CASCADE
 );
-CREATE UNIQUE INDEX meals_unique_name_restouran_id_idx ON meals (name, restouran_id);
+CREATE UNIQUE INDEX MEALS_UNIQUE_NAME_RESTOURAN_ID_IDX ON MEALS (NAME, RESTOURAN_ID);
 
-CREATE   TABLE IF NOT EXISTS list_of_admin
+CREATE   TABLE IF NOT EXISTS LIST_OF_ADMIN
 (
-  id               INTEGER        PRIMARY KEY,
-  restouran_id     INTEGER        NOT NULL,
-  user_id_admin    INTEGER        NOT NULL,
-  FOREIGN KEY (restouran_id)      REFERENCES RESTOURAN (id) ON DELETE CASCADE,
-  FOREIGN KEY (user_id_admin)     REFERENCES USERS (id) ON DELETE CASCADE
-);
-
-CREATE TABLE IF NOT EXISTS history_voting
-(
-  id           INTEGER         PRIMARY KEY,
-  date_time    TIMESTAMP       NOT NULL,
-  restouran_id INTEGER         NOT NULL,
-  user_id      INTEGER         NOT NULL,
-  isSecondVotin BOOLEAN        NOT NULL,
-  FOREIGN KEY (restouran_id)   REFERENCES RESTOURAN (id) ON DELETE CASCADE,
-  FOREIGN KEY (user_id)        REFERENCES USERS (id) ON DELETE CASCADE
+  ID               INTEGER        PRIMARY KEY,
+  RESTOURAN_ID     INTEGER        NOT NULL,
+  USER_ID_ADMIN    INTEGER        NOT NULL,
+  FOREIGN KEY (RESTOURAN_ID)      REFERENCES RESTOURAN (ID) ON DELETE CASCADE,
+  FOREIGN KEY (USER_ID_ADMIN)     REFERENCES USERS (ID) ON DELETE CASCADE
 );
 
-CREATE UNIQUE INDEX history_voting_unique_date_time_user_id_idx ON history_voting (date_time, user_id);
-
-CREATE TABLE IF NOT EXISTS history_meal -- id, meal_id, data, restoran_id, cost
+CREATE TABLE IF NOT EXISTS HISTORY_VOTING
 (
-  id           INTEGER         PRIMARY KEY,
-  meal_id      INTEGER         NOT NULL,
-  date         DATE            NOT NULL,
-  cost         INTEGER     NOT NULL,
-  FOREIGN KEY (meal_id)        REFERENCES meals (id) ON DELETE CASCADE
+  ID           INTEGER         PRIMARY KEY,
+  DATE_TIME    TIMESTAMP       NOT NULL,
+  RESTOURAN_ID INTEGER         NOT NULL,
+  USER_ID      INTEGER         NOT NULL,
+  ISSECONDVOTIN BOOLEAN        NOT NULL,
+  FOREIGN KEY (RESTOURAN_ID)   REFERENCES RESTOURAN (ID) ON DELETE CASCADE,
+  FOREIGN KEY (USER_ID)        REFERENCES USERS (ID) ON DELETE CASCADE
+);
+
+CREATE UNIQUE INDEX HISTORY_VOTING_UNIQUE_DATE_TIME_USER_ID_IDX ON HISTORY_VOTING (DATE_TIME, USER_ID);
+
+CREATE TABLE IF NOT EXISTS HISTORY_MEAL -- id, meal_id, data, restoran_id, cost
+(
+  ID           INTEGER         PRIMARY KEY,
+  MEAL_ID      INTEGER         NOT NULL,
+  DATE         DATE            NOT NULL,
+  COST         INTEGER     NOT NULL,
+  FOREIGN KEY (MEAL_ID)        REFERENCES MEALS (ID) ON DELETE CASCADE
 );
 
 /*
