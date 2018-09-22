@@ -1,54 +1,53 @@
 package andrey.service;
 
-import org.junit.Assume;
+import andrey.data.MealTestData;
+import andrey.data.RestouranTestData;
+import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import andrey.model.Meal;
 import andrey.util.exception.ErrorType;
 import andrey.util.exception.NotFoundException;
 
-import javax.validation.ConstraintViolationException;
-import java.time.LocalDate;
-import java.time.Month;
-import java.util.ArrayList;
-import java.util.List;
-
-import static java.time.LocalDateTime.of;
 import static org.hamcrest.core.StringContains.containsString;
 import static andrey.data.MealTestData.*;
-import static andrey.data.UserTestData.ADMIN_ID;
-import static andrey.data.UserTestData.USER_ID;
+import static andrey.data.UserTestData.*;
 import static andrey.data.RestouranTestData.*;
 
-public  class AbstractMealServiceTest extends AbstractServiceTest {
+public  class MealServiceTest extends AbstractServiceTest {
 
     @Autowired
     protected MealService service;
+    @Before
+    public void setUp() throws Exception {
+        MealTestData.init(); // Инициализировал MEAL1.setCost(hM1.getCost())
+        RestouranTestData.init();// Инициализировал REST2.setMeals(Arrays.asList(MEAL7,MEAL8,MEAL9));
+                                 // ИнициализировалREST2.setList_of_admin(List_of_admin_TestData.list);
+    }
 
     @Test
     public void delete() throws Exception {
-        service.delete(MEAL1_ID, USER_ID);
-        assertMatch(service.getAll(USER_ID), MEAL6, MEAL5, MEAL4, MEAL3, MEAL2);
+        service.delete(MEAL1_ID, REST1_id);
+        assertMatch(service.getAll(REST1_id),    MEAL3,MEAL2,MEAL4,MEAL5);
     }
 
     @Test
     public void deleteNotFound() throws Exception {
         thrown.expect(NotFoundException.class);
-        service.delete(MEAL1_ID, 1);
+        service.delete(MEAL1_ID, 2);
     }
 
     @Test
     public void create() throws Exception {
-        Meal created = getCreated(); // "Вареники", REST2 = new Restouran(2, "Клубничка");
-
-        service.create(created, REST2_id); // тут нужен ID ресторана а не USER_ID, который вставим в
-        assertMatch(service.getAll(REST2_id),   MEAL7 , created, MEAL8,  MEAL9);
+        Meal created = getCreated();
+        service.create(created, REST2_id);
+        assertMatch(service.getAll(REST2_id),   MEAL7,created,MEAL8,MEAL9);
     }
 
     @Test
     public void get() throws Exception {
-        Meal actual = service.get(100000, ADMIN_ID);
-        assertMatch(actual, MEAL1);
+        Meal actual = service.get(100007, REST3_id);
+        assertMatch(actual, MEAL6);
     }
 
     @Test
@@ -59,9 +58,9 @@ public  class AbstractMealServiceTest extends AbstractServiceTest {
 
     @Test
     public void update() throws Exception {
-        Meal updated = getUpdated();
-        service.update(updated, USER_ID);
-        assertMatch(service.get(MEAL1_ID, USER_ID), updated);
+        Meal updated = getUpdated(); //return new Meal(MEAL1_ID,  "Печень по-грузински, с черносивом", REST1);
+        service.update(updated, REST1_id);
+        assertMatch(service.get(MEAL1_ID, REST1_id), updated);
     }
 
     @Test
@@ -75,7 +74,7 @@ public  class AbstractMealServiceTest extends AbstractServiceTest {
 
     @Test
     public void getAll() throws Exception {
-        assertMatch(service.getAll(USER_ID), MEALS);
+        assertMatch(service.getAll(REST2_id), MEALS_REST2);
     }
 /*
     @Test

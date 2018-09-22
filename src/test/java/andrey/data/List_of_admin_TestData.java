@@ -28,6 +28,7 @@ public class List_of_admin_TestData {
     public static final List_of_admin LIST3 = new List_of_admin(3, REST3, ADMIN);
     public static final List_of_admin LIST4 = new List_of_admin(4, REST4, ADMIN);
 
+    public static final List<List_of_admin> list2 = Arrays.asList(LIST2);
 
 
     public static void assertMatch(List_of_admin actual, List_of_admin expected) {

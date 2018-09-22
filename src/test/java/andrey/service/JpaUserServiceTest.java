@@ -1,16 +1,6 @@
 package andrey.service;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import andrey.model.Role;
-import andrey.model.User;
-
-import javax.validation.ConstraintViolationException;
-import java.util.Collections;
-import java.util.Date;
-
-abstract public class AbstractJpaUserServiceTest extends AbstractUserServiceTest {
+abstract public class JpaUserServiceTest extends UserServiceTest {
 /*
     @Autowired
     private JpaUtil jpaUtil;

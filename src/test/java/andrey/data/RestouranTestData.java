@@ -1,9 +1,6 @@
 package andrey.data;
 
-import andrey.model.List_of_admin;
-
 import static andrey.data.MealTestData.*;
-import static andrey.data.List_of_admin_TestData.*;
 import andrey.model.User;
 import andrey.model.Restouran;
 
@@ -12,7 +9,6 @@ import java.util.*;
 
 import static andrey.model.AbstractBaseEntity.START_SEQ;
 import static org.assertj.core.api.Assertions.assertThat;
-//import static ru.javawebinar.topjava.web.json.JsonUtil.writeIgnoreProps;
 
 public class RestouranTestData {
     public static final int Restouran_ID = START_SEQ + 9;
@@ -31,9 +27,6 @@ public class RestouranTestData {
     public static  List<Restouran> list = Arrays.asList(REST1,REST2,REST3,REST4);
 
     public static void init () {
-     //   if(REST2.getList_of_admin() == null) {return;}
-
-       // REST2.setList_of_admin(Arrays.asList(LIST2));
         REST2.setMeals(Arrays.asList(MEAL7,MEAL8,MEAL9));
     }
 
@@ -41,16 +34,16 @@ public class RestouranTestData {
         return list.get(restouran_ID-1);
     }
 
-    public static void assertMatch(User actual, User expected) {
+    public static void assertMatch(Restouran actual, Restouran expected) {
         assertThat(actual).isEqualToIgnoringGivenFields(expected, "registered", "meals", "password");
     }
 
-    public static void assertMatch(Iterable<User> actual, User... expected) {
+    public static void assertMatch(Iterable<Restouran> actual, Restouran... expected) {
         assertMatch(actual, Arrays.asList(expected));
 
     }
 
-    public static void assertMatch(Iterable<User> actual, Iterable<User> expected) {
+    public static void assertMatch(Iterable<Restouran> actual, Iterable<Restouran> expected) {
         assertThat(actual).usingElementComparatorIgnoringFields("registered", "meals", "password").isEqualTo(expected);
     }
 /*
