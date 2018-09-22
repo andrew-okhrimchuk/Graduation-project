@@ -10,12 +10,15 @@ import andrey.util.exception.NotFoundException;
 import javax.validation.ConstraintViolationException;
 import java.time.LocalDate;
 import java.time.Month;
+import java.util.ArrayList;
+import java.util.List;
 
 import static java.time.LocalDateTime.of;
 import static org.hamcrest.core.StringContains.containsString;
 import static andrey.data.MealTestData.*;
 import static andrey.data.UserTestData.ADMIN_ID;
 import static andrey.data.UserTestData.USER_ID;
+import static andrey.data.RestouranTestData.*;
 
 public  class AbstractMealServiceTest extends AbstractServiceTest {
 
@@ -36,9 +39,10 @@ public  class AbstractMealServiceTest extends AbstractServiceTest {
 
     @Test
     public void create() throws Exception {
-        Meal created = getCreated();
-        service.create(created, USER_ID);
-        assertMatch(service.getAll(USER_ID), created, MEAL6, MEAL5, MEAL4, MEAL3, MEAL2, MEAL1);
+        Meal created = getCreated(); // "Вареники", REST2 = new Restouran(2, "Клубничка");
+
+        service.create(created, REST2_id); // тут нужен ID ресторана а не USER_ID, который вставим в
+        assertMatch(service.getAll(REST2_id),   MEAL7 , created, MEAL8,  MEAL9);
     }
 
     @Test

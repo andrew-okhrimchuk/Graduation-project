@@ -15,21 +15,27 @@ public class MealTestData {
 
     public static final Meal MEAL1 = new Meal(MEAL1_ID,  "Печень по-грузински", REST1);
     public static final Meal MEAL2 = new Meal(MEAL1_ID + 1,  "Пахлава", REST1);
-    public static final Meal MEAL3 = new Meal(MEAL1_ID + 2,  "Ужин", REST2);
-    public static final Meal MEAL4 = new Meal(MEAL1_ID + 3, "автрак", REST2);
-    public static final Meal MEAL5 = new Meal(MEAL1_ID + 4,"ед", REST2);
-    public static final Meal MEAL6 = new Meal(MEAL1_ID + 5,  "Ужин", REST2);
-    public static final Meal MEAL7 = new Meal(MEAL1_ID + 6,  "Админ ланч", REST2);
-    public static final Meal MEAL8 = new Meal(MEAL1_ID + 7,  "Админ ужин", REST2);
+    public static final Meal MEAL3 = new Meal(MEAL1_ID + 2,  "Печень по-арабски", REST1);
+    public static final Meal MEAL4 = new Meal(MEAL1_ID + 3, "Лапша нарезная", REST1);
+    public static final Meal MEAL5 = new Meal(MEAL1_ID + 4,"Борщ", REST1);
+    public static final Meal MEAL6 = new Meal(MEAL1_ID + 5,  "Вареники", REST3);
+    public static final Meal MEAL7 = new Meal(MEAL1_ID + 6,  "Печень по-арабски", REST2);
+    public static final Meal MEAL8 = new Meal(MEAL1_ID + 7,  "Восточные сладости", REST2);
+    public static final Meal MEAL9 = new Meal(MEAL1_ID + 8,  "Барашек по-армянски", REST2);
+    public static final Meal MEAL10 = new Meal(MEAL1_ID + 9,  "Ножки лягушки тушеные", REST3);
+    public static final Meal MEAL11 = new Meal(MEAL1_ID + 10,  "Ля-Суп", REST3);
+    public static final Meal MEAL12 = new Meal(MEAL1_ID + 11,  "Суп по-французски", REST3);
 
-    public static final List<Meal> MEALS = Arrays.asList(MEAL6, MEAL5, MEAL4, MEAL3, MEAL2, MEAL1);
+    public static final List<Meal> MEALS = Arrays.asList(MEAL8, MEAL7,MEAL6, MEAL5, MEAL4, MEAL3, MEAL2, MEAL1);
 
     public static Meal getCreated() {
-        return new Meal(null,  "Созданный ужин", REST2);
+        init();
+        return new Meal(null,  "Мамалыга", REST2);
     }
 
     public static Meal getUpdated() {
-        return new Meal(MEAL1_ID,  "Обновленный завтрак", REST2);
+        init();
+        return new Meal(MEAL1_ID,  "Печень по-грузински, с черносивом", REST1);
     }
 
     public static void assertMatch(Meal actual, Meal expected) {
@@ -41,6 +47,6 @@ public class MealTestData {
     }
 
     public static void assertMatch(Iterable<Meal> actual, Iterable<Meal> expected) {
-        assertThat(actual).usingElementComparatorIgnoringFields("user").isEqualTo(expected);
+        assertThat(actual).usingElementComparatorIgnoringFields("restouran", "cost", "id").isEqualTo(expected);
     }
 }

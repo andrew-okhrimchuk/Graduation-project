@@ -6,7 +6,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.util.CollectionUtils;
 import andrey.model.Meal;
 import andrey.repository.MealRepository;
-import andrey.util.DateTimeUtil;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -16,20 +15,23 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+import static andrey.data.RestouranTestData.getRestouranByID;
+
 @Repository
 public class InMemoryMealRepositoryImpl implements MealRepository {
     private static final Logger log = LoggerFactory.getLogger(InMemoryMealRepositoryImpl.class);
 
-    // Map  userId -> (mealId-> meal)
+    // Map  restouranId -> (mealId-> meal)
     private Map<Integer, Map<Integer, Meal>> repository = new ConcurrentHashMap<>();
     private AtomicInteger counter = new AtomicInteger(0);
 
     @Override
-    public Meal save(Meal meal, int userId) {
+    public Meal save(Meal meal, int restouranId) {
         Objects.requireNonNull(meal);
-        Map<Integer, Meal> meals = repository.computeIfAbsent(userId, ConcurrentHashMap::new);
+        Map<Integer, Meal> meals = repository.computeIfAbsent(restouranId, ConcurrentHashMap::new);
         if (meal.isNew()) {
             meal.setId(counter.incrementAndGet());
+            meal.setRestouran(getRestouranByID(restouranId));
             meals.put(meal.getId(), meal);
             return meal;
         }

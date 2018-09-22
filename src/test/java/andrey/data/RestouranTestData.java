@@ -1,12 +1,14 @@
 package andrey.data;
 
-import andrey.model.Role;
+import andrey.model.List_of_admin;
+
+import static andrey.data.MealTestData.*;
+import static andrey.data.List_of_admin_TestData.*;
 import andrey.model.User;
 import andrey.model.Restouran;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Set;
+
+import java.util.*;
 
 import static andrey.model.AbstractBaseEntity.START_SEQ;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -15,8 +17,29 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class RestouranTestData {
     public static final int Restouran_ID = START_SEQ + 9;
 
-    public static final Restouran REST1 = new Restouran(1, "Катруся");
-    public static final Restouran REST2 = new Restouran(2, "Клубничка");
+    public static final int REST1_id = 1;
+    public static final int REST2_id = 2;
+    public static final int REST3_id = 3;
+    public static final int REST4_id = 4;
+
+
+    public static final Restouran REST1 = new Restouran(REST1_id, "Катруся");
+    public static final Restouran REST2 = new Restouran(REST2_id, "Клубничка");
+    public static final Restouran REST3 = new Restouran(REST3_id, "Нака-ти-ка");
+    public static final Restouran REST4 = new Restouran(REST4_id, "Спотыкач");
+
+    public static  List<Restouran> list = Arrays.asList(REST1,REST2,REST3,REST4);
+
+    public static void init () {
+     //   if(REST2.getList_of_admin() == null) {return;}
+
+       // REST2.setList_of_admin(Arrays.asList(LIST2));
+        REST2.setMeals(Arrays.asList(MEAL7,MEAL8,MEAL9));
+    }
+
+    public static Restouran getRestouranByID(int restouran_ID) {
+        return list.get(restouran_ID-1);
+    }
 
     public static void assertMatch(User actual, User expected) {
         assertThat(actual).isEqualToIgnoringGivenFields(expected, "registered", "meals", "password");
@@ -44,4 +67,5 @@ public class RestouranTestData {
     }
 
     */
+
 }
