@@ -17,7 +17,7 @@ import static UserTestData.USER;
 */
 
 public class SpringMain {
-    public static void main(String[] args) {
+  /*  public static void main(String[] args) {
         // java 7 Automatic resource management
         try (GenericXmlApplicationContext appCtx = new GenericXmlApplicationContext()) {
             // appCtx.load("spring/spring-app.xml", "spring/spring-db.xml");
@@ -39,7 +39,8 @@ public class SpringMain {
                     mealController.getBetween(
                             LocalDate.of(2015, Month.MAY, 30), LocalTime.of(7, 0),
                             LocalDate.of(2015, Month.MAY, 31), LocalTime.of(11, 0));
-            filteredMealsWithExceeded.forEach(System.out::println);*/
+            filteredMealsWithExceeded.forEach(System.out::println);
         }
     }
+    */
 }

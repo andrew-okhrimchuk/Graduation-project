@@ -1,6 +1,8 @@
 package andrey.model;
 
 import andrey.to.MealMenu;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -18,7 +20,7 @@ import java.util.List;
         {@SecondaryTable(name = "MEALS", pkJoinColumns = @PrimaryKeyJoinColumn(name = "ID" )),
          @SecondaryTable(name = "LIST_OF_ADMIN", pkJoinColumns = @PrimaryKeyJoinColumn(name = "ID" ))
         })
-
+@Getter @Setter
 public class Restouran extends AbstractNamedEntity {
 
     public static final String DELETE = "Restouran.delete";

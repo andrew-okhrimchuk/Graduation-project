@@ -3,8 +3,8 @@ package andrey.util;
 import andrey.model.List_of_admin;
 import andrey.model.User;
 import andrey.repository.List_of_AdminRepository;
+import com.sun.istack.internal.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 import static andrey.model.Role.ROLE_ADMIN;
@@ -40,15 +40,17 @@ public class ThreadLocalUtil {
 
     public void Raise_in_ThreadLocal(@NotNull User user){
 
-        if (user.getDateVoitin()!=null) {
+        if (user!=null) {
+            if (user.getRoles().contains(ROLE_ADMIN)) {
+                list_of_admin = new ThreadLocal<>();
+                list_of_admin.set(list_a.getByAdminId(user.getId()));
+            }
+
             threadLocalScope.set(user.getDateVoitin());
         }else {threadLocalScope.set(null);}
 
 
-        if (user.getRoles().contains(ROLE_ADMIN)) {
-            list_of_admin = new ThreadLocal<>();
-            list_of_admin.set(list_a.getByAdminId(user.getId()));
-        }
+
 
     }
 

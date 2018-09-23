@@ -13,8 +13,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
-import static andrey.data.UserTestData.ADMIN;
-import static andrey.data.UserTestData.USER;
+import static andrey.data.UserTestData.*;
 
 @Repository
 public class InMemoryUserRepositoryImpl implements UserRepository {
@@ -24,8 +23,8 @@ public class InMemoryUserRepositoryImpl implements UserRepository {
 
     public void init() {
         repository.clear();
-        repository.put(UserTestData.USER_ID, USER);
-        repository.put(UserTestData.ADMIN_ID, ADMIN);
+        repository.put(UserTestData.USER_ID, USER_3);
+        repository.put(UserTestData.ADMIN_ID, ADMIN_2);
     }
 
     @Override

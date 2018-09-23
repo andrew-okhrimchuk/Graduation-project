@@ -36,7 +36,7 @@ public class HistoryMeal {
     private  Integer id;
 
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "meal_id", nullable = false)
     private Meal meal;
 

@@ -20,18 +20,18 @@ public class MealServiceImpl implements MealService {
     }
 
     @Override
-    public Meal get(int id, int userId) {
-        return checkNotFoundWithId(repository.get(id, userId), id);
+    public Meal get(int id, int restouran_id) {
+        return checkNotFoundWithId(repository.get(id, restouran_id), id);
     }
 
     @Override
-    public List<Meal> getAll(int userId) {
-        return repository.getAll(userId);
+    public List<Meal> getAll(int restouran_id) {
+        return repository.getAll(restouran_id);
     }
 
     @Override
-    public boolean delete(int id, int userId) {
-        return (repository.delete(id, userId));
+    public void delete(int id, int restouran_id) {
+        checkNotFoundWithId(repository.delete(id, restouran_id), restouran_id);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package andrey.repository.jpa;
 
+import andrey.to.UserTo;
 import lombok.Getter;
 import lombok.Setter;
 import andrey.model.List_of_admin;
@@ -15,7 +16,9 @@ import andrey.repository.UserRepository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 import static andrey.model.Role.ROLE_ADMIN;
@@ -54,12 +57,20 @@ public class JpaUserRepositoryImpl implements UserRepository {
 
     @Override
     public User getByEmail(String email) {
-        List<User> users = em.createNamedQuery(User.BY_EMAIL_2, User.class)
-                .setParameter(1, LocalDateTime.now() )
-                .setParameter(2, email )
+        List<UserTo> users = em.createNamedQuery(User.BY_EMAIL_2, UserTo.class)
+                .setParameter("dateTimeStart", LocalDateTime.of(LocalDate.now(), LocalTime.MIN) )
+                .setParameter("dateTimeEnd", LocalDateTime.of(LocalDate.now(), LocalTime.MAX) )
+                .setParameter("email", email )
                 .setHint(QueryHints.HINT_PASS_DISTINCT_THROUGH, false)
                 .getResultList();
-        return DataAccessUtils.singleResult(users);
+        UserTo userTo = DataAccessUtils.singleResult(users);
+
+        if (userTo!=null){
+            userTo.init();
+            return userTo.getUser();
+        }
+
+        return null;
     }
 
     @Override

@@ -27,14 +27,14 @@ public class Meal extends AbstractNamedEntity {
     public static final String BY_FIND = "Meal.getById";
     public static final String ALL_SORTED = "Meal.getAllSorted";
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "restouran_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Restouran restouran;
 
     @Transient
     @Column(table ="HISTORY_MEAL", nullable = false)
-    private int cost;
+    private long cost;
 
     public Meal() {
     }
@@ -50,11 +50,5 @@ public class Meal extends AbstractNamedEntity {
         return this.id == null;
     }
 
-    @Override
-    public String toString() {
-        return "Meal{" +
-                "restouran=" + restouran +
-                ", id=" + id +
-                '}';
-    }
+
 }

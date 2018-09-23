@@ -18,12 +18,7 @@ public  class MealServiceTest extends AbstractServiceTest {
 
     @Autowired
     protected MealService service;
-    @Before
-    public void setUp() throws Exception {
-        MealTestData.init(); // Инициализировал MEAL1.setCost(hM1.getCost())
-        RestouranTestData.init();// Инициализировал REST2.setMeals(Arrays.asList(MEAL7,MEAL8,MEAL9));
-                                 // ИнициализировалREST2.setList_of_admin(List_of_admin_TestData.list);
-    }
+
 
     @Test
     public void delete() throws Exception {
@@ -34,7 +29,7 @@ public  class MealServiceTest extends AbstractServiceTest {
     @Test
     public void deleteNotFound() throws Exception {
         thrown.expect(NotFoundException.class);
-        service.delete(MEAL1_ID, 2);
+        service.delete(MEAL1_ID, REST2_id);
     }
 
     @Test
@@ -46,7 +41,7 @@ public  class MealServiceTest extends AbstractServiceTest {
 
     @Test
     public void get() throws Exception {
-        Meal actual = service.get(100007, REST3_id);
+        Meal actual = service.get(MEAL1_ID+5, REST3_id);
         assertMatch(actual, MEAL6);
     }
 

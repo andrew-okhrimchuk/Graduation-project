@@ -1,6 +1,9 @@
 package andrey.service;
 
+import andrey.data.MealTestData;
+import andrey.data.RestouranTestData;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.ClassRule;
 import org.junit.Rule;
 import org.junit.rules.ExpectedException;
@@ -44,6 +47,13 @@ abstract public class AbstractServiceTest {
     static {
         // needed only for java.util.logging (postgres driver)
         SLF4JBridgeHandler.install();
+    }
+
+    @Before
+    public void setUp() throws Exception {
+        MealTestData.init();    // Инициализировал MEAL1.setCost(hM1.getCost())
+        RestouranTestData.init();// Инициализировал REST2.setMeals(Arrays.asList(MEAL7,MEAL8,MEAL9));
+                                // ИнициализировалREST2.setList_of_admin(List_of_admin_TestData.list);
     }
 
   /*  public boolean isJpaBased() {

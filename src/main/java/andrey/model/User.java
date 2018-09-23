@@ -3,19 +3,20 @@ package andrey.model;
 import lombok.Getter;
 import lombok.Setter;
 
+import org.hibernate.annotations.BatchSize;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.time.LocalDateTime;
 import java.util.Set;
 
 
 @NamedQueries({
         @NamedQuery(name = User.DELETE, query = "DELETE FROM User u WHERE u.id=:id"),
-     //   @NamedQuery(name = User.BY_EMAIL, query = "SELECT u FROM User u LEFT JOIN FETCH u.roles WHERE u.email=?1"),
-        @NamedQuery(name = User.BY_EMAIL_2, query = "SELECT u FROM User u LEFT JOIN FETCH HistoryVoting b LEFT JOIN FETCH HistoryVoting c WHERE b.id = u.id AND b.dateTime=:dateTime AND u.email=:email"),
-        @NamedQuery(name = User.ALL_SORTED, query = "SELECT u FROM User u LEFT JOIN FETCH u.roles ORDER BY u.name, u.email"),
+        @NamedQuery(name = User.BY_EMAIL_2, query = "SELECT NEW andrey.to.UserTo(u, b) FROM User u, HistoryVoting b WHERE  b.user.id = u.id AND b.dateTime>=:dateTimeStart AND  b.dateTime<=:dateTimeEnd AND u.email=:email"),
+        @NamedQuery(name = User.ALL_SORTED, query = "SELECT u FROM User u ORDER BY u.name, u.email"),
 })
 @Entity
 @Table(name = "users")
@@ -28,13 +29,6 @@ public class User extends AbstractNamedEntity {
     public static final String BY_EMAIL_2 = "User.getByEmail";
     public static final String ALL_SORTED = "User.getAllSorted";
 
-    /*@Id
-    @Column(name = "id", nullable = false)
-    private Integer id;
-
-    @NotNull
-    @Column(name = "name", nullable = false)
-    private String name;*/
 
     @Column(name = "email", nullable = false, unique = true)
     @Email
@@ -48,10 +42,12 @@ public class User extends AbstractNamedEntity {
     @Size(min = 5, max = 64)
     private String password;
 
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @Enumerated(EnumType.STRING)
     @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
     @Column(name = "role")
     @ElementCollection(fetch = FetchType.EAGER)
+    @BatchSize(size = 200)
     private Set<Role> roles;
 
     @Transient
@@ -71,12 +67,28 @@ public class User extends AbstractNamedEntity {
     public User() {}
 
 
-    public User(Integer id, String name, @Email @NotBlank @Size(max = 100) String email, @NotBlank @Size(min = 5, max = 64) String password, Set<Role> roles) {
-        super(id, name);
-        this.email = email;
-        this.password = password;
-        this.roles = roles;
-    }
+
+  public User(Integer id, String name, @Email @NotBlank @Size(max = 100) String email, @NotBlank @Size(min = 5, max = 64) String password) {
+    super(id, name);
+    this.email = email;
+    this.password = password;
+  }
+
+  public User(Integer id, String name, @Email @NotBlank @Size(max = 100) String email, @NotBlank @Size(min = 5, max = 64) String password, Set<Role> roles) {
+    super(id, name);
+    this.email = email;
+    this.password = password;
+    this.roles = roles;
+  }
+
+  public User(@NotBlank @NotNull @NotEmpty User user) {
+    super(user.id, user.name);
+    this.email = user.email;
+    this.password = user.password;
+    this.roles = user.roles;
+    this.issecondvoitin = user.issecondvoitin;
+    this.dateVoitin = user.dateVoitin;
+  }
 
     @Transient
     public boolean isVoting() {

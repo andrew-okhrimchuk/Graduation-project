@@ -1,5 +1,6 @@
 package andrey.service;
 
+import andrey.util.exception.ErrorType;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,6 +17,7 @@ import java.util.List;
 
 import static andrey.data.UserTestData.USER_ID;
 import static andrey.data.UserTestData.*;
+import static org.hamcrest.core.StringContains.containsString;
 
 public class UserServiceTest extends AbstractServiceTest {
 
@@ -32,21 +34,21 @@ public class UserServiceTest extends AbstractServiceTest {
 
     @Test
     public void create() throws Exception {
-        User newUser = new User(null,"User" , "new@gmail.com", "newPass", Collections.singleton(Role.ROLE_USER));
+        User newUser = new User(null,"New" , "new@gmail.com", "newPass", Collections.singleton(Role.ROLE_USER));
         User created = service.create(newUser);
         newUser.setId(created.getId());
-        assertMatch(service.getAll(), ADMIN, newUser, USER);
+        assertMatch(service.getAll(), ADMIN_2, ADMIN_6,ADMIN_4,ADMIN_5, newUser, USER_3, USER_7);
     }
 
     @Test(expected = DataAccessException.class)
     public void duplicateMailCreate() throws Exception {
-        service.create(new User(null,"Dublicate","user@yandex.ru", "newPass",  Collections.singleton(Role.ROLE_USER)));
+        service.create(new User(null,"Dublicate","user-1@ukr.net", "user-1",  Collections.singleton(Role.ROLE_USER)));
     }
 
     @Test
     public void delete() throws Exception {
         service.delete(USER_ID);
-        assertMatch(service.getAll(), ADMIN);
+        assertMatch(service.getAll(), ADMIN_2, ADMIN_6,ADMIN_4,ADMIN_5, USER_7);
     }
 
     @Test(expected = NotFoundException.class)
@@ -57,7 +59,7 @@ public class UserServiceTest extends AbstractServiceTest {
     @Test
     public void get() throws Exception {
         User user = service.get(ADMIN_ID);
-        assertMatch(user, ADMIN);
+        assertMatch(user, ADMIN_2);
     }
 
     @Test(expected = NotFoundException.class)
@@ -67,31 +69,27 @@ public class UserServiceTest extends AbstractServiceTest {
 
     @Test
     public void getByEmail() throws Exception {
-        User user = service.getByEmail("admin@gmail.com");
-        assertMatch(user, ADMIN);
+        User user = service.getByEmail("admin@ukr.net");
+        assertMatch(user, ADMIN_2);
     }
 
-    /*@Test
+    @Test(expected = NotFoundException.class)
+    public void getByEmailNotFound() throws Exception {
+        service.getByEmail("qqqqq");
+    }
+
+    @Test
     public void update() throws Exception {
-        User updated = new User(USER);
+        User updated = new User(USER_3);
         updated.setName("UpdatedName");
-        updated.setCaloriesPerDay(330);
-        updated.setRoles(Collections.singletonList(Role.ROLE_ADMIN));
+        updated.setRoles(roles);
         service.update(updated);
         assertMatch(service.get(USER_ID), updated);
-    }*/
+    }
 
     @Test
     public void getAll() throws Exception {
         List<User> all = service.getAll();
-        assertMatch(all, ADMIN, USER);
+        assertMatch(all, ADMIN_2, ADMIN_6,ADMIN_4,ADMIN_5, USER_3, USER_7);
     }
-
-   /* @Test
-    public void testEnable() {
-        service.enable(USER_ID, false);
-        Assert.assertFalse(service.get(USER_ID).isEnabled());
-        service.enable(USER_ID, true);
-        Assert.assertTrue(service.get(USER_ID).isEnabled());
-    }*/
 }
