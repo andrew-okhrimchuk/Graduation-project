@@ -18,7 +18,7 @@ public interface List_of_AdminRepository {
     List_of_admin getByResrouranId(int id);
 
     // null if not found
-    List_of_admin getByAdminId(int id);
+    List<List_of_admin> getByAdminId(int id);
 
     List<List_of_admin> getAll();
 

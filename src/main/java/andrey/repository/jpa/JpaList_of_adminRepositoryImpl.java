@@ -54,12 +54,12 @@ public class JpaList_of_adminRepositoryImpl implements List_of_AdminRepository {
 
     }
 
-    public List_of_admin getByAdminId(int admin_id){
+    public List<List_of_admin>  getByAdminId(int admin_id){
         List<List_of_admin> users = em.createNamedQuery(List_of_admin.BY_ADMIN_ID, List_of_admin.class)
                 .setParameter("admin_id", admin_id)
                 .setHint(QueryHints.HINT_PASS_DISTINCT_THROUGH, false)
                 .getResultList();
-        return DataAccessUtils.singleResult(users);
+        return users;
 
     }
 

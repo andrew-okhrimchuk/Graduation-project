@@ -55,13 +55,16 @@ public class JpaUserRepositoryImpl implements UserRepository {
                 .executeUpdate() != 0;
     }
 
-    @Override
+  //  @Override
     public User getByEmail(String email) {
-        List<UserTo> users = em.createNamedQuery(User.BY_EMAIL_2, UserTo.class)
-                .setParameter("dateTimeStart", LocalDateTime.of(LocalDate.now(), LocalTime.MIN) )
-                .setParameter("dateTimeEnd", LocalDateTime.of(LocalDate.now(), LocalTime.MAX) )
+        List<UserTo> users = em.createNamedQuery(User.BY_EMAIL_3, UserTo.class)
+             //   .setParameter("date", LocalDate.now())
+         //       .setParameter("id", 100006)
+              //  .setParameter("dateTimeEnd", LocalDateTime.of(LocalDate.now(), LocalTime.MAX) )
                 .setParameter("email", email )
                 .setHint(QueryHints.HINT_PASS_DISTINCT_THROUGH, false)
+                .setFirstResult(0)
+                .setMaxResults(1)
                 .getResultList();
         UserTo userTo = DataAccessUtils.singleResult(users);
 
@@ -70,6 +73,32 @@ public class JpaUserRepositoryImpl implements UserRepository {
             return userTo.getUser();
         }
 
+        return null;
+    }
+
+
+    /*
+      SELECT DISTINCT  NEW andrey.to.UserTo(u, b)  " +
+                 "FROM User u  LEFT JOIN HistoryVoting b ON b.user.id = u.id LEFT JOIN u.email WHERE u.email =:email " +
+                 "WHERE  u.email=:email AND b.dateTime = :date OR b.dateTime IS NULL  */
+    //@Override
+    public User getByEmail2(String email) {
+        List<Object[]> users = em.createNamedQuery(User.BY_EMAIL_3)
+             //   .setParameter("date", LocalDate.now())
+               // .setParameter("date_0", LocalDate.of(0000, 1,1))
+              //  .setParameter("id", 100005)
+                .setParameter("email", email )
+                .setHint(QueryHints.HINT_PASS_DISTINCT_THROUGH, false)
+                .setFirstResult(0)
+                .setMaxResults(1)
+                .getResultList();
+       // UserTo userTo = DataAccessUtils.singleResult(users);
+
+     /*   if (userTo!=null){
+            userTo.init();
+            return userTo.getUser();
+        }
+*/
         return null;
     }
 

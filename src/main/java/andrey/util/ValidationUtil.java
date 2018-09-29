@@ -27,6 +27,7 @@ public class ValidationUtil {
         }
     }
 
+
     public static void checkVoting () {}
 
   /*  public static void checkNew(AbstractBaseEntity entity) {

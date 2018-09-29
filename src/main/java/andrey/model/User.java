@@ -9,13 +9,18 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.Set;
 
-
+// where e.salary = coalesce(e.salary, :sal)
 @NamedQueries({
         @NamedQuery(name = User.DELETE, query = "DELETE FROM User u WHERE u.id=:id"),
-        @NamedQuery(name = User.BY_EMAIL_2, query = "SELECT NEW andrey.to.UserTo(u, b) FROM User u, HistoryVoting b WHERE  b.user.id = u.id AND b.dateTime>=:dateTimeStart AND  b.dateTime<=:dateTimeEnd AND u.email=:email"),
+        @NamedQuery(name = User.BY_EMAIL_2, query = "SELECT u FROM User u WHERE u.email=:email"),
+// рабочая версия , только помкенять д.время
+      //  @NamedQuery(name = User.BY_EMAIL_3, query = "SELECT u, coalesce(b.dateTime, :date_0), coalesce(b.isSecondVotin, false) FROM User u LEFT JOIN HistoryVoting b ON u.id = b.user.id WHERE  u.email=:email AND b.dateTime is null "),
+      @NamedQuery(name = User.BY_EMAIL_3, query = "SELECT NEW andrey.to.UserTo(u, b.dateTime, coalesce(b.isSecondVotin, false)) FROM User u LEFT JOIN HistoryVoting b ON u.id = b.user.id WHERE u.email=:email ORDER BY b.dateTime "),
+
+
         @NamedQuery(name = User.ALL_SORTED, query = "SELECT u FROM User u ORDER BY u.name, u.email"),
 })
 @Entity
@@ -27,6 +32,7 @@ public class User extends AbstractNamedEntity {
     public static final String DELETE = "User.delete";
   //  public static final String BY_EMAIL = "User.getByEmail";
     public static final String BY_EMAIL_2 = "User.getByEmail";
+    public static final String BY_EMAIL_3 = "User.getByEmai";
     public static final String ALL_SORTED = "User.getAllSorted";
 
 
@@ -56,7 +62,7 @@ public class User extends AbstractNamedEntity {
 
     @Transient
     @Column(table ="HISTORY_VOTING", nullable = true)
-    private LocalDateTime dateVoitin;
+    private LocalDate dateVoitin;
 
 
 
@@ -96,7 +102,7 @@ public class User extends AbstractNamedEntity {
     }
 
     @Transient
-    public LocalDateTime getDateVoitin() {
+    public LocalDate getDateVoitin() {
         return dateVoitin;
     }
 

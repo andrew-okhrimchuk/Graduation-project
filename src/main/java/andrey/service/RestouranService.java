@@ -15,9 +15,9 @@ public interface RestouranService {
 
     boolean delete(int id, int userId) throws NotFoundException;
 
-    List<Restouran> getAll(int userId);
+    List<Restouran> getAll();
 
-    Restouran update(Restouran meal, int userId) throws NotFoundException;
+    Restouran update(Restouran restouran, int userId) throws NotFoundException;
 
-    Restouran create(Restouran meal, int userId);
+    Restouran create(Restouran restouran, int userId);
 }

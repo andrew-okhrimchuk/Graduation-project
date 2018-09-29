@@ -1,25 +1,30 @@
 package andrey.to;
 
-import andrey.model.HistoryVoting;
 import andrey.model.User;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.time.LocalDate;
 
 @Getter @Setter
 public class UserTo {
 
     private User user;
-    private HistoryVoting historyVoting;
+    private LocalDate date;
+    private boolean isSecondVotin;
 
-    public UserTo(User user, HistoryVoting historyVoting) {
+    public UserTo(User user, LocalDate date, boolean isSecondVotin) {
         this.user = user;
-        this.historyVoting = historyVoting;
+        this.date = date;
+        this.isSecondVotin = isSecondVotin;
     }
     public void init(){
-        if (historyVoting!=null){
-            user.setIssecondvoitin(historyVoting.isSecondVotin());
-            user.setDateVoitin(historyVoting.getDateTime());
+        if (date!=null){
+            user.setDateVoitin(date);
         }
+        user.setIssecondvoitin(isSecondVotin);
+
+
     }
     public UserTo() {
     }

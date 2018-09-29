@@ -5,7 +5,8 @@ import andrey.model.User;
 import andrey.repository.List_of_AdminRepository;
 import com.sun.istack.internal.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.util.List;
 
 import static andrey.model.Role.ROLE_ADMIN;
 
@@ -14,20 +15,20 @@ public class ThreadLocalUtil {
     @Autowired
     private List_of_AdminRepository list_a;
 
-    private ThreadLocal<LocalDateTime> threadLocalScope = new ThreadLocal<>();
-    private ThreadLocal<List_of_admin> list_of_admin = new ThreadLocal<>();
+    private ThreadLocal<LocalDate> threadLocalScope = new ThreadLocal<>();
+    private ThreadLocal<List<List_of_admin>> list_of_admin = new ThreadLocal<>();
 
-    public List_of_admin getList_of_admin() {
+    public List<List_of_admin> getList_of_admin() {
         return list_of_admin.get();
     }
-    public LocalDateTime getThreadLocalScope() {
+    public LocalDate getThreadLocalScope() {
         return threadLocalScope.get();
     }
 
-    public void setThreadLocalScope(LocalDateTime dateTime) {
+    public void setThreadLocalScope(LocalDate dateTime) {
         threadLocalScope.set(dateTime);
     }
-    public void setList_of_admin(List_of_admin list) {
+    public void setList_of_admin(List<List_of_admin> list) {
         list_of_admin.set(list);
     }
 

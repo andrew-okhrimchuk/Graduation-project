@@ -87,4 +87,14 @@ public class JpaHistoryMealRepositoryImpl implements HistoryMealRepository {
                 .getResultList();
     }
 
+    @Override
+    public List<HistoryMeal> isMealBelongRestouran (int historyMeal_id, List<Integer>r_id){
+        List<HistoryMeal> result =  em.createNamedQuery(HistoryMeal.GET_HISTORY_MEAL_CHECK, HistoryMeal.class)
+                 .setParameter("historyMeal_id", historyMeal_id)
+                 .setParameter("r_id", r_id)
+                .setFirstResult(0)
+                .setMaxResults(1)
+                .getResultList();
+         return result;
+    }
 }

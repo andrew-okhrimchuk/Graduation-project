@@ -12,6 +12,7 @@ public interface HistoryMealRepository {
 
     HistoryMeal getId(int id);
 
+
     List<HistoryMeal> getByMealId(int id);
     List<HistoryMeal> getByDateBetween(LocalDate start, LocalDate end);
     List<HistoryMeal> getRestouranId(int id);
@@ -19,6 +20,7 @@ public interface HistoryMealRepository {
 
     // ORDERED dateTime desc
     List<HistoryMeal> getAll();
+    List<HistoryMeal> isMealBelongRestouran (int historyMeal_id, List<Integer> r_id);
 
     default HistoryMeal getWithUser(int id, int userId) {
         throw new UnsupportedOperationException();
