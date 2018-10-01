@@ -1,7 +1,5 @@
 package andrey.service;
 
-import andrey.util.exception.ErrorType;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,12 +10,10 @@ import andrey.model.User;
 import andrey.util.exception.NotFoundException;
 
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 
 import static andrey.data.UserTestData.USER_ID;
 import static andrey.data.UserTestData.*;
-import static org.hamcrest.core.StringContains.containsString;
 
 public class UserServiceTest extends AbstractServiceTest {
 
@@ -57,7 +53,7 @@ public class UserServiceTest extends AbstractServiceTest {
 
     @Test(expected = NotFoundException.class)
     public void getNotFound() throws Exception {
-        service.get(1);
+        service.get(1235);
     }
 
     @Test

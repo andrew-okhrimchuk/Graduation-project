@@ -20,11 +20,11 @@ public class JpaHistoryMealRepositoryImpl implements HistoryMealRepository {
     // CRUD
     @Override
     @Transactional
-    public HistoryMeal save(HistoryMeal historyMeal, int meal_Id, long cost, LocalDate date, int userId) {
+    public HistoryMeal save(HistoryMeal historyMeal, int meal_Id, long cost, int userId) {
 
         historyMeal.setMeal(em.getReference(Meal.class, meal_Id));
         historyMeal.setCost(cost);
-        historyMeal.setDate(date);
+        historyMeal.setDate(LocalDate.now());
         if (historyMeal.isNew()) {
             em.persist(historyMeal);
             return historyMeal;
@@ -45,9 +45,7 @@ public class JpaHistoryMealRepositoryImpl implements HistoryMealRepository {
 // GET
     @Override
     public HistoryMeal getId(int id){
-        return em.createNamedQuery(HistoryMeal.GET_HISTORY_BY_MEAL_ID, HistoryMeal.class)
-                .setParameter("id", id)
-                .getSingleResult();
+        return em.find(HistoryMeal.class, id);
     }
 
     @Override

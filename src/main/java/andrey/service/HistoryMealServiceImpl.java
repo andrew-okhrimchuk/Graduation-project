@@ -34,11 +34,11 @@ public class HistoryMealServiceImpl implements HistoryMealService {
     }
 
     @Override //добавить обработку, не возвращать нулл!!!
-    public HistoryMeal update(HistoryMeal historyMeal, int meal_Id, int cost, LocalDate date, int userId) {
+    public HistoryMeal update(HistoryMeal historyMeal, int meal_Id, int cost, int userId) {
         Assert.notNull(historyMeal, "HistoryMeal(u) must not be null");
         checkUserIsAdmin(userId);
       //  isMealBelongRestouran (historyMeal.getId()); // позволено удалять еду только с текущей датой: все люди ошибаются, админы тоже люди :))
-        return checkNotFoundWithId(repository.save(historyMeal,  meal_Id, cost, date,  userId), historyMeal.getId());}
+        return checkNotFoundWithId(repository.save(historyMeal,  meal_Id, cost, userId), historyMeal.getId());}
 
     @Override //добавить обработку, не возвращать нулл!!!
     public HistoryMeal create(HistoryMeal historyMeal, int meal_Id, int cost, int userId) {
@@ -46,7 +46,7 @@ public class HistoryMealServiceImpl implements HistoryMealService {
         if (!historyMeal.isNew()) {return null;}
         checkUserIsAdmin(userId);
        // isMealBelongRestouran (historyMeal.getId());
-        return repository.save(historyMeal,  meal_Id, cost, LocalDate.now(),  userId);
+        return repository.save(historyMeal,  meal_Id, cost,  userId);
     }
 //добавить обработку, не возвращать нулл!!!
     @Override
@@ -102,7 +102,7 @@ public class HistoryMealServiceImpl implements HistoryMealService {
         }
         else {
             for (List_of_admin admin : list_of_admin) {
-                if (admin.getId() == userId) {
+                if (admin.getUser().getId() == userId) {
                     isOk = true;
                 }
             }

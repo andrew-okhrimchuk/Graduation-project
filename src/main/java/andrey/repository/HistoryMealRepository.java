@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface HistoryMealRepository {
 
-    HistoryMeal save(HistoryMeal historyMeal, int meal_Id, long cost, LocalDate date, int userId);
+    HistoryMeal save(HistoryMeal historyMeal, int meal_Id, long cost, int userId);
     boolean delete(int historyMeal_id, int user_id);
 
     HistoryMeal getId(int id);

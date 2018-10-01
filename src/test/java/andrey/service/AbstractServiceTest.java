@@ -2,7 +2,6 @@ package andrey.service;
 
 import andrey.data.MealTestData;
 import andrey.data.RestouranTestData;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.ClassRule;
 import org.junit.Rule;
@@ -18,11 +17,6 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import andrey.TimingRules;
-
-import java.util.Arrays;
-
-import static org.hamcrest.CoreMatchers.instanceOf;
-//import static ru.javawebinar.topjava.util.ValidationUtil.getRootCause;
 
 @ContextConfiguration({
         "classpath:spring/spring-app.xml",
@@ -51,9 +45,9 @@ abstract public class AbstractServiceTest {
 
     @Before
     public void setUp() throws Exception {
-        MealTestData.init();    // Инициализировал MEAL1.setCost(hM1.getCost())
+        MealTestData.init();     // Инициализировал MEAL1.setCost(hM1.getCost())
         RestouranTestData.init();// Инициализировал REST2.setMeals(Arrays.asList(MEAL7,MEAL8,MEAL9));
-                                // ИнициализировалREST2.setList_of_admin(List_of_admin_TestData.list);
+                                 // Инициализировал REST2.setList_of_admin(List_of_admin_TestData.list);
     }
 
   /*  public boolean isJpaBased() {

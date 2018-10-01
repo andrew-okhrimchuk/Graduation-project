@@ -1,6 +1,5 @@
 package andrey.service;
 
-import andrey.model.Meal;
 import andrey.model.Restouran;
 import andrey.util.exception.ErrorType;
 import andrey.util.exception.NotEnoughRightsException;
@@ -37,7 +36,6 @@ public  class RestouranServiceTest extends AbstractServiceTest {
     public void create() throws Exception {
         userService.getByEmail("admin@ukr.net");
         Restouran created = getCreated();
-//список админов на не существующий ресторан пуст! проверку отменить
         service.create(created, ADMIN_ID);
         assertMatch(service.getAll(),   REST5,REST4,REST3,REST2, REST1,created,REST6);
     }
@@ -57,7 +55,7 @@ public  class RestouranServiceTest extends AbstractServiceTest {
     @Test
     public void update() throws Exception {
         userService.getByEmail("admin@ukr.net");
-        Restouran updated = getUpdated(); // REST1_id,  "Убгрейд");
+        Restouran updated = getUpdated();
         service.update(updated, ADMIN_ID);
         assertMatch(service.get(REST1_id, ADMIN_ID), updated);
     }
@@ -84,22 +82,4 @@ public  class RestouranServiceTest extends AbstractServiceTest {
     public void getAll() throws Exception {
         assertMatch(service.getAll(),    REST5,REST4,REST3,REST2,REST1,REST6);
     }
-/*
-    @Test
-    public void getBetween() throws Exception {
-        assertMatch(service.getBetweenDates(
-                LocalDate.of(2015, Month.MAY, 30),
-                LocalDate.of(2015, Month.MAY, 30), USER_ID), MEAL3, MEAL2, MEAL1);
-    }
-
-    @Test
-    public void testValidation() throws Exception {
-        Assume.assumeTrue(isJpaBased());
-        validateRootCause(() -> service.create(new Meal(null, of(2015, Month.JUNE, 1, 18, 0), "  ", 300), USER_ID), ConstraintViolationException.class);
-        validateRootCause(() -> service.create(new Meal(null, null, "Description", 300), USER_ID), ConstraintViolationException.class);
-        validateRootCause(() -> service.create(new Meal(null, of(2015, Month.JUNE, 1, 18, 0), "Description", 9), USER_ID), ConstraintViolationException.class);
-        validateRootCause(() -> service.create(new Meal(null, of(2015, Month.JUNE, 1, 18, 0), "Description", 5001), USER_ID), ConstraintViolationException.class);
-    }
-
-    */
 }
