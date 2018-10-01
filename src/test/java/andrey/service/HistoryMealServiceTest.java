@@ -5,6 +5,9 @@ import andrey.util.exception.ErrorType;
 import andrey.util.exception.NotFoundException;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import javax.sound.midi.Soundbank;
+
 import static andrey.data.HistoryMealTestData.*;
 import static andrey.data.HistoryMealTestData.assertMatch;
 import static andrey.data.HistoryMealTestData.getCreated;
@@ -78,12 +81,12 @@ public  class HistoryMealServiceTest extends AbstractServiceTest {
     public void updateNotFound_H_Meal() throws Exception {
         userService.getByEmail("admin@ukr.net");
         HistoryMeal updated = getUpdated();
-        updated.setId(13);
+        updated.setId(14);
         thrown.expect(NotFoundException.class);
-        thrown.expectMessage(containsString(ErrorType.DATA_NOT_FOUND.name()));
-        thrown.expectMessage(containsString(NotFoundException.NOT_FOUND_EXCEPTION));
-        thrown.expectMessage(containsString(String.valueOf(MEAL1_ID)));
-        service.update(updated, MEAL1_ID ,  500, ADMIN_ID).getId();
+      //  thrown.expectMessage(containsString(ErrorType.DATA_NOT_FOUND.name()));
+     //   thrown.expectMessage(containsString(NotFoundException.NOT_FOUND_EXCEPTION));
+     //   thrown.expectMessage(containsString(String.valueOf(MEAL1_ID)));
+        System.out.println("55555" + service.update(updated, MEAL1_ID ,  500, ADMIN_ID).getId());
     }
 
 

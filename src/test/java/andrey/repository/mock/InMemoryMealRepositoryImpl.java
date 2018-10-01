@@ -55,8 +55,8 @@ public class InMemoryMealRepositoryImpl implements MealRepository {
     }
 
     @Override
-    public Meal get(int id, int userId) {
-        Map<Integer, Meal> meals = repository.get(userId);
+    public Meal get(int id) {
+        Map<Integer, Meal> meals = repository.get(id);
         return meals == null ? null : meals.get(id);
     }
 

@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface MealService {
 
-    Meal get(int id, int restouran_id) throws NotFoundException;
+    Meal get(int id) throws NotFoundException;
 
     void delete(int id, int restouran_id) throws NotFoundException;
 

@@ -40,21 +40,21 @@ public  class MealServiceTest extends AbstractServiceTest {
 
     @Test
     public void get() throws Exception {
-        Meal actual = service.get(MEAL1_ID+5, REST3_id);
+        Meal actual = service.get(MEAL1_ID+5);
         assertMatch(actual, MEAL6);
     }
 
     @Test
     public void getNotFound() throws Exception {
         thrown.expect(NotFoundException.class);
-        service.get(MEAL1_ID, ADMIN_ID);
+        service.get(MEAL1_ID + 13);
     }
 
     @Test
     public void update() throws Exception {
         Meal updated = getUpdated(); //return new Meal(MEAL1_ID,  "Печень по-грузински, с черносивом", REST1);
         service.update(updated, REST1_id);
-        assertMatch(service.get(MEAL1_ID, REST1_id), updated);
+        assertMatch(service.get(MEAL1_ID), updated);
     }
 
     @Test

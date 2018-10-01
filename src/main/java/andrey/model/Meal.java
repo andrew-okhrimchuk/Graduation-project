@@ -1,5 +1,7 @@
 package andrey.model;
 
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -28,6 +30,7 @@ public class Meal extends AbstractNamedEntity {
     public static final String ALL_SORTED = "Meal.getAllSorted";
 
     @ManyToOne(fetch = FetchType.EAGER)
+    @NotFound( action = NotFoundAction.IGNORE)
     @JoinColumn(name = "restouran_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Restouran restouran;

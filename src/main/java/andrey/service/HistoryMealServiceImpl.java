@@ -36,7 +36,8 @@ public class HistoryMealServiceImpl implements HistoryMealService {
     @Override //добавить обработку, не возвращать нулл!!!
     public HistoryMeal update(HistoryMeal historyMeal, int meal_Id, int cost, int userId) {
         Assert.notNull(historyMeal, "HistoryMeal(u) must not be null");
-      // checkNotFoundWithId(mealRepository.get(meal_Id, userId), meal_Id);
+        checkNotFoundWithId(mealRepository.get(meal_Id), meal_Id);
+        checkNotFoundWithId(repository.getId(historyMeal.getId()), historyMeal.getId());
         checkUserIsAdmin(userId);
         return checkNotFoundWithId(repository.save(historyMeal,  meal_Id, cost, userId), historyMeal.getId());}
 
@@ -44,7 +45,7 @@ public class HistoryMealServiceImpl implements HistoryMealService {
     public HistoryMeal create(HistoryMeal historyMeal, int meal_Id, int cost, int userId) {
         Assert.notNull(historyMeal, "HistoryMeal(c) must not be null");
         if (!historyMeal.isNew()) {return null;}
-     //checkNotFoundWithId(mealRepository.get(meal_Id, restouran_Id), meal_Id);  Проверка на "restouran_Id" излишняя, убрать это из всего?
+        checkNotFoundWithId(mealRepository.get(meal_Id), meal_Id);
         checkUserIsAdmin(userId);
         return repository.save(historyMeal,  meal_Id, cost,  userId);
     }
