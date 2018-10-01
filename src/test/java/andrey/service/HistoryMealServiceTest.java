@@ -5,18 +5,12 @@ import andrey.util.exception.ErrorType;
 import andrey.util.exception.NotFoundException;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import java.time.LocalDate;
-
 import static andrey.data.HistoryMealTestData.*;
 import static andrey.data.HistoryMealTestData.assertMatch;
 import static andrey.data.HistoryMealTestData.getCreated;
 import static andrey.data.HistoryMealTestData.getUpdated;
-import static andrey.data.MealTestData.MEAL12;
 import static andrey.data.MealTestData.*;
-import static andrey.data.RestouranTestData.*;
 import static andrey.data.UserTestData.*;
-import static andrey.data.UserTestData.USER_ID;
 import static org.hamcrest.core.StringContains.containsString;
 
 public  class HistoryMealServiceTest extends AbstractServiceTest {
@@ -44,10 +38,21 @@ public  class HistoryMealServiceTest extends AbstractServiceTest {
 
     @Test
     public void create() throws Exception {
+        userService.getByEmail("admin-4@ukr.net");
+        HistoryMeal created = getCreated();
+        int id = service.create(created, MEAL1_ID + 11,  500, USER_ID+2).getId();
+        assertMatch(service.get(id),   created);
+    }
+
+    @Test
+    public void createNotFoundMeal() throws Exception {
         userService.getByEmail("admin@ukr.net");
         HistoryMeal created = getCreated();
-        int id = service.create(created, MEAL1_ID + 11,  500, ADMIN_ID).getId();
-        assertMatch(service.get(id),   created);
+        thrown.expect(NotFoundException.class);
+        thrown.expectMessage(containsString(ErrorType.DATA_NOT_FOUND.name()));
+        thrown.expectMessage(containsString(NotFoundException.NOT_FOUND_EXCEPTION));
+        thrown.expectMessage(containsString(String.valueOf(MEAL1_ID+50)));
+        service.create(created, MEAL1_ID + 50,  500, ADMIN_ID).getId();
     }
 
     @Test
@@ -58,14 +63,28 @@ public  class HistoryMealServiceTest extends AbstractServiceTest {
         assertMatch(service.get(id), updated);
     }
 
-  /*  @Test
-    public void updateNotFound() throws Exception {
+    @Test
+    public void updateNotFoundMeal() throws Exception {
+        userService.getByEmail("admin@ukr.net");
+        HistoryMeal updated = getUpdated();
+        thrown.expect(NotFoundException.class);
+        thrown.expectMessage(containsString(ErrorType.DATA_NOT_FOUND.name()));
+        thrown.expectMessage(containsString(NotFoundException.NOT_FOUND_EXCEPTION));
+        thrown.expectMessage(containsString(String.valueOf(MEAL1_ID+50)));
+        service.update(updated, MEAL1_ID + 50,  500, ADMIN_ID).getId();
+    }
+
+    @Test
+    public void updateNotFound_H_Meal() throws Exception {
+        userService.getByEmail("admin@ukr.net");
+        HistoryMeal updated = getUpdated();
+        updated.setId(13);
         thrown.expect(NotFoundException.class);
         thrown.expectMessage(containsString(ErrorType.DATA_NOT_FOUND.name()));
         thrown.expectMessage(containsString(NotFoundException.NOT_FOUND_EXCEPTION));
         thrown.expectMessage(containsString(String.valueOf(MEAL1_ID)));
-        service.update(MEAL1, ADMIN_ID);
-    }*/
+        service.update(updated, MEAL1_ID ,  500, ADMIN_ID).getId();
+    }
 
 
     @Test

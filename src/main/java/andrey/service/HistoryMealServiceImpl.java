@@ -36,23 +36,21 @@ public class HistoryMealServiceImpl implements HistoryMealService {
     @Override //добавить обработку, не возвращать нулл!!!
     public HistoryMeal update(HistoryMeal historyMeal, int meal_Id, int cost, int userId) {
         Assert.notNull(historyMeal, "HistoryMeal(u) must not be null");
+      // checkNotFoundWithId(mealRepository.get(meal_Id, userId), meal_Id);
         checkUserIsAdmin(userId);
-      //  isMealBelongRestouran (historyMeal.getId()); // позволено удалять еду только с текущей датой: все люди ошибаются, админы тоже люди :))
         return checkNotFoundWithId(repository.save(historyMeal,  meal_Id, cost, userId), historyMeal.getId());}
 
-    @Override //добавить обработку, не возвращать нулл!!!
+    @Override
     public HistoryMeal create(HistoryMeal historyMeal, int meal_Id, int cost, int userId) {
         Assert.notNull(historyMeal, "HistoryMeal(c) must not be null");
         if (!historyMeal.isNew()) {return null;}
+     //checkNotFoundWithId(mealRepository.get(meal_Id, restouran_Id), meal_Id);  Проверка на "restouran_Id" излишняя, убрать это из всего?
         checkUserIsAdmin(userId);
-       // isMealBelongRestouran (historyMeal.getId());
         return repository.save(historyMeal,  meal_Id, cost,  userId);
     }
-//добавить обработку, не возвращать нулл!!!
     @Override
     public void delete(int historyMeal_id, int user_id) {
-      //  isMealBelongRestouran (historyMeal_id); /// проверка - принадлежит ли еда ресторану
-        checkUserIsAdmin (user_id); //текущий юзер есть в списке админов?
+        checkUserIsAdmin (user_id);
         checkNotFoundWithId (repository.delete(historyMeal_id, user_id), historyMeal_id);
     }
 
