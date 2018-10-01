@@ -21,7 +21,7 @@ public class UserTestData {
     public static final User ADMIN_5 = new User(USER_ID+2, "Admin-4", "admin-4@ukr.net", "admin-4", roles);
     public static final User ADMIN_6 = new User(USER_ID+3, "Admin-2", "admin-2@ukr.net", "admin-2", roles);
     public static final User USER_7 = new User(USER_ID+4, "User-2", "user-2@ukr.net", "user-2", Collections.singleton(Role.ROLE_USER));
-    public static final User USER_8 = new User(USER_ID+5, "TEST", "userTEST@ukr.net", "test123", Collections.singleton(Role.ROLE_USER));
+  //  public static final User USER_8 = new User(USER_ID+5, "TEST", "userTEST@ukr.net", "test123", Collections.singleton(Role.ROLE_USER));
 
     public static void assertMatch(User actual, User expected) {
         assertThat(actual).isEqualToIgnoringGivenFields(expected, "dateVoitin", "password");

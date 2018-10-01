@@ -3,6 +3,7 @@ package andrey.util.exception;
 public enum ErrorType {
     APP_ERROR("error.appError"),
     DATA_NOT_FOUND("error.dataNotFound"),
+    DATA_NOT_Enough_Rights("error.dataNotEnoughRights"),
     DATA_ERROR("error.dataError"),
     VALIDATION_ERROR("error.validationError");
 

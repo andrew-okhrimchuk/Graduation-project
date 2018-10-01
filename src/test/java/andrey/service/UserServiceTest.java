@@ -32,13 +32,6 @@ public class UserServiceTest extends AbstractServiceTest {
         cacheManager.getCache("users").clear();
     }
 
-    @Test
-    public void create() throws Exception {
-        User newUser = new User(null,"New" , "new@gmail.com", "newPass", Collections.singleton(Role.ROLE_USER));
-        User created = service.create(newUser);
-        newUser.setId(created.getId());
-        assertMatch(service.getAll(), ADMIN_2, ADMIN_6,ADMIN_4,ADMIN_5, newUser, USER_3, USER_7);
-    }
 
     @Test(expected = DataAccessException.class)
     public void duplicateMailCreate() throws Exception {
@@ -101,5 +94,13 @@ public class UserServiceTest extends AbstractServiceTest {
     public void getAll() throws Exception {
         List<User> all = service.getAll();
         assertMatch(all, ADMIN_2, ADMIN_6,ADMIN_4,ADMIN_5, USER_3, USER_7);
+    }
+
+    @Test
+    public void create() throws Exception {
+        User newUser = new User(null,"New" , "new@gmail.com", "newPass", Collections.singleton(Role.ROLE_USER));
+        User created = service.create(newUser);
+        newUser.setId(created.getId());
+        assertMatch(service.getAll(), ADMIN_2, ADMIN_6,ADMIN_4,ADMIN_5, newUser, USER_3, USER_7);
     }
 }

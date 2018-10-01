@@ -55,12 +55,9 @@ public class JpaUserRepositoryImpl implements UserRepository {
                 .executeUpdate() != 0;
     }
 
-  //  @Override
+    @Override
     public User getByEmail(String email) {
         List<UserTo> users = em.createNamedQuery(User.BY_EMAIL_3, UserTo.class)
-             //   .setParameter("date", LocalDate.now())
-         //       .setParameter("id", 100006)
-              //  .setParameter("dateTimeEnd", LocalDateTime.of(LocalDate.now(), LocalTime.MAX) )
                 .setParameter("email", email )
                 .setHint(QueryHints.HINT_PASS_DISTINCT_THROUGH, false)
                 .setFirstResult(0)
