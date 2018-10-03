@@ -20,7 +20,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "history_voting") //id, дата, restoran, User)
 @Getter @Setter
-public class HistoryVoting {
+public class HistoryVoting extends AbstractBaseEntity {
 
     public static final String GET_VOTING_BY_ID = "HistoryVoting.getById";
     public static final String GET_VOTING_BY_DATE_Between = "HistoryVoting.getByDate";
@@ -29,21 +29,17 @@ public class HistoryVoting {
     public static final String GET_VOTING_BY_USER_ID = "HistoryVoting.getByUserId";
     public static final String GET_All = "HistoryVoting.getAll";
 
-    @NotNull
-    @Id
-    @Column(name = "id", nullable = false)
-    private  Integer id;
 
     @NotNull
     @Column(name = "date_time", nullable = false)
     private LocalDate dateTime;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "restouran_id", nullable = false)
     private Restouran restouran;
 
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
@@ -51,15 +47,11 @@ public class HistoryVoting {
     @Column(name = "isSecondVotin", nullable = false)
     private boolean isSecondVotin;
 
-    public HistoryVoting(@NotNull Integer id,
-                         @NotNull LocalDate dateTime,
-                         @NotNull Restouran restouran,
-                         @NotNull User user) {
-        this.id = id;
+    public HistoryVoting(Integer id, @NotNull LocalDate dateTime, Restouran restouran, @NotNull User user) {
+        super(id);
         this.dateTime = dateTime;
         this.restouran = restouran;
         this.user = user;
-        this.isSecondVotin = false;
     }
 
     public HistoryVoting() {

@@ -2,25 +2,20 @@ package andrey.model;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.NotFound;
-import org.hibernate.annotations.NotFoundAction;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDate; //HISTORY
+import java.time.LocalDate;
 
 @NamedQueries({
         @NamedQuery(name = HistoryMeal.GET_HISTORY_BY_MEAL_ID, query = "SELECT u FROM HistoryMeal u WHERE u.meal=:meal_id"),
         @NamedQuery(name = HistoryMeal.GET_HISTORY_BY_DATE_Between, query = "SELECT u FROM HistoryMeal u WHERE u.date>=:start AND u.date<=:end ORDER BY u.date DESC"),
         @NamedQuery(name = HistoryMeal.GET_HISTORY_BY_COST, query = "SELECT u FROM HistoryMeal u WHERE u.cost=:cost"),
         @NamedQuery(name = HistoryMeal.GET_HISTORY_MEAL_All, query = "SELECT u FROM HistoryMeal u ORDER BY u.date DESC"),
-       // @NamedQuery(name = HistoryMeal.GET_HISTORY_MEAL_CHECK, query = "SELECT h FROM HistoryMeal h JOIN Meal m WHERE m.restouran.id IN :r_id AND h.id = :historyMeal_id"),
-        @NamedQuery(name = HistoryMeal.GET_HISTORY_MEAL_CHECK, query = "SELECT h FROM HistoryMeal h WHERE h.id = :historyMeal_id"),
         @NamedQuery(name = HistoryMeal.DELETE, query = "DELETE FROM HistoryMeal u WHERE u.id=:id")
         })
 
 @Entity
-@Table(name = "history_meal")  // id, meal_id, data, restoran_id, cost
+@Table(name = "history_meal")
 @Getter @Setter
 public class HistoryMeal extends AbstractBaseEntity {
     public static final String GET_HISTORY_BY_MEAL_ID = "HistoryMeal.getByDate";
@@ -28,7 +23,6 @@ public class HistoryMeal extends AbstractBaseEntity {
     public static final String GET_HISTORY_BY_RESTOURAN_ID = "HistoryMeal.getByRestouranId";
     public static final String GET_HISTORY_BY_COST = "HistoryMeal.getByCost";
     public static final String GET_HISTORY_MEAL_All = "HistoryMeal.getAll";
-    public static final String GET_HISTORY_MEAL_CHECK = "HistoryMeal.getByIdUserId";
     public static final String DELETE = "HistoryMeal.delete";
 
 

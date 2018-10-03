@@ -18,11 +18,5 @@ public interface HistoryMealRepository {
     List<HistoryMeal> getRestouranId(int id);
     List<HistoryMeal> getCost(long cost);
 
-    // ORDERED dateTime desc
     List<HistoryMeal> getAll();
-    List<HistoryMeal> isMealBelongRestouran (int historyMeal_id, List<Integer> r_id);
-
-    default HistoryMeal getWithUser(int id, int userId) {
-        throw new UnsupportedOperationException();
-    }
 }

@@ -36,7 +36,6 @@ public class JpaHistoryMealRepositoryImpl implements HistoryMealRepository {
     @Override
     @Transactional
     public boolean delete(int historyMeal_id, int user_id){
-        //Restouran rest = getId(historyMeal_id).getRestouran();
         return em.createNamedQuery(HistoryMeal.DELETE)
                 .setParameter("id", historyMeal_id)
                 .executeUpdate() != 0;
@@ -78,21 +77,11 @@ public class JpaHistoryMealRepositoryImpl implements HistoryMealRepository {
                 .getResultList();
     }
 
-    // ORDERED dateTime desc
     @Override
     public List<HistoryMeal> getAll(){
         return em.createNamedQuery(HistoryMeal.GET_HISTORY_MEAL_All, HistoryMeal.class)
                 .getResultList();
     }
 
-    @Override
-    public List<HistoryMeal> isMealBelongRestouran (int historyMeal_id, List<Integer>r_id){
-        List<HistoryMeal> result =  em.createNamedQuery(HistoryMeal.GET_HISTORY_MEAL_CHECK, HistoryMeal.class)
-                 .setParameter("historyMeal_id", historyMeal_id)
-                 .setParameter("r_id", r_id)
-                .setFirstResult(0)
-                .setMaxResults(1)
-                .getResultList();
-         return result;
-    }
+
 }

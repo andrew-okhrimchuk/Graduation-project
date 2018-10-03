@@ -13,7 +13,6 @@ import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Repository
-@Transactional(readOnly = true)
 public class JpaList_of_adminRepositoryImpl implements List_of_AdminRepository {
 
     @PersistenceContext

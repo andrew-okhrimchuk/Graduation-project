@@ -110,13 +110,4 @@ public class HistoryMealServiceImpl implements HistoryMealService {
         if (!isOk) {throw new NotEnoughRightsException("User id = " + userId + " not enough rights");
         }
     }
-    public  void  isMealBelongRestouran (int historyMeal_id){
-        List<List_of_admin> admin = threadLocalUtil.getList_of_admin();
-        List<Integer> r_id = new ArrayList<>();
-
-        for (List_of_admin list : admin){r_id.add(list.getRestouran().getId());}
-        List<HistoryMeal> xx = repository.isMealBelongRestouran (historyMeal_id, r_id);
-        Assert.notNull(xx, "Meal not belong this restouran");
-    }
-
 }

@@ -1,6 +1,8 @@
 package andrey.service;
 
 import andrey.model.HistoryVoting;
+import andrey.util.ThreadLocalUtil;
+import andrey.util.exception.NotEnoughRightsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
@@ -17,10 +19,17 @@ import static andrey.util.ValidationUtil.checkNotFoundWithId;
 public class HistoryVotingServiceImpl implements HistoryVotingService {
 
     private final HistoryVotingRepository repository;
+    private ThreadLocalUtil threadLocalUtil;
+
+    private static RestouranServiceImpl.Expression checkUserIsAdminOfList = (list, user_id, rest_id)-> list.getUser().getId()==user_id;
+    private static RestouranServiceImpl.Expression checkUserIsAdminOfRestouran = (list, user_id, rest_id)-> list.getRestouran().getId()==rest_id;
+    private static String messegecheckUserRoles = " User is not admin of restouran ";
+    private static String messegecheckUserIsAdminOfRestouran = " User is not admin of restouran ";
 
     @Autowired
-    public HistoryVotingServiceImpl(HistoryVotingRepository repository) {
+    public HistoryVotingServiceImpl(HistoryVotingRepository repository, ThreadLocalUtil threadLocalUtil) {
         this.repository = repository;
+        this.threadLocalUtil = threadLocalUtil;
     }
 
     @Override
@@ -64,6 +73,11 @@ public class HistoryVotingServiceImpl implements HistoryVotingService {
             return null;
         }*/
 
+       //1 проверка на ИД юсера залогиненого и сделать в Raise_in_ThreadLocal добавление Юсера в Авторизованного пользователя!!!
+        // потом взять его из Секьюрити и сделать проверку
+        //isUserLogged();
+        // 2 проверка на право голосования,
+        // убрать все переменные из сервиса!!!! если есть конечно.
 
         return repository.save(historyVoting,  restouran,  userId);
     }
@@ -80,4 +94,30 @@ public class HistoryVotingServiceImpl implements HistoryVotingService {
     private HistoryVoting already_voted (int userId) {
         throw new AlreadyVotedException("User id = " + userId + "already voted");
     }
+
+    /*public  void isUserLogged(int userId, String messege, RestouranServiceImpl.Expression func, int rest_id) {
+        //проверка на:
+        // 1.спсик админов не должен быть нулл иначе return null
+        // 2.принадлежность админа к текущему ресторану иначе return null
+        boolean isOk = false;
+        List<List_of_admin> list_of_admin = threadLocalUtil.getList_of_admin();
+
+        if (list_of_admin == null) {
+            throw  new NotEnoughRightsException("User id = " + userId + messege + ". User is not admin!");
+        }
+        else {
+            for (List_of_admin admin : list_of_admin) {
+                if (func.isEqual(admin,userId,rest_id)) {
+                    isOk = true;
+                }
+            }
+        }
+
+        if (!isOk) {throw new NotEnoughRightsException("User id = " + userId + messege);
+        }
+
+
+    interface Expression{
+        boolean isEqual(List_of_admin list, int user_id, int rest_id);
+    }}*/
 }

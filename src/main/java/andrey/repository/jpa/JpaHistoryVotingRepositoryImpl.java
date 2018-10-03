@@ -47,9 +47,7 @@ public class JpaHistoryVotingRepositoryImpl implements HistoryVotingRepository {
 
     @Override
     public HistoryVoting get(int id) {
-        return em.createNamedQuery(HistoryVoting.GET_VOTING_BY_ID, HistoryVoting.class)
-                .setParameter("id", id)
-                .getSingleResult();
+        return em.find(HistoryVoting.class, id);
     }
 
 
