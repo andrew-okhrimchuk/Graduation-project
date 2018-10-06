@@ -16,7 +16,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
-import static andrey.util.ValidationUtil.checkNotFoundWithId;
+import static andrey.util.ValidationUtil.*;
 
 @Repository
 @Transactional
@@ -34,6 +34,8 @@ public class List_of_adminServiceImpl implements List_of_AdminServise {
     @Override
     public List_of_admin save(List_of_admin item) {
         Assert.notNull(item, "HistoryMeal(u) must not be null");
+        // ВНИМАНИЕ! взять текущего юсера и передать как аргумент в ThreadLocalUtil.Raise_in_ThreadLocal(user)
+        // if (item.isNew() && item.getUser()){}
         return checkNotFoundWithId(repository.save(item), item.getId());
 }
 
@@ -44,19 +46,18 @@ public class List_of_adminServiceImpl implements List_of_AdminServise {
 
     @Override
     public void delete(int id) {
-         checkNotFoundWithId(repository.delete(id),  id);
+        // ВНИМАНИЕ! взять текущего юсера и передать как аргумент в ThreadLocalUtil.Raise_in_ThreadLocal(user)
+        // if (item.isNew() && item.getUser()){}
+         checkNotFoundWithId(repository.delete(id), id);
     }
 
     @Override
-    public List_of_admin getByResrouranId (int restouran_id) {
-        return repository.getByResrouranId(restouran_id);
-
+    public List<List_of_admin> getByResrouranId (int restouran_id) {
+        return checkNotFoundListWithId(repository.getByResrouranId(restouran_id), restouran_id);
     }
 
     public List<List_of_admin>  getByAdminId(int admin_id){
-        return repository.getByAdminId(admin_id);
-
-
+        return checkNotFoundListWithId(repository.getByAdminId(admin_id), admin_id);
     }
 
     @Override

@@ -32,6 +32,8 @@ public class List_of_admin_TestData {
     public static final List_of_admin LIST5 = new List_of_admin(5, REST5, ADMIN_6);
     public static final List_of_admin LIST6 = new List_of_admin(6, REST6, ADMIN_6);
 
+    public static List<List_of_admin> list_of_admins_1 = Arrays.asList(LIST1);
+
     public static List_of_admin getCreated() {
         return new List_of_admin(null,  REST6, ADMIN_5);
     }
