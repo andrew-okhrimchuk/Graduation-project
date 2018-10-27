@@ -31,9 +31,10 @@ public class MealTestData {
     public static Meal getCreated() {
         return new Meal(null,  "Мамалыга", REST2);
     }
-
     public static Meal getUpdated() {
         return new Meal(MEAL1_ID,  "Печень по-грузински, с черносивом", REST1);
+    }
+    public static Meal getInvalid() { return new Meal(null,  null, REST1);
     }
 
     public static void assertMatch(Meal actual, Meal expected) {

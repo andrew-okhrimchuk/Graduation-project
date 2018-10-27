@@ -1,11 +1,13 @@
 package andrey.data;
 
+import andrey.json.JsonUtil;
 import andrey.model.Role;
 import andrey.model.User;
 import org.springframework.test.web.servlet.ResultMatcher;
 import java.util.*;
 
 import static andrey.model.AbstractBaseEntity.START_SEQ;
+import static andrey.json.JsonUtil.writeIgnoreProps;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 //import static ru.javawebinar.topjava.web.json.JsonUtil.writeIgnoreProps;
@@ -21,7 +23,7 @@ public class UserTestData {
     public static final User ADMIN_5 = new User(USER_ID+2, "Admin-4", "admin-4@ukr.net", "admin-4", roles);
     public static final User ADMIN_6 = new User(USER_ID+3, "Admin-2", "admin-2@ukr.net", "admin-2", roles);
     public static final User USER_7 = new User(USER_ID+4, "User-2", "user-2@ukr.net", "user-2", Collections.singleton(Role.ROLE_USER));
-  //  public static final User USER_8 = new User(USER_ID+5, "TEST", "userTEST@ukr.net", "test123", Collections.singleton(Role.ROLE_USER));
+    public static final User USER_8 = new User(null, "TEST", "userTEST@ukr.net", "test123", Collections.singleton(Role.ROLE_USER));
 
     public static void assertMatch(User actual, User expected) {
         assertThat(actual).isEqualToIgnoringGivenFields(expected, "dateVoitin", "password");
@@ -35,18 +37,18 @@ public class UserTestData {
     public static void assertMatch(Iterable<User> actual, Iterable<User> expected) {
         assertThat(actual).usingElementComparatorIgnoringFields("password", "dateVoitin").isEqualTo(expected);
     }
-/*
+
     public static ResultMatcher contentJson(User... expected) {
-        return content().json(writeIgnoreProps(Arrays.asList(expected), "registered", "password"));
+        return content().json(writeIgnoreProps(Arrays.asList(expected),  "password"));
     }
 
     public static ResultMatcher contentJson(User expected) {
-        return content().json(writeIgnoreProps(expected, "registered", "password"));
+        return content().json(writeIgnoreProps(expected, "password"));
     }
 
     public static String jsonWithPassword(User user, String passw) {
         return JsonUtil.writeAdditionProps(user, "password", passw);
     }
 
-    */
+
 }

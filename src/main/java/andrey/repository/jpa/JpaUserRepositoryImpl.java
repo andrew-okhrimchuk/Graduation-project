@@ -1,6 +1,6 @@
 package andrey.repository.jpa;
 
-import andrey.to.UserTo;
+import andrey.to.UserToDb;
 import lombok.Getter;
 import lombok.Setter;
 import andrey.model.List_of_admin;
@@ -57,13 +57,13 @@ public class JpaUserRepositoryImpl implements UserRepository {
 
     @Override
     public User getByEmail(String email) {
-        List<UserTo> users = em.createNamedQuery(User.BY_EMAIL_3, UserTo.class)
+        List<UserToDb> users = em.createNamedQuery(User.BY_EMAIL_3, UserToDb.class)
                 .setParameter("email", email )
                 .setHint(QueryHints.HINT_PASS_DISTINCT_THROUGH, false)
                 .setFirstResult(0)
                 .setMaxResults(1)
                 .getResultList();
-        UserTo userTo = DataAccessUtils.singleResult(users);
+        UserToDb userTo = DataAccessUtils.singleResult(users);
 
         if (userTo!=null){
             userTo.init();

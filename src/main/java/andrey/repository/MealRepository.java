@@ -6,10 +6,10 @@ import java.util.List;
 public interface MealRepository {
 
     // null if updated meal do not belong to restouran_id
-    Meal save(Meal meal, int restouran_id);
+    Meal save(Meal meal);
 
     // false if meal do not belong to restouran_id
-    boolean delete(int id, int restouran_id);
+    boolean delete(int id);
 
     // null if meal do not belong to restouran_id
     Meal get(int id);

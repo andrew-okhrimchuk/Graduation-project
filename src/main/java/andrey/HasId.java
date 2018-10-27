@@ -1,4 +1,4 @@
-package andrey.model;
+package andrey;
 
 public interface HasId {
     Integer getId();

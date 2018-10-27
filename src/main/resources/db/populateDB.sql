@@ -8,12 +8,12 @@ DELETE FROM LIST_OF_ADMIN;
 
 
 INSERT INTO USERS (ID, NAME, email, password) VALUES
-  (100002, 'Admin', 'admin@ukr.net',  'admin'),
-  (100003, 'User-1', 'user-1@ukr.net', 'user-1'),
-  (100004, 'Admin-3','admin-3@ukr.net',  'admin-3'),
-  (100005, 'Admin-4', 'admin-4@ukr.net', 'admin-4'),
-  (100006, 'Admin-2','admin-2@ukr.net',  'admin-2'),
-  (100007, 'User-2', 'user-2@ukr.net', 'user-2');
+  (100002, 'Admin', 'admin@ukr.net',  '{noop}admin'),
+  (100003, 'User-1', 'user-1@ukr.net', '{noop}user-1'),
+  (100004, 'Admin-3','admin-3@ukr.net',  '{noop}admin-3'),
+  (100005, 'Admin-4', 'admin-4@ukr.net', '{noop}admin-4'),
+  (100006, 'Admin-2','admin-2@ukr.net',  '{noop}admin-2'),
+  (100007, 'User-2', 'user-2@ukr.net', '{noop}user-2');
 
 INSERT INTO USER_ROLES (role, user_id) VALUES
   ('ROLE_ADMIN', 100002),

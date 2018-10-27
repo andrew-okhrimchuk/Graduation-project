@@ -12,7 +12,7 @@ import lombok.Setter;
 
 @SuppressWarnings("JpaQlInspection")
 @NamedQueries({
-        @NamedQuery(name = Meal.DELETE, query = "DELETE FROM Meal u WHERE u.id=:id AND u.restouran.id=:restouranId"),
+        @NamedQuery(name = Meal.DELETE, query = "DELETE FROM Meal u WHERE u.id=:id"),
         @NamedQuery(name = Meal.DELETE_All, query = "DELETE FROM Meal"),
         @NamedQuery(name = Meal.BY_FIND, query = "SELECT u FROM Meal u WHERE u.id=:id"),
         @NamedQuery(name = Meal.ALL_SORTED, query = "SELECT u FROM Meal u WHERE u.restouran.id=:restouranId ORDER BY u.name DESC ")

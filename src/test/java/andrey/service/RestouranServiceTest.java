@@ -1,11 +1,14 @@
 package andrey.service;
 
 import andrey.model.Restouran;
+import andrey.to.MealMenu;
 import andrey.util.exception.ErrorType;
 import andrey.util.exception.NotEnoughRightsException;
 import andrey.util.exception.NotFoundException;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
 
 import static andrey.data.RestouranTestData.*;
 import static andrey.data.UserTestData.*;
@@ -81,5 +84,11 @@ public  class RestouranServiceTest extends AbstractServiceTest {
     @Test
     public void getAll() throws Exception {
         assertMatch(service.getAll(),    REST5,REST4,REST3,REST2,REST1,REST6);
+    }
+
+    @Test
+    public void getManuToday() throws Exception {
+        List<MealMenu> actual = service.getManuToday();
+        assertMatch(actual, mealMenu1,mealMenu2,mealMenu3,mealMenu4,mealMenu5,mealMenu6,mealMenu7,mealMenu8,mealMenu9,mealMenu10,mealMenu11);
     }
 }

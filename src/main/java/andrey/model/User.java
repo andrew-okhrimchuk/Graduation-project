@@ -1,5 +1,6 @@
 package andrey.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,7 +19,7 @@ import java.util.Set;
         @NamedQuery(name = User.BY_EMAIL_2, query = "SELECT u FROM User u WHERE u.email=:email"),
 // рабочая версия , только помкенять д.время
       //  @NamedQuery(name = User.BY_EMAIL_3, query = "SELECT u, coalesce(b.dateTime, :date_0), coalesce(b.isSecondVotin, false) FROM User u LEFT JOIN HistoryVoting b ON u.id = b.user.id WHERE  u.email=:email AND b.dateTime is null "),
-      @NamedQuery(name = User.BY_EMAIL_3, query = "SELECT NEW andrey.to.UserTo(u, b.dateTime, coalesce(b.isSecondVotin, false)) FROM User u LEFT JOIN HistoryVoting b ON u.id = b.user.id WHERE u.email=:email ORDER BY b.dateTime "),
+      @NamedQuery(name = User.BY_EMAIL_3, query = "SELECT NEW andrey.to.UserToDb(u, b.dateTime, coalesce(b.isSecondVotin, false)) FROM User u LEFT JOIN HistoryVoting b ON u.id = b.user.id WHERE u.email=:email ORDER BY b.dateTime "),
 
 
         @NamedQuery(name = User.ALL_SORTED, query = "SELECT u FROM User u ORDER BY u.name, u.email"),
@@ -30,7 +31,6 @@ import java.util.Set;
 public class User extends AbstractNamedEntity {
 
     public static final String DELETE = "User.delete";
-  //  public static final String BY_EMAIL = "User.getByEmail";
     public static final String BY_EMAIL_2 = "User.getByEmail";
     public static final String BY_EMAIL_3 = "User.getByEmai";
     public static final String ALL_SORTED = "User.getAllSorted";
@@ -43,6 +43,7 @@ public class User extends AbstractNamedEntity {
  //   @SafeHtml(groups = {View.Web.class})  // https://stackoverflow.com/questions/17480809
     private String email;
 
+    @JsonIgnore
     @Column(name = "password", nullable = false)
     @NotBlank
     @Size(min = 5, max = 64)
@@ -57,15 +58,17 @@ public class User extends AbstractNamedEntity {
     private Set<Role> roles;
 
     @Transient
+    @JsonIgnore
     @Column(table ="HISTORY_VOTING", nullable = true)
     private boolean issecondvoitin;
 
     @Transient
+    @JsonIgnore
     @Column(table ="HISTORY_VOTING", nullable = true)
     private LocalDate dateVoitin;
 
 
-
+    @JsonIgnore
     public boolean isNew() {
         return this.id == null;
     }
@@ -97,11 +100,13 @@ public class User extends AbstractNamedEntity {
   }
 
     @Transient
+    @JsonIgnore
     public boolean isVoting() {
         return issecondvoitin;
     }
 
     @Transient
+    @JsonIgnore
     public LocalDate getDateVoitin() {
         return dateVoitin;
     }

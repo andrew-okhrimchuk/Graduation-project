@@ -21,5 +21,13 @@ public class MealMenu {
     public MealMenu() {
     }
 
+    @Override
+    public String toString() {
+        return "MealMenu{" +
+                "restouranName='" + restouranName + '\'' +
+                ", meal='" + meal + '\'' +
+                ", cost=" + cost +
+                '}';
+    }
 
 }

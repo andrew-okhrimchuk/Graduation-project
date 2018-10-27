@@ -1,5 +1,6 @@
 package andrey.service;
 
+import andrey.util.exception.NotEnoughRightsException;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import andrey.model.Meal;
@@ -17,24 +18,28 @@ public  class MealServiceTest extends AbstractServiceTest {
 
     @Autowired
     protected MealService service;
-
+    @Autowired
+    protected UserService userService;
 
     @Test
     public void delete() throws Exception {
-        service.delete(MEAL1_ID, REST1_id);
+        userService.getByEmail("admin@ukr.net");
+        service.delete(MEAL1_ID);
         assertMatch(service.getAll(REST1_id),    MEAL3,MEAL2,MEAL4,MEAL5);
     }
 
     @Test
-    public void deleteNotFound() throws Exception {
-        thrown.expect(NotFoundException.class);
-        service.delete(MEAL1_ID, REST2_id);
+    public void deleteNotEnoughRights() throws Exception {
+        userService.getByEmail("admin@ukr.net");
+        thrown.expect(NotEnoughRightsException.class);
+        service.delete(MEAL1_ID+5);
     }
 
     @Test
     public void create() throws Exception {
+        userService.getByEmail("admin-3@ukr.net");
         Meal created = getCreated();
-        service.create(created, REST2_id);
+        service.create(created);
         assertMatch(service.getAll(REST2_id),   MEAL7,created,MEAL8,MEAL9);
     }
 
@@ -52,18 +57,20 @@ public  class MealServiceTest extends AbstractServiceTest {
 
     @Test
     public void update() throws Exception {
+        userService.getByEmail("admin@ukr.net");
         Meal updated = getUpdated(); //return new Meal(MEAL1_ID,  "Печень по-грузински, с черносивом", REST1);
-        service.update(updated, REST1_id);
+        service.update(updated);
         assertMatch(service.get(MEAL1_ID), updated);
     }
 
     @Test
     public void updateNotFound() throws Exception {
-        thrown.expect(NotFoundException.class);
-        thrown.expectMessage(containsString(ErrorType.DATA_NOT_FOUND.name()));
-        thrown.expectMessage(containsString(NotFoundException.NOT_FOUND_EXCEPTION));
-        thrown.expectMessage(containsString(String.valueOf(MEAL1_ID)));
-        service.update(MEAL1, ADMIN_ID);
+        userService.getByEmail("admin@ukr.net");
+        thrown.expect(NotEnoughRightsException.class);
+        thrown.expectMessage(containsString(ErrorType.DATA_NOT_Enough_Rights.name()));
+        thrown.expectMessage(containsString(NotEnoughRightsException.NOT_Enough_Rights_EXCEPTION));
+        thrown.expectMessage(containsString(String.valueOf(MEAL6)));
+        service.update(MEAL6);
     }
 
     @Test

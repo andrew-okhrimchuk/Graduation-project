@@ -48,6 +48,7 @@ abstract public class AbstractServiceTest {
         MealTestData.init();     // Инициализировал MEAL1.setCost(hM1.getCost())
         RestouranTestData.init();// Инициализировал REST2.setMeals(Arrays.asList(MEAL7,MEAL8,MEAL9));
                                  // Инициализировал REST2.setList_of_admin(List_of_admin_TestData.list);
+
     }
 
   /*  public boolean isJpaBased() {

@@ -359,7 +359,7 @@
                     </configuration>
                     <deployables>
                         <deployable>
-                            <groupId>ru.javawebinar</groupId>
+                            <groupId>andrey</groupId>
                             <artifactId>Graduation-project</artifactId>
                             <type>war</type>
                             <properties>

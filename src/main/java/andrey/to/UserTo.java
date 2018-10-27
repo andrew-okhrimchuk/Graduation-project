@@ -1,33 +1,73 @@
 package andrey.to;
 
-import andrey.model.User;
-import lombok.Getter;
-import lombok.Setter;
+import andrey.util.UserUtil;
+import org.hibernate.validator.constraints.Range;
+import org.hibernate.validator.constraints.SafeHtml;
 
-import java.time.LocalDate;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.io.Serializable;
 
-@Getter @Setter
-public class UserTo {
+public class UserTo extends BaseTo implements Serializable {
+    private static final long serialVersionUID = 1L;
 
-    private User user;
-    private LocalDate date;
-    private boolean isSecondVotin;
+    @NotBlank
+    @Size(min = 2, max = 100)
+    @SafeHtml
+    private String name;
 
-    public UserTo(User user, LocalDate date, boolean isSecondVotin) {
-        this.user = user;
-        this.date = date;
-        this.isSecondVotin = isSecondVotin;
-    }
-    public void init(){
-        if (date!=null){
-            user.setDateVoitin(date);
-        }
-        user.setIssecondvoitin(isSecondVotin);
+    @Email
+    @NotBlank
+    @Size(max = 100)
+    @SafeHtml // https://stackoverflow.com/questions/17480809
+    private String email;
 
+    @Size(min = 5, max = 32, message = "length must between 5 and 32 characters")
+    private String password;
 
-    }
     public UserTo() {
     }
 
+    public UserTo(Integer id, String name, String email, String password) {
+        super(id);
+        this.name = name;
+        this.email = email;
+        this.password = password;
+    }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+
+    @Override
+    public String toString() {
+        return "UserTo{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                '}';
+    }
 }

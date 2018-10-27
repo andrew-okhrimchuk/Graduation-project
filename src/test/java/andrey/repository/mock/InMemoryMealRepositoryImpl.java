@@ -21,12 +21,32 @@ import static andrey.data.RestouranTestData.getRestouranByID;
 public class InMemoryMealRepositoryImpl implements MealRepository {
     private static final Logger log = LoggerFactory.getLogger(InMemoryMealRepositoryImpl.class);
 
+    @Override
+    public Meal save(Meal meal) {
+        return null;
+    }
+
+    @Override
+    public boolean delete(int id) {
+        return false;
+    }
+
+    @Override
+    public Meal get(int id) {
+        return null;
+    }
+
+    @Override
+    public List<Meal> getAll(int restouran_id) {
+        return null;
+    }
+/*
     // Map  restouranId -> (mealId-> meal)
     private Map<Integer, Map<Integer, Meal>> repository = new ConcurrentHashMap<>();
     private AtomicInteger counter = new AtomicInteger(0);
 
     @Override
-    public Meal save(Meal meal, int restouranId) {
+    public Meal save(Meal meal) {
         Objects.requireNonNull(meal);
         Map<Integer, Meal> meals = repository.computeIfAbsent(restouranId, ConcurrentHashMap::new);
         if (meal.isNew()) {
@@ -49,7 +69,7 @@ public class InMemoryMealRepositoryImpl implements MealRepository {
     }
 
     @Override
-    public boolean delete(int id, int userId) {
+    public boolean delete(int id) {
         Map<Integer, Meal> meals = repository.get(userId);
         return meals != null && meals.remove(id) != null;
     }
@@ -71,5 +91,5 @@ public class InMemoryMealRepositoryImpl implements MealRepository {
                 meals.values().stream()
                         .filter(filter)
                         .collect(Collectors.toList());
-    }
+    }*/
 }

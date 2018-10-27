@@ -17,11 +17,11 @@ public class JpaMealRepositoryImpl implements MealRepository {
 
     @Override
     @Transactional
-    public Meal save(Meal meal, int restouranId) {
+    public Meal save(Meal meal) {
         if (!meal.isNew() && get(meal.getId()) == null) {
             return null;
         }
-        meal.setRestouran(em.getReference(Restouran.class, restouranId));
+      //  meal.setRestouran(em.getReference(Restouran.class, restouranId));
         if (meal.isNew()) {
             em.persist(meal);
             return meal;
@@ -32,10 +32,9 @@ public class JpaMealRepositoryImpl implements MealRepository {
 
     @Override
     @Transactional
-    public boolean delete(int id, int restouranId) {
+    public boolean delete(int id) {
         return em.createNamedQuery(Meal.DELETE)
                 .setParameter("id", id)
-                .setParameter("restouranId", restouranId)
                 .executeUpdate() != 0;
     }
 

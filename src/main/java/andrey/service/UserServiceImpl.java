@@ -1,8 +1,11 @@
 package andrey.service;
 
+import andrey.AuthorizedUser;
 import andrey.model.User;
 import andrey.util.ThreadLocalUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import andrey.repository.UserRepository;
@@ -15,8 +18,8 @@ import static andrey.util.ValidationUtil.checkNotFound;
 import static andrey.util.ValidationUtil.checkNotFoundWithId;
 
 
-@Service
-public class UserServiceImpl implements UserService {
+@Service("userService")
+public class UserServiceImpl implements UserService, UserDetailsService {
 
     private final UserRepository repository;
     private final ThreadLocalUtil threadLocalUtil;
@@ -61,5 +64,14 @@ public class UserServiceImpl implements UserService {
     public void update(User user) {
         Assert.notNull(user, "user must not be null");
         checkNotFoundWithId(repository.save(user), user.getId());
+    }
+
+    @Override
+    public AuthorizedUser loadUserByUsername(String email) throws UsernameNotFoundException {
+        User user = repository.getByEmail(email.toLowerCase());
+        if (user == null) {
+            throw new UsernameNotFoundException("User " + email + " is not found");
+        }
+        return new AuthorizedUser(user);
     }
 }
