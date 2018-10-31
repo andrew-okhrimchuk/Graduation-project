@@ -5,6 +5,7 @@ import andrey.json.JsonUtil;
 import andrey.model.User;
 import andrey.to.UserTo;
 import andrey.util.UserUtil;
+import andrey.util.exception.ErrorType;
 import andrey.web.AbstractControllerTest;
 import org.junit.Test;
 import org.springframework.http.MediaType;
@@ -13,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import static andrey.TestUtil.*;
 import static andrey.data.UserTestData.*;
 
+import static andrey.web.ExceptionInfoHandler.EXCEPTION_DUPLICATE_EMAIL;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -48,23 +50,22 @@ public class ProfileRestControllerTest extends AbstractControllerTest {
 
     @Test
     public void testUpdate() throws Exception {
-        UserTo updatedTo = new UserTo(null, "newName", "newemail@ya.ru", "{noop}newPassword");
+        UserTo updatedTo = new UserTo(null, "newName", "newemail@ya.ru", "newPassword-5");
 
         mockMvc.perform(put(REST_URL).contentType(MediaType.APPLICATION_JSON)
                 .with(userHttpBasic(ADMIN_2))
                 .content(JsonUtil.writeValue(updatedTo)))
                 .andDo(print())
                 .andExpect(status().isOk());
-
         assertMatch(userService.getByEmail("newemail@ya.ru"), UserUtil.updateFromTo(new User(ADMIN_2), updatedTo));
     }
-/*
+
     @Test
     public void testUpdateInvalid() throws Exception {
-        UserTo updatedTo = new UserTo(null, null, "password", null, 1500);
+        UserTo updatedTo = new UserTo(null, null, "newemail@ya.ru", "newPassword-5");
 
         mockMvc.perform(put(REST_URL).contentType(MediaType.APPLICATION_JSON)
-                .with(userHttpBasic(USER))
+                .with(userHttpBasic(ADMIN_2))
                 .content(JsonUtil.writeValue(updatedTo)))
                 .andDo(print())
                 .andExpect(status().isUnprocessableEntity())
@@ -75,14 +76,14 @@ public class ProfileRestControllerTest extends AbstractControllerTest {
     @Test
     @Transactional(propagation = Propagation.NEVER)
     public void testDuplicate() throws Exception {
-        UserTo updatedTo = new UserTo(null, "newName", "admin@gmail.com", "newPassword", 1500);
+        UserTo updatedTo = new UserTo(null, "newName", "admin@ukr.net", "newPassword");
 
         mockMvc.perform(put(REST_URL).contentType(MediaType.APPLICATION_JSON)
-                .with(userHttpBasic(USER))
+                .with(userHttpBasic(USER_3))
                 .content(JsonUtil.writeValue(updatedTo)))
                 .andExpect(status().isConflict())
                 .andExpect(errorType(ErrorType.DATA_ERROR))
                 .andExpect(jsonMessage("$.details", EXCEPTION_DUPLICATE_EMAIL))
                 .andDo(print());
-    }*/
+    }
 }

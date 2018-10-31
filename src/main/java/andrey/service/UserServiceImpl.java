@@ -2,11 +2,16 @@ package andrey.service;
 
 import andrey.AuthorizedUser;
 import andrey.model.User;
+import andrey.to.UserTo;
 import andrey.util.ThreadLocalUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import andrey.repository.UserRepository;
 import andrey.util.exception.NotFoundException;
@@ -14,6 +19,8 @@ import andrey.util.exception.NotFoundException;
 
 import java.util.List;
 
+import static andrey.util.UserUtil.prepareToSave;
+import static andrey.util.UserUtil.updateFromTo;
 import static andrey.util.ValidationUtil.checkNotFound;
 import static andrey.util.ValidationUtil.checkNotFoundWithId;
 
@@ -23,19 +30,24 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     private final UserRepository repository;
     private final ThreadLocalUtil threadLocalUtil;
+    private final PasswordEncoder passwordEncoder;
+
 
     @Autowired
-    public UserServiceImpl(UserRepository repository, ThreadLocalUtil threadLocalUtil) {
+    public UserServiceImpl(UserRepository repository, ThreadLocalUtil threadLocalUtil, PasswordEncoder passwordEncoder) {
         this.repository = repository;
         this.threadLocalUtil = threadLocalUtil;
+        this.passwordEncoder = passwordEncoder;
     }
 
+    @CacheEvict(value = "users", allEntries = true)
     @Override
     public User create(User user) {
         Assert.notNull(user, "user must not be null");
-        return repository.save(user);
+        return repository.save(prepareToSave(user, passwordEncoder));
     }
 
+    @CacheEvict(value = "users", allEntries = true)
     @Override
     public void delete(int id) throws NotFoundException {
         checkNotFoundWithId(repository.delete(id), id);
@@ -55,6 +67,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return checkNotFound((user), "email=" + email);
     }
 
+    @Cacheable("users")
     @Override
     public List<User> getAll() {
         return repository.getAll();
@@ -63,7 +76,15 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public void update(User user) {
         Assert.notNull(user, "user must not be null");
-        checkNotFoundWithId(repository.save(user), user.getId());
+        checkNotFoundWithId(repository.save(prepareToSave(user, passwordEncoder)), user.getId());
+    }
+
+    @CacheEvict(value = "users", allEntries = true)
+    @Transactional
+    @Override
+    public void update(UserTo userTo) {
+        User user = updateFromTo(get(userTo.getId()), userTo);
+        repository.save(prepareToSave(user, passwordEncoder));
     }
 
     @Override
