@@ -34,13 +34,18 @@ public class ExceptionInfoHandler {
     private static Logger log = LoggerFactory.getLogger(ExceptionInfoHandler.class);
 
     public static final String EXCEPTION_DUPLICATE_EMAIL = "exception.user.duplicateEmail";
-    public static final String EXCEPTION_DUPLICATE_DATETIME = "exception.meal.duplicateDateTime";
+    public static final String EXCEPTION_DUPLICATE_NAME_MEAL = "exception.meal.duplicateNameMeal";
+    public static final String EXCEPTION_DUPLICATE_NAME_RESTOURAN = "exception.restouran.duplicateNameRestouran";
+    public static final String EXCEPTION_DUPLICATE_DATE_TIME_HISTORY_VOTING = "exception.voiting_hisrotyn.duplicateData_Time";
+
 
     private static final Map<String, String> CONSTRAINS_I18N_MAP = Collections.unmodifiableMap(
             new HashMap<String, String>() {
                 {
                     put("users_unique_email_idx", EXCEPTION_DUPLICATE_EMAIL);
-                    put("meals_unique_user_datetime_idx", EXCEPTION_DUPLICATE_DATETIME);
+                    put("meals_unique_name_restouran_id_idx", EXCEPTION_DUPLICATE_NAME_MEAL);
+                    put("restouran_unique_name_idx", EXCEPTION_DUPLICATE_NAME_RESTOURAN);
+                    put("history_voting_unique_date_time_user_id_idx", EXCEPTION_DUPLICATE_DATE_TIME_HISTORY_VOTING);
                 }
             });
 

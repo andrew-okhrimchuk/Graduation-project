@@ -72,6 +72,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         if (user == null) {
             throw new UsernameNotFoundException("User " + email + " is not found");
         }
+        threadLocalUtil.Raise_in_ThreadLocal(user);
         return new AuthorizedUser(user);
     }
 }

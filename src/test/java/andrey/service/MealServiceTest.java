@@ -11,7 +11,6 @@ import static org.hamcrest.core.StringContains.containsString;
 import static andrey.data.MealTestData.getCreated;
 import static andrey.data.MealTestData.getUpdated;
 import static andrey.data.MealTestData.*;
-import static andrey.data.UserTestData.*;
 import static andrey.data.RestouranTestData.*;
 
 public  class MealServiceTest extends AbstractServiceTest {
@@ -67,8 +66,8 @@ public  class MealServiceTest extends AbstractServiceTest {
     public void updateNotFound() throws Exception {
         userService.getByEmail("admin@ukr.net");
         thrown.expect(NotEnoughRightsException.class);
-        thrown.expectMessage(containsString(ErrorType.DATA_NOT_Enough_Rights.name()));
-        thrown.expectMessage(containsString(NotEnoughRightsException.NOT_Enough_Rights_EXCEPTION));
+        thrown.expectMessage(containsString(ErrorType.DATA_NOT_ENOUGH_RIGHTS.name()));
+        thrown.expectMessage(containsString(NotEnoughRightsException.Not_Enough_Rights_exeption));
         thrown.expectMessage(containsString(String.valueOf(MEAL6)));
         service.update(MEAL6);
     }

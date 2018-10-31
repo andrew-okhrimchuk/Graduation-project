@@ -28,28 +28,28 @@ public abstract class AbstractMealController {
     }
 
     public void delete(int id) {
- //       int userId = AuthorizedUser.id();
- //       log.info("delete meal {} for user {}", id, userId);
+        int userId = AuthorizedUser.id();
+        log.info("delete meal {} for user {}", id, userId);
         service.delete(id);
     }
 
     public List<Meal> getAll(int restouran_id) {
- //       int userId = AuthorizedUser.id();
- //       log.info("getAll for user {}", userId);
+        int userId = AuthorizedUser.id();
+        log.info("getAll for user {}", userId);
         return service.getAll(restouran_id);
     }
 
     public Meal create(Meal meal) {
- //       int userId = AuthorizedUser.id();
+        int userId = AuthorizedUser.id();
         checkNew(meal);
- //       log.info("create {} for user {}", meal, userId);
+        log.info("create {} for user {}", meal, userId);
         return service.create(meal);
     }
 
-    public void update(Meal meal) {
- //       int userId = AuthorizedUser.id();
-       // assureIdConsistent(meal, id);
-//        log.info("update {} for user {}", meal, userId);
+    public void update(Meal meal, int id) {
+        int userId = AuthorizedUser.id();
+        assureIdConsistent(meal, id);
+        log.info("update {} for user {}", meal, userId);
         service.update(meal);
     }
 }

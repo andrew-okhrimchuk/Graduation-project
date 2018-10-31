@@ -1,6 +1,7 @@
 package andrey.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -25,7 +26,7 @@ import java.util.Set;
         @NamedQuery(name = User.ALL_SORTED, query = "SELECT u FROM User u ORDER BY u.name, u.email"),
 })
 @Entity
-@Table(name = "users")
+@Table(name = "users", uniqueConstraints = {@UniqueConstraint(columnNames = "email", name = "USERS_UNIQUE_EMAIL_IDX")})
 @SecondaryTable(name = "HISTORY_VOTING", pkJoinColumns = @PrimaryKeyJoinColumn(name = "ID" ))
 @Getter @Setter
 public class User extends AbstractNamedEntity {
@@ -40,10 +41,9 @@ public class User extends AbstractNamedEntity {
     @Email
     @NotBlank
     @Size(max = 100)
- //   @SafeHtml(groups = {View.Web.class})  // https://stackoverflow.com/questions/17480809
     private String email;
 
-    @JsonIgnore
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Column(name = "password", nullable = false)
     @NotBlank
     @Size(min = 5, max = 64)

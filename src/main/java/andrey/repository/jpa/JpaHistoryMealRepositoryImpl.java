@@ -12,7 +12,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Repository
-@Transactional(readOnly = true)
+@Transactional()
 public class JpaHistoryMealRepositoryImpl implements HistoryMealRepository {
     @PersistenceContext
     private EntityManager em;

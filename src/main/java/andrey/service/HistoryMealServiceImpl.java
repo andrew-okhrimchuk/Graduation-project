@@ -17,7 +17,10 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import static andrey.util.ValidationUtil.checkNotFound;
 import static andrey.util.ValidationUtil.checkNotFoundWithId;
+import static andrey.util.exception.NotEnoughRightsException.ADMIN_LIST_EMPTY_EXEPTION;
+import static andrey.util.exception.NotFoundException.NOT_FOUND_EXCEPTION;
 
 @Service
 public class HistoryMealServiceImpl implements HistoryMealService {
@@ -92,20 +95,15 @@ public class HistoryMealServiceImpl implements HistoryMealService {
     public  void checkUserIsAdmin(int userId) {
         //проверка на:
         // 1.спсик админов не должен быть нулл иначе return null
-        // 2.принадлежность админа к текущему ресторану иначе return null
-        boolean isOk = false;
         List<List_of_admin> list_of_admin = threadLocalUtil.getList_of_admin();
+        checkNotFound(list_of_admin, ADMIN_LIST_EMPTY_EXEPTION);
 
-        if (list_of_admin == null) {
-            throw  new NotEnoughRightsException("User id = " + userId + " not enough rights");
-        }
-        else {
-            for (List_of_admin admin : list_of_admin) {
+        boolean isOk = false;
+        for (List_of_admin admin : list_of_admin) {
                 if (admin.getUser().getId() == userId) {
                     isOk = true;
                 }
             }
-        }
 
         if (!isOk) {throw new NotEnoughRightsException("User id = " + userId + " not enough rights");
         }

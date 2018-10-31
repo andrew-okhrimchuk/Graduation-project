@@ -13,7 +13,10 @@ import andrey.to.MealMenu;
 import java.util.List;
 
 import static andrey.model.Role.ROLE_ADMIN;
+import static andrey.util.ValidationUtil.checkNotFound;
 import static andrey.util.ValidationUtil.checkNotFoundWithId;
+import static andrey.util.exception.NotEnoughRightsException.ADMIN_LIST_EMPTY_EXEPTION;
+import static andrey.util.exception.NotFoundException.NOT_FOUND_EXCEPTION;
 
 @Service
 public class RestouranServiceImpl implements RestouranService {
@@ -78,19 +81,19 @@ public class RestouranServiceImpl implements RestouranService {
         //проверка на:
         // 1.спсик админов не должен быть нулл иначе return null
         // 2.принадлежность админа к текущему ресторану иначе return null
-        boolean isOk = false;
+
         List<List_of_admin> list_of_admin = threadLocalUtil.getList_of_admin();
 
-        if (list_of_admin == null) {
-           throw  new NotEnoughRightsException("User id = " + userId + messege + ". User is not admin!");
-        }
-        else {
+
+        checkNotFound(list_of_admin, ADMIN_LIST_EMPTY_EXEPTION);
+        boolean isOk = false;
+
             for (List_of_admin admin : list_of_admin) {
                 if (func.isEqual(admin,userId,rest_id)) {
                     isOk = true;
                 }
             }
-        }
+
 
         if (!isOk) {throw new NotEnoughRightsException("User id = " + userId + messege);
         }

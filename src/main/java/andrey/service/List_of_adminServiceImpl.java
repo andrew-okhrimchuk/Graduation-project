@@ -34,8 +34,6 @@ public class List_of_adminServiceImpl implements List_of_AdminServise {
     @Override
     public List_of_admin save(List_of_admin item) {
         Assert.notNull(item, "HistoryMeal(u) must not be null");
-        // ВНИМАНИЕ! взять текущего юсера и передать как аргумент в ThreadLocalUtil.Raise_in_ThreadLocal(user)
-        // if (item.isNew() && item.getUser()){}
         return checkNotFoundWithId(repository.save(item), item.getId());
 }
 
@@ -46,8 +44,6 @@ public class List_of_adminServiceImpl implements List_of_AdminServise {
 
     @Override
     public void delete(int id) {
-        // ВНИМАНИЕ! взять текущего юсера и передать как аргумент в ThreadLocalUtil.Raise_in_ThreadLocal(user)
-        // if (item.isNew() && item.getUser()){}
          checkNotFoundWithId(repository.delete(id), id);
     }
 

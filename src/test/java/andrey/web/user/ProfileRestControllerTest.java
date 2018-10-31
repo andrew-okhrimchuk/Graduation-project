@@ -1,27 +1,34 @@
 package andrey.web.user;
 
+import andrey.TestUtil;
+import andrey.json.JsonUtil;
+import andrey.model.User;
+import andrey.to.UserTo;
+import andrey.util.UserUtil;
 import andrey.web.AbstractControllerTest;
 import org.junit.Test;
 import org.springframework.http.MediaType;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-
+import static andrey.TestUtil.*;
+import static andrey.data.UserTestData.*;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 
 public class ProfileRestControllerTest extends AbstractControllerTest {
+    private static final String REST_URL = ProfileRestController.REST_URL + '/';
 
-   /*   @Test
+      @Test
     public void testGet() throws Exception {
         TestUtil.print(
                 mockMvc.perform(get(REST_URL)
-                        .with(userHttpBasic(USER)))
+                        .with(userHttpBasic(ADMIN_2)))
                         .andExpect(status().isOk())
                         .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                        .andExpect(contentJson(USER))
+                        .andExpect(contentJson(ADMIN_2))
         );
     }
 
@@ -34,24 +41,24 @@ public class ProfileRestControllerTest extends AbstractControllerTest {
     @Test
     public void testDelete() throws Exception {
         mockMvc.perform(delete(REST_URL)
-                .with(userHttpBasic(USER)))
+                .with(userHttpBasic(ADMIN_2)))
                 .andExpect(status().isNoContent());
-        assertMatch(userService.getAll(), ADMIN);
+        assertMatch(userService.getAll(), ADMIN_6, ADMIN_4,ADMIN_5,USER_3, USER_7);
     }
 
     @Test
     public void testUpdate() throws Exception {
-        UserTo updatedTo = new UserTo(null, "newName", "newemail@ya.ru", "newPassword", 1500);
+        UserTo updatedTo = new UserTo(null, "newName", "newemail@ya.ru", "{noop}newPassword");
 
         mockMvc.perform(put(REST_URL).contentType(MediaType.APPLICATION_JSON)
-                .with(userHttpBasic(USER))
+                .with(userHttpBasic(ADMIN_2))
                 .content(JsonUtil.writeValue(updatedTo)))
                 .andDo(print())
                 .andExpect(status().isOk());
 
-        assertMatch(userService.getByEmail("newemail@ya.ru"), UserUtil.updateFromTo(new User(USER), updatedTo));
+        assertMatch(userService.getByEmail("newemail@ya.ru"), UserUtil.updateFromTo(new User(ADMIN_2), updatedTo));
     }
-
+/*
     @Test
     public void testUpdateInvalid() throws Exception {
         UserTo updatedTo = new UserTo(null, null, "password", null, 1500);

@@ -17,6 +17,7 @@ import java.util.Collections;
 
 import static andrey.TestUtil.userHttpBasic;
 import static andrey.data.UserTestData.*;
+import static andrey.model.AbstractBaseEntity.START_SEQ;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -66,9 +67,9 @@ public class AdminRestControllerTest extends AbstractControllerTest {
         assertMatch(userService.getAll(), ADMIN_2, ADMIN_6, ADMIN_4,ADMIN_5,USER_7);
     }
 
-  /*  @Test
+    @Test
     public void testDeleteNotFound() throws Exception {
-        mockMvc.perform(delete(REST_URL + 1)
+        mockMvc.perform(delete(REST_URL + (START_SEQ+10))
                 .with(userHttpBasic(ADMIN_2)))
                 .andExpect(status().isUnprocessableEntity())
                 .andDo(print());
@@ -84,10 +85,9 @@ public class AdminRestControllerTest extends AbstractControllerTest {
     @Test
     public void testGetForbidden() throws Exception {
         mockMvc.perform(get(REST_URL)
-                .with(userHttpBasic(ADMIN_2)))
+                .with(userHttpBasic(USER_3)))
                 .andExpect(status().isForbidden());
     }
-    */
 
     @Test
     public void testUpdate() throws Exception {
@@ -108,7 +108,7 @@ public class AdminRestControllerTest extends AbstractControllerTest {
         User expected = USER_8;
         ResultActions action = mockMvc.perform(post(REST_URL)
                 .contentType(MediaType.APPLICATION_JSON)
-                .with(userHttpBasic(USER_8))
+                .with(userHttpBasic(ADMIN_2))
                 .content(jsonWithPassword(expected, "newPass")))
                 .andExpect(status().isCreated());
 
@@ -128,61 +128,63 @@ public class AdminRestControllerTest extends AbstractControllerTest {
                 .andExpect(contentJson(ADMIN_2, ADMIN_6, ADMIN_4,ADMIN_5,USER_3, USER_7)));
     }
 
-   /* @Test
+    @Test
     public void testCreateInvalid() throws Exception {
-        User expected = USER_8;   expected.setName("");
-        ResultActions action = mockMvc.perform(post(REST_URL)
+        User expected = USER_8;
+        expected.setName(null);
+        expected.setEmail("");
+        expected.setPassword(null);
+
+        mockMvc.perform(post(REST_URL)
                 .contentType(MediaType.APPLICATION_JSON)
-                .with(userHttpBasic(USER_8))
+                .with(userHttpBasic(ADMIN_2))
                 .content(JsonUtil.writeValue(expected)))
                 .andExpect(status().isUnprocessableEntity())
                 .andExpect(errorType(ErrorType.VALIDATION_ERROR))
                 .andDo(print());
-    }*/
-/*
+    }
+
     @Test
     public void testUpdateInvalid() throws Exception {
-        User updated = new User(USER);
+        User updated = new User(ADMIN_2);
         updated.setName("");
-        mockMvc.perform(put(REST_URL + USER_ID)
+        mockMvc.perform(put(REST_URL + ADMIN_ID)
                 .contentType(MediaType.APPLICATION_JSON)
-                .with(userHttpBasic(ADMIN))
+                .with(userHttpBasic(ADMIN_2))
                 .content(JsonUtil.writeValue(updated)))
                 .andExpect(status().isUnprocessableEntity())
                 .andDo(print())
                 .andExpect(errorType(ErrorType.VALIDATION_ERROR))
                 .andDo(print());
     }
-
     @Test
     @Transactional(propagation = Propagation.NEVER)
     public void testUpdateDuplicate() throws Exception {
-        User updated = new User(ADMIN_2);
+        User updated = new User(USER_3);
         updated.setEmail("admin@ukr.net");
-        mockMvc.perform(put(REST_URL + ADMIN_ID)
+        mockMvc.perform(put(REST_URL + USER_ID)
                 .contentType(MediaType.APPLICATION_JSON)
-                .with(userHttpBasic(USER_3))
+                .with(userHttpBasic(ADMIN_2))
                 .content(jsonWithPassword(updated, "password")))
                 .andExpect(status().isConflict())
                 .andExpect(errorType(ErrorType.DATA_ERROR))
                 .andExpect(jsonMessage("$.details", EXCEPTION_DUPLICATE_EMAIL))
                 .andDo(print());
-    }*/
-/*
+    }
     @Test
     @Transactional(propagation = Propagation.NEVER)
     public void testCreateDuplicate() throws Exception {
-        User expected = new User(null, "New", "user@yandex.ru", "newPass", 2300, Role.ROLE_USER, Role.ROLE_ADMIN);
+        User expected = new User(USER_3);
+        expected.setId(null);
         mockMvc.perform(post(REST_URL)
                 .contentType(MediaType.APPLICATION_JSON)
-                .with(userHttpBasic(ADMIN))
-                .content(jsonWithPassword(expected, "newPass")))
+                .with(userHttpBasic(ADMIN_2))
+                .content(jsonWithPassword(expected, "user-1")))
                 .andExpect(status().isConflict())
                 .andExpect(errorType(ErrorType.DATA_ERROR))
                 .andExpect(jsonMessage("$.details", EXCEPTION_DUPLICATE_EMAIL));
 
     }
 
-*/
 
 }
