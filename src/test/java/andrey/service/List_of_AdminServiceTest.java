@@ -10,6 +10,7 @@ import andrey.util.exception.ErrorType;
 import java.util.List;
 
 import static andrey.data.UserTestData.*;
+import static andrey.model.AbstractBaseEntity.START_SEQ;
 import static org.hamcrest.core.StringContains.containsString;
 
 
@@ -22,7 +23,7 @@ public  class List_of_AdminServiceTest extends AbstractServiceTest {
 
     @Test
     public void get() throws Exception {
-        List_of_admin actual = service.getId(REST1_id);
+        List_of_admin actual = service.getId(START_SEQ + 12);
         assertMatch(actual, LIST1);
     }
 

@@ -10,7 +10,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
-import static andrey.data.UserTestData.ADMIN_2;
+import static andrey.data.UserTestData.ADMIN;
 import java.util.Collection;
 
 
@@ -36,7 +36,7 @@ public class InMemoryAdminRestControllerSpringTest {
         controller.delete(UserTestData.USER_ID);
         Collection<User> users = controller.getAll();
         Assert.assertEquals(users.size(), 1);
-        Assert.assertEquals(users.iterator().next(), ADMIN_2);
+        Assert.assertEquals(users.iterator().next(), ADMIN);
     }
 
     @Test(expected = NotFoundException.class)

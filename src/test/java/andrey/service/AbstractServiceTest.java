@@ -1,6 +1,6 @@
 package andrey.service;
 
-import andrey.data.MealTestData;
+import andrey.data.MealToTestData;
 import andrey.data.RestouranTestData;
 import org.junit.Before;
 import org.junit.ClassRule;
@@ -45,7 +45,7 @@ abstract public class AbstractServiceTest {
 
     @Before
     public void setUp() throws Exception {
-        MealTestData.init();     // Инициализировал MEAL1.setCost(hM1.getCost())
+        MealToTestData.init();     // Инициализировал MEAL1.setCost(hM1.getCost())
         RestouranTestData.init();// Инициализировал REST2.setMeals(Arrays.asList(MEAL7,MEAL8,MEAL9));
                                  // Инициализировал REST2.setList_of_admin(List_of_admin_TestData.list);
 

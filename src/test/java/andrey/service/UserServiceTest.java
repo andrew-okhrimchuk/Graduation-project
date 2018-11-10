@@ -37,7 +37,7 @@ public class UserServiceTest extends AbstractServiceTest {
     @Test
     public void delete() throws Exception {
         service.delete(USER_ID);
-        assertMatch(service.getAll(), ADMIN_2, ADMIN_6,ADMIN_4,ADMIN_5, USER_7);
+        assertMatch(service.getAll(), ADMIN, ADMIN_6,ADMIN_4,ADMIN_5, USER_7);
     }
 
     @Test(expected = NotFoundException.class)
@@ -48,7 +48,7 @@ public class UserServiceTest extends AbstractServiceTest {
     @Test
     public void get() throws Exception {
         User user = service.get(ADMIN_ID);
-        assertMatch(user, ADMIN_2);
+        assertMatch(user, ADMIN);
     }
 
     @Test(expected = NotFoundException.class)
@@ -59,7 +59,7 @@ public class UserServiceTest extends AbstractServiceTest {
     @Test
     public void getByEmail() throws Exception {
         User user = service.getByEmail("admin@ukr.net");
-        assertMatch(user, ADMIN_2);
+        assertMatch(user, ADMIN);
     }
     @Test
     public void getByEmail_1() throws Exception {
@@ -89,7 +89,7 @@ public class UserServiceTest extends AbstractServiceTest {
     @Test
     public void getAll() throws Exception {
         List<User> all = service.getAll();
-        assertMatch(all, ADMIN_2, ADMIN_6,ADMIN_4,ADMIN_5, USER_3, USER_7);
+        assertMatch(all, ADMIN, ADMIN_6,ADMIN_4,ADMIN_5, USER_3, USER_7);
     }
 
     @Test
@@ -97,6 +97,6 @@ public class UserServiceTest extends AbstractServiceTest {
         User newUser = new User(null,"New" , "new@gmail.com", "newPass", Collections.singleton(Role.ROLE_USER));
         User created = service.create(newUser);
         newUser.setId(created.getId());
-        assertMatch(service.getAll(), ADMIN_2, ADMIN_6,ADMIN_4,ADMIN_5, newUser, USER_3, USER_7);
+        assertMatch(service.getAll(), ADMIN, ADMIN_6,ADMIN_4,ADMIN_5, newUser, USER_3, USER_7);
     }
 }

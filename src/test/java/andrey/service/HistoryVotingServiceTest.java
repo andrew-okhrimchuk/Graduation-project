@@ -1,17 +1,11 @@
 package andrey.service;
 
 import andrey.model.HistoryVoting;
-import andrey.util.exception.ErrorType;
 import andrey.util.exception.NotFoundException;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import static andrey.data.HistoryVotingTestData.*;
-import static andrey.data.MealTestData.MEAL1_ID;
-import static andrey.data.RestouranTestData.REST7_id;
-import static andrey.data.UserTestData.ADMIN_ID;
-import static andrey.data.UserTestData.USER_ID;
-import static org.hamcrest.core.StringContains.containsString;
 
 public  class HistoryVotingServiceTest extends AbstractServiceTest {
 
@@ -22,7 +16,7 @@ public  class HistoryVotingServiceTest extends AbstractServiceTest {
 
     @Test
     public void get() throws Exception {
-        HistoryVoting actual = service.get(HV_ID + 3);
+        HistoryVoting actual = service.get(HV_ID + 20);
         assertMatch(actual, hV3);
     }
 

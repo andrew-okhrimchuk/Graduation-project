@@ -27,10 +27,10 @@ public class ProfileRestControllerTest extends AbstractControllerTest {
     public void testGet() throws Exception {
         TestUtil.print(
                 mockMvc.perform(get(REST_URL)
-                        .with(userHttpBasic(ADMIN_2)))
+                        .with(userHttpBasic(ADMIN)))
                         .andExpect(status().isOk())
                         .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                        .andExpect(contentJson(ADMIN_2))
+                        .andExpect(contentJson(ADMIN))
         );
     }
 
@@ -43,7 +43,7 @@ public class ProfileRestControllerTest extends AbstractControllerTest {
     @Test
     public void testDelete() throws Exception {
         mockMvc.perform(delete(REST_URL)
-                .with(userHttpBasic(ADMIN_2)))
+                .with(userHttpBasic(ADMIN)))
                 .andExpect(status().isNoContent());
         assertMatch(userService.getAll(), ADMIN_6, ADMIN_4,ADMIN_5,USER_3, USER_7);
     }
@@ -53,11 +53,11 @@ public class ProfileRestControllerTest extends AbstractControllerTest {
         UserTo updatedTo = new UserTo(null, "newName", "newemail@ya.ru", "newPassword-5");
 
         mockMvc.perform(put(REST_URL).contentType(MediaType.APPLICATION_JSON)
-                .with(userHttpBasic(ADMIN_2))
+                .with(userHttpBasic(ADMIN))
                 .content(JsonUtil.writeValue(updatedTo)))
                 .andDo(print())
                 .andExpect(status().isOk());
-        assertMatch(userService.getByEmail("newemail@ya.ru"), UserUtil.updateFromTo(new User(ADMIN_2), updatedTo));
+        assertMatch(userService.getByEmail("newemail@ya.ru"), UserUtil.updateFromTo(new User(ADMIN), updatedTo));
     }
 
     @Test
@@ -65,7 +65,7 @@ public class ProfileRestControllerTest extends AbstractControllerTest {
         UserTo updatedTo = new UserTo(null, null, "newemail@ya.ru", "newPassword-5");
 
         mockMvc.perform(put(REST_URL).contentType(MediaType.APPLICATION_JSON)
-                .with(userHttpBasic(ADMIN_2))
+                .with(userHttpBasic(ADMIN))
                 .content(JsonUtil.writeValue(updatedTo)))
                 .andDo(print())
                 .andExpect(status().isUnprocessableEntity())

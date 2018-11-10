@@ -24,7 +24,7 @@ public class InMemoryUserRepositoryImpl implements UserRepository {
     public void init() {
         repository.clear();
         repository.put(UserTestData.USER_ID, USER_3);
-        repository.put(UserTestData.ADMIN_ID, ADMIN_2);
+        repository.put(UserTestData.ADMIN_ID, ADMIN);
     }
 
     @Override

@@ -1,18 +1,13 @@
 package andrey.json;
 
-import com.fasterxml.jackson.databind.ObjectWriter;
-import org.junit.Assert;
 import org.junit.Test;
 import andrey.model.Meal;
-import andrey.data.UserTestData;
-import andrey.model.User;
 
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.not;
-import static andrey.data.MealTestData.*;
+import static andrey.data.MealToTestData.*;
 
 public class JsonUtilTest {
 

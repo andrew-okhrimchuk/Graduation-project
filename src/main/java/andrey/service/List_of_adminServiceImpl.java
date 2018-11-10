@@ -1,19 +1,13 @@
 package andrey.service;
 
 import andrey.model.List_of_admin;
-import andrey.repository.HistoryMealRepository;
 import andrey.repository.List_of_AdminRepository;
-import andrey.repository.MealRepository;
 import andrey.util.ThreadLocalUtil;
-import org.hibernate.jpa.QueryHints;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import java.util.List;
 
 import static andrey.util.ValidationUtil.*;

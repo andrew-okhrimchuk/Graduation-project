@@ -1,9 +1,7 @@
 package andrey.data;
 
-import static andrey.data.MealTestData.*;
+import static andrey.data.MealToTestData.*;
 
-import andrey.model.Meal;
-import andrey.model.User;
 import andrey.model.Restouran;
 import andrey.to.MealMenu;
 
@@ -14,15 +12,15 @@ import static andrey.model.AbstractBaseEntity.START_SEQ;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class RestouranTestData {
-    public static final int Restouran_ID = START_SEQ + 9;
+    public static final int Restouran_ID = START_SEQ ;
 
-    public static final int REST1_id = 1;
-    public static final int REST2_id = 2;
-    public static final int REST3_id = 3;
-    public static final int REST4_id = 4;
-    public static final int REST5_id = 5;
-    public static final int REST6_id = 6;
-    public static final int REST7_id = 7;
+    public static final int REST1_id = START_SEQ + 6;
+    public static final int REST2_id = START_SEQ + 7;
+    public static final int REST3_id = START_SEQ + 8;
+    public static final int REST4_id = START_SEQ + 9;
+    public static final int REST5_id = START_SEQ + 10;
+    public static final int REST6_id = START_SEQ + 11;
+    public static final int REST7_id = START_SEQ + 12;
 
 
     public static final Restouran REST1 = new Restouran(REST1_id, "Катруся");

@@ -20,9 +20,9 @@ public class JpaHistoryMealRepositoryImpl implements HistoryMealRepository {
     // CRUD
     @Override
     @Transactional
-    public HistoryMeal save(HistoryMeal historyMeal, int meal_Id, long cost, int userId) {
+    public HistoryMeal save(HistoryMeal historyMeal, Meal meal, long cost ) {
 
-        historyMeal.setMeal(em.getReference(Meal.class, meal_Id));
+        historyMeal.setMeal(meal);
         historyMeal.setCost(cost);
         historyMeal.setDate(LocalDate.now());
         if (historyMeal.isNew()) {
@@ -33,50 +33,19 @@ public class JpaHistoryMealRepositoryImpl implements HistoryMealRepository {
         }
     }
 
-    @Override
-    @Transactional
-    public boolean delete(int historyMeal_id, int user_id){
-        return em.createNamedQuery(HistoryMeal.DELETE)
-                .setParameter("id", historyMeal_id)
-                .executeUpdate() != 0;
-    }
-
 // GET
     @Override
-    public HistoryMeal getId(int id){
-        return em.find(HistoryMeal.class, id);
-    }
-
-    @Override
-    public List<HistoryMeal> getByMealId(int meal_id) {
-        return em.createNamedQuery(HistoryMeal.GET_HISTORY_BY_MEAL_ID, HistoryMeal.class)
-                .setParameter("meal_id", meal_id)
+    public HistoryMeal getMealId(int id){
+        List <HistoryMeal> results  = em.createNamedQuery(HistoryMeal.GET_HISTORY_BY_MEAL_IDDate, HistoryMeal.class)
+                .setParameter("id", id)
+                .setParameter("date", LocalDate.now())
                 .getResultList();
+        if(!results.isEmpty()){
+            return results.get(0);
+        }
+        return null;
+
     }
-
-    @Override
-    public List<HistoryMeal>  getByDateBetween(LocalDate start, LocalDate end){
-        return em.createNamedQuery(HistoryMeal.GET_HISTORY_BY_DATE_Between, HistoryMeal.class)
-                .setParameter("start", start)
-                .setParameter("end", end)
-                .getResultList();
-    }
-
-
-    @Override
-    public List<HistoryMeal> getRestouranId(int restouran){
-        return em.createNamedQuery(HistoryMeal.GET_HISTORY_BY_RESTOURAN_ID, HistoryMeal.class)
-                .setParameter("restouran", restouran)
-                .getResultList();
-    }
-
-    @Override
-    public List<HistoryMeal> getCost(long cost){
-        return em.createNamedQuery(HistoryMeal.GET_HISTORY_BY_RESTOURAN_ID, HistoryMeal.class)
-                .setParameter("cost", cost)
-                .getResultList();
-    }
-
     @Override
     public List<HistoryMeal> getAll(){
         return em.createNamedQuery(HistoryMeal.GET_HISTORY_MEAL_All, HistoryMeal.class)

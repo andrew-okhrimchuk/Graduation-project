@@ -1,5 +1,6 @@
 package andrey.repository.mock;
 
+import andrey.to.MealTo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
@@ -9,6 +10,7 @@ import andrey.repository.MealRepository;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import java.time.LocalDate;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -21,8 +23,9 @@ import static andrey.data.RestouranTestData.getRestouranByID;
 public class InMemoryMealRepositoryImpl implements MealRepository {
     private static final Logger log = LoggerFactory.getLogger(InMemoryMealRepositoryImpl.class);
 
+
     @Override
-    public Meal save(Meal meal) {
+    public Meal save(MealTo meal) {
         return null;
     }
 
@@ -32,12 +35,20 @@ public class InMemoryMealRepositoryImpl implements MealRepository {
     }
 
     @Override
-    public Meal get(int id) {
+    public Meal getWithLastCost(int id) {
+        return null;
+    }
+    public Meal getWithDate(int id, LocalDate date) {
         return null;
     }
 
     @Override
     public List<Meal> getAll(int restouran_id) {
+        return null;
+    }
+
+    @Override
+    public Meal getWithUser(int id, int restouran_id) {
         return null;
     }
 /*

@@ -12,7 +12,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import java.util.Arrays;
 import java.util.Collection;
 
-import static andrey.data.UserTestData.ADMIN_2;
+import static andrey.data.UserTestData.ADMIN;
 
 public class InMemoryAdminRestControllerTest {
     private static ConfigurableApplicationContext appCtx;
@@ -44,7 +44,7 @@ public class InMemoryAdminRestControllerTest {
         controller.delete(UserTestData.USER_ID);
         Collection<User> users = controller.getAll();
         Assert.assertEquals(users.size(), 1);
-        Assert.assertEquals(users.iterator().next(), ADMIN_2);
+        Assert.assertEquals(users.iterator().next(), ADMIN);
     }
 
     @Test(expected = NotFoundException.class)

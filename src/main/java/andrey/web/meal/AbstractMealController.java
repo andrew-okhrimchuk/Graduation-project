@@ -3,6 +3,7 @@ package andrey.web.meal;
 import andrey.AuthorizedUser;
 import andrey.model.Meal;
 import andrey.service.MealService;
+import andrey.to.MealTo;
 import andrey.util.MealsUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,9 +23,10 @@ public abstract class AbstractMealController {
     @Autowired
     private MealService service;
 
-    public Meal get(int id) {
-        log.info("get meal {} ", id);
-        return service.get(id);
+
+    public Meal get(int id, LocalDate date) {
+        log.info("get meal {} and date {} ", id, date);
+        return service.get(id, date);
     }
 
     public void delete(int id) {
@@ -39,14 +41,14 @@ public abstract class AbstractMealController {
         return service.getAll(restouran_id);
     }
 
-    public Meal create(Meal meal) {
+    public MealTo create(MealTo meal) {
         int userId = AuthorizedUser.id();
         checkNew(meal);
         log.info("create {} for user {}", meal, userId);
         return service.create(meal);
     }
 
-    public void update(Meal meal, int id) {
+    public void update(MealTo meal, int id) {
         int userId = AuthorizedUser.id();
         assureIdConsistent(meal, id);
         log.info("update {} for user {}", meal, userId);

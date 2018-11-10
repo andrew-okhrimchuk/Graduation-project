@@ -1,6 +1,7 @@
 package andrey.web.meal;
 
 import andrey.model.Meal;
+import andrey.to.MealTo;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -18,28 +20,38 @@ import java.util.List;
 public class MealRestController extends AbstractMealController {
     static final String REST_URL = "/rest/profile/meals";
 
-    @Override
+   /* @Override
     @GetMapping("/{id}")
     public Meal get(@PathVariable("id") int id) {
         return super.get(id);
     }
+*/
+    @GetMapping("/{id}")
+    public Meal get(@PathVariable("id")int id) {
+        return super.get(id, null);
+    }
+
+    @GetMapping("/{id}/{date}")
+    public Meal getWithDate(@PathVariable("id")int id, @PathVariable("date")@DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
+        return super.get(id, date);
+    }
 
     @Override
-    @GetMapping
-    public List<Meal> getAll(@RequestParam("id") int restouranId) {
+    @GetMapping("/restouran/{id}")
+    public List<Meal> getAll(@PathVariable("id") int restouranId) {
         return super.getAll(restouranId);
     }
 
 
     @Override
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void update(@Validated @RequestBody Meal meal, @PathVariable("id") int id) {
+    public void update(@Validated @RequestBody MealTo meal, @PathVariable("id") int id) {
         super.update(meal, id);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Meal> createWithLocation(@Validated @RequestBody Meal meal) {
-        Meal created = super.create(meal);
+    public ResponseEntity<MealTo> createWithLocation(@Validated @RequestBody MealTo meal) {
+        MealTo created = super.create(meal);
 
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path(REST_URL + "/{id}")

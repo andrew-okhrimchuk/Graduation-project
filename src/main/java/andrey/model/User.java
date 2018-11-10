@@ -14,16 +14,11 @@ import javax.validation.constraints.*;
 import java.time.LocalDate;
 import java.util.Set;
 
-// where e.salary = coalesce(e.salary, :sal)
 @NamedQueries({
-        @NamedQuery(name = User.DELETE, query = "DELETE FROM User u WHERE u.id=:id"),
-        @NamedQuery(name = User.BY_EMAIL_2, query = "SELECT u FROM User u WHERE u.email=:email"),
-// рабочая версия , только помкенять д.время
-      //  @NamedQuery(name = User.BY_EMAIL_3, query = "SELECT u, coalesce(b.dateTime, :date_0), coalesce(b.isSecondVotin, false) FROM User u LEFT JOIN HistoryVoting b ON u.id = b.user.id WHERE  u.email=:email AND b.dateTime is null "),
+      @NamedQuery(name = User.DELETE, query = "DELETE FROM User u WHERE u.id=:id"),
+      @NamedQuery(name = User.BY_EMAIL_2, query = "SELECT u FROM User u WHERE u.email=:email"),
       @NamedQuery(name = User.BY_EMAIL_3, query = "SELECT NEW andrey.to.UserToDb(u, b.dateTime, coalesce(b.isSecondVotin, false)) FROM User u LEFT JOIN HistoryVoting b ON u.id = b.user.id WHERE u.email=:email ORDER BY b.dateTime "),
-
-
-        @NamedQuery(name = User.ALL_SORTED, query = "SELECT u FROM User u ORDER BY u.name, u.email"),
+      @NamedQuery(name = User.ALL_SORTED, query = "SELECT u FROM User u ORDER BY u.name, u.email"),
 })
 @Entity
 @Table(name = "users", uniqueConstraints = {@UniqueConstraint(columnNames = "email", name = "USERS_UNIQUE_EMAIL_IDX")})

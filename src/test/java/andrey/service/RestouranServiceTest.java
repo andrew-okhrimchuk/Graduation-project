@@ -25,7 +25,7 @@ public  class RestouranServiceTest extends AbstractServiceTest {
     @Test
     public void delete() throws Exception {
         userService.getByEmail("admin-2@ukr.net");
-        service.delete(REST4_id, USER_ID+3);
+        service.delete(REST4_id, USER_ID + 3);
         assertMatch(service.getAll(),    REST5,REST3,REST2, REST1,REST6);
     }
 

@@ -1,12 +1,34 @@
 package andrey.util;
 
 
+import andrey.model.Meal;
+import andrey.to.MealTo;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.util.StringUtils;
+
+import java.util.Collections;
+
 public class MealsUtil {
 
     public static final int DEFAULT_CALORIES_PER_DAY = 2000;
 
     private MealsUtil() {
     }
+    public static Meal createNewFromTo(MealTo newMeal) {
+        return new Meal(null, newMeal.getName(), null,newMeal.getCost());
+    }
+
+    public static MealTo asTo(Meal user) {
+        return new MealTo(user.getId(), user.getName(), user.getRestouran().getId(), user.getCost());
+    }
+
+    public static Meal updateFromTo(Meal meal, MealTo mealTo) {
+        meal.setName(mealTo.getName());
+        meal.setId(mealTo.getId());
+        meal.setCost(mealTo.getCost());
+        return meal;
+    }
+
 
    /* public static List<MealWithExceed> getWithExceeded(Collection<Meal> meals, int caloriesPerDay) {
         return getFilteredWithExceeded(meals, LocalTime.MIN, LocalTime.MAX, caloriesPerDay);

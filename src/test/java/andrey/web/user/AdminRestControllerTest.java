@@ -33,12 +33,12 @@ public class AdminRestControllerTest extends AbstractControllerTest {
     @Test
     public void testGet() throws Exception {
         mockMvc.perform(get(REST_URL + ADMIN_ID)
-                .with(userHttpBasic(ADMIN_2)))
+                .with(userHttpBasic(ADMIN)))
                 .andExpect(status().isOk())
                 .andDo(print())
                 // https://jira.spring.io/browse/SPR-14472
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(contentJson(ADMIN_2));
+                .andExpect(contentJson(ADMIN));
     }
 
    /* @Test
@@ -51,26 +51,26 @@ public class AdminRestControllerTest extends AbstractControllerTest {
 
     @Test
     public void testGetByEmail() throws Exception {
-        mockMvc.perform(get(REST_URL + "by?email=" + ADMIN_2.getEmail())
-                .with(userHttpBasic(ADMIN_2)))
+        mockMvc.perform(get(REST_URL + "by?email=" + ADMIN.getEmail())
+                .with(userHttpBasic(ADMIN)))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(contentJson(ADMIN_2));
+                .andExpect(contentJson(ADMIN));
     }
 
     @Test
     public void testDelete() throws Exception {
         mockMvc.perform(delete(REST_URL + USER_ID)
-                .with(userHttpBasic(ADMIN_2)))
+                .with(userHttpBasic(ADMIN)))
                 .andDo(print())
                 .andExpect(status().isNoContent());
-        assertMatch(userService.getAll(), ADMIN_2, ADMIN_6, ADMIN_4,ADMIN_5,USER_7);
+        assertMatch(userService.getAll(), ADMIN, ADMIN_6, ADMIN_4,ADMIN_5,USER_7);
     }
 
     @Test
     public void testDeleteNotFound() throws Exception {
         mockMvc.perform(delete(REST_URL + (START_SEQ+10))
-                .with(userHttpBasic(ADMIN_2)))
+                .with(userHttpBasic(ADMIN)))
                 .andExpect(status().isUnprocessableEntity())
                 .andDo(print());
     }
@@ -91,13 +91,13 @@ public class AdminRestControllerTest extends AbstractControllerTest {
 
     @Test
     public void testUpdate() throws Exception {
-        User updated = new User(ADMIN_2);
+        User updated = new User(ADMIN);
         updated.setName("UpdatedName");
         updated.setRoles(roles);
         mockMvc.perform(put(REST_URL + ADMIN_ID)
                 .contentType(MediaType.APPLICATION_JSON)
-                .with(userHttpBasic(ADMIN_2))
-                .content(jsonWithPassword(updated, ADMIN_2.getPassword())))
+                .with(userHttpBasic(ADMIN))
+                .content(jsonWithPassword(updated, ADMIN.getPassword())))
                 .andExpect(status().isOk());
 
         assertMatch(userService.get(ADMIN_ID), updated);
@@ -106,10 +106,10 @@ public class AdminRestControllerTest extends AbstractControllerTest {
     @Test
     public void testGetAll() throws Exception {
         TestUtil.print(mockMvc.perform(get(REST_URL)
-                .with(userHttpBasic(ADMIN_2)))
+                .with(userHttpBasic(ADMIN)))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(contentJson(ADMIN_2, ADMIN_6, ADMIN_4,ADMIN_5,USER_3, USER_7)));
+                .andExpect(contentJson(ADMIN, ADMIN_6, ADMIN_4,ADMIN_5,USER_3, USER_7)));
     }
 
     @Test
@@ -117,7 +117,7 @@ public class AdminRestControllerTest extends AbstractControllerTest {
         User expected = new User(USER_8);
         ResultActions action = mockMvc.perform(post(REST_URL)
                 .contentType(MediaType.APPLICATION_JSON)
-                .with(userHttpBasic(ADMIN_2))
+                .with(userHttpBasic(ADMIN))
                 .content(jsonWithPassword(expected, "newPass")))
                 .andExpect(status().isCreated());
 
@@ -125,7 +125,7 @@ public class AdminRestControllerTest extends AbstractControllerTest {
         expected.setId(returned.getId());
 
         assertMatch(returned, expected);
-        assertMatch(userService.getAll(), ADMIN_2, ADMIN_6, ADMIN_4,ADMIN_5,expected,USER_3, USER_7 );
+        assertMatch(userService.getAll(), ADMIN, ADMIN_6, ADMIN_4,ADMIN_5,expected,USER_3, USER_7 );
     }
 
     @Test
@@ -137,7 +137,7 @@ public class AdminRestControllerTest extends AbstractControllerTest {
 
         mockMvc.perform(post(REST_URL)
                 .contentType(MediaType.APPLICATION_JSON)
-                .with(userHttpBasic(ADMIN_2))
+                .with(userHttpBasic(ADMIN))
                 .content(JsonUtil.writeValue(expected)))
                 .andExpect(status().isUnprocessableEntity())
                 .andExpect(errorType(ErrorType.VALIDATION_ERROR))
@@ -146,11 +146,11 @@ public class AdminRestControllerTest extends AbstractControllerTest {
 
     @Test
     public void testUpdateInvalid() throws Exception {
-        User updated = new User(ADMIN_2);
+        User updated = new User(ADMIN);
         updated.setName("");
         mockMvc.perform(put(REST_URL + ADMIN_ID)
                 .contentType(MediaType.APPLICATION_JSON)
-                .with(userHttpBasic(ADMIN_2))
+                .with(userHttpBasic(ADMIN))
                 .content(JsonUtil.writeValue(updated)))
                 .andExpect(status().isUnprocessableEntity())
                 .andDo(print())
@@ -164,7 +164,7 @@ public class AdminRestControllerTest extends AbstractControllerTest {
         updated.setEmail("admin@ukr.net");
         mockMvc.perform(put(REST_URL + USER_ID)
                 .contentType(MediaType.APPLICATION_JSON)
-                .with(userHttpBasic(ADMIN_2))
+                .with(userHttpBasic(ADMIN))
                 .content(jsonWithPassword(updated, "password")))
                 .andExpect(status().isConflict())
                 .andExpect(errorType(ErrorType.DATA_ERROR))
@@ -178,7 +178,7 @@ public class AdminRestControllerTest extends AbstractControllerTest {
         expected.setId(null);
         mockMvc.perform(post(REST_URL)
                 .contentType(MediaType.APPLICATION_JSON)
-                .with(userHttpBasic(ADMIN_2))
+                .with(userHttpBasic(ADMIN))
                 .content(jsonWithPassword(expected, "user-1")))
                 .andExpect(status().isConflict())
                 .andExpect(errorType(ErrorType.DATA_ERROR))
