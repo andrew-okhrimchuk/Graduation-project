@@ -2,6 +2,7 @@ package andrey.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -19,7 +20,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "history_voting") //id, дата, restoran, User)
-@Getter @Setter
+@Getter @Setter @ToString
 public class HistoryVoting extends AbstractBaseEntity {
 
     public static final String GET_VOTING_BY_ID = "HistoryVoting.getById";
@@ -55,18 +56,6 @@ public class HistoryVoting extends AbstractBaseEntity {
     }
 
     public HistoryVoting() {
-    }
-
-
-    @Override
-    public String toString() {
-        return "HistoryVoting{" +
-                "id=" + id +
-                ", dateTime=" + dateTime +
-                ", restouran=" + restouran +
-                ", user=" + user +
-                ", isSecondVotin=" + isSecondVotin +
-                '}';
     }
 
     public void setSecondVotin(boolean secondVotin) {

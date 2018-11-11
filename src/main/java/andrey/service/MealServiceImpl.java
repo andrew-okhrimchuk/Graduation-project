@@ -57,7 +57,9 @@ public class MealServiceImpl implements MealService {
 
     @Override
     public void delete(int id) {
-        checkMealIsOwnOfRestouran(asTo(repository.getWithLastCost(id)), checkUserIsAdminOfList);
+        Meal delete = repository.getWithLastCost(id);
+        checkNotFoundWithId(delete, id);
+        checkMealIsOwnOfRestouran(asTo(delete), checkUserIsAdminOfList);
         checkNotFoundWithId(repository.delete(id), id);
     }
 

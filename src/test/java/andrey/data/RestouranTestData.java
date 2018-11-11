@@ -4,6 +4,7 @@ import static andrey.data.MealToTestData.*;
 
 import andrey.model.Restouran;
 import andrey.to.MealMenu;
+import andrey.to.RestouranTo;
 
 
 import java.util.*;
@@ -66,6 +67,9 @@ public class RestouranTestData {
     }
     public static Restouran getUpdated() {
         return new Restouran(REST1_id,  "Убгрейд");
+    }
+    public static RestouranTo getUpdatedTo() {
+        return new RestouranTo(REST1_id,  "УбгрейдTo");
     }
     public static Restouran getRestouranByID(int restouran_ID) {
         return list.get(restouran_ID-1);

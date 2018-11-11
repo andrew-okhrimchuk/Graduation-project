@@ -30,7 +30,7 @@ public class JpaRestouranRepositoryImpl implements RestouranRepository {
 
     @Override
     @Transactional
-    public boolean delete(int id, int userId) {
+    public boolean delete(int id) {
         return em.createNamedQuery(Restouran.DELETE)
                 .setParameter("id", id)
                 .executeUpdate() != 0;
@@ -42,8 +42,9 @@ public class JpaRestouranRepositoryImpl implements RestouranRepository {
     }
 
     @Override
-    public List<Restouran> getAll() {
+    public List<Restouran> getAll(int userId) {
         return em.createNamedQuery(Restouran.ALL_SORTED, Restouran.class)
+                .setParameter("id", userId)
                 .getResultList();
     }
 

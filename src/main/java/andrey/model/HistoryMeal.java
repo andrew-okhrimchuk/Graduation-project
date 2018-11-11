@@ -2,6 +2,8 @@ package andrey.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
@@ -17,7 +19,7 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "history_meal")
-@Getter @Setter
+@Getter @Setter @ToString
 public class HistoryMeal extends AbstractBaseEntity {
     public static final String GET_HISTORY_BY_MEAL_ID = "HistoryMeal.getByDate";
     public static final String GET_HISTORY_BY_MEAL_IDDate = "HistoryMeal.getByIdDate";
@@ -50,20 +52,6 @@ public class HistoryMeal extends AbstractBaseEntity {
 
     public HistoryMeal() {
     }
-
-
-
-    @Override
-    public String toString() {
-        return "HistoryMeal{" +
-                "id=" + id +
-                ", meal=" + meal +
-                ", date=" + date +
-                ", restouran=" +
-                ", cost=" + cost +
-                '}';
-    }
-
     public boolean isNew() {
         return this.id == null;
     }

@@ -41,6 +41,14 @@ public  class MealServiceTest extends AbstractServiceTest {
     }
 
     @Test
+    public void deleteNotFound()throws Exception {
+        userService.getByEmail("admin@ukr.net");
+        thrown.expect(NotFoundException.class);
+        service.delete(MEAL1_ID +100);
+    }
+
+
+    @Test
     public void create() throws Exception {
         userService.getByEmail("admin-4@ukr.net");
         MealTo create = getCreated();

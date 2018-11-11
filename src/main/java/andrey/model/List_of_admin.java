@@ -2,6 +2,7 @@ package andrey.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -16,7 +17,7 @@ import javax.validation.constraints.NotNull;
 })
 @Entity
 @Table(name = "list_of_admin") //id, дата, restoran, User)
-@Getter @Setter
+@Getter @Setter @ToString
 public class List_of_admin extends AbstractBaseEntity {
     public static final String DELETE = "LIST_OF_ADMIN.delete";
     public static final String BY_ID = "LIST_OF_ADMIN.getById";
@@ -38,6 +39,11 @@ public class List_of_admin extends AbstractBaseEntity {
         super(id);
         this.restouran = restouran;
         this.user = user;
+    }
+    public List_of_admin(List_of_admin list) {
+        super(list.getId());
+        this.restouran = list.getRestouran();
+        this.user = list.getUser();
     }
 
     public List_of_admin() {

@@ -1,6 +1,7 @@
 package andrey.model;
 
 import com.fasterxml.jackson.databind.annotation.*;
+import lombok.ToString;
 import org.hibernate.annotations.*;
 
 import javax.persistence.*;
@@ -25,7 +26,7 @@ import lombok.Setter;
 @Table(name = "meals")
 @DynamicUpdate
 @SecondaryTable(name = "HISTORY_MEAL", pkJoinColumns = @PrimaryKeyJoinColumn(name = "ID" ))
-@Getter @Setter
+@Getter @Setter @ToString
 public class Meal extends AbstractNamedEntity {
 
     public static final String DELETE = "Meal.delete";
@@ -69,12 +70,4 @@ public class Meal extends AbstractNamedEntity {
         return this.id == null;
     }
 
-    @Override
-    public String toString() {
-        return "Meal{" +
-                "restouran=" + restouran +
-                ", name='" + name + '\'' +
-                ", id=" + id +
-                '}';
-    }
 }

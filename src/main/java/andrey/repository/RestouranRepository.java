@@ -2,6 +2,7 @@ package andrey.repository;
 
 import andrey.model.Restouran;
 import andrey.to.MealMenu;
+import andrey.to.RestouranTo;
 
 import java.util.List;
 
@@ -11,13 +12,13 @@ public interface RestouranRepository {
     Restouran save(Restouran restouran, int user_id);
 
     // false if meal do not belong to userId
-    boolean delete(int id, int user_id);
+    boolean delete(int id);
 
     // null if meal do not belong to userId
     Restouran get(int id);
 
     // ORDERED dateTime desc
-    List<Restouran> getAll();
+    List<Restouran> getAll(int userId);
 
     List<MealMenu> getManuToday();
 

@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 
+import lombok.ToString;
 import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -23,7 +24,7 @@ import java.util.Set;
 @Entity
 @Table(name = "users", uniqueConstraints = {@UniqueConstraint(columnNames = "email", name = "USERS_UNIQUE_EMAIL_IDX")})
 @SecondaryTable(name = "HISTORY_VOTING", pkJoinColumns = @PrimaryKeyJoinColumn(name = "ID" ))
-@Getter @Setter
+@Getter @Setter @ToString
 public class User extends AbstractNamedEntity {
 
     public static final String DELETE = "User.delete";

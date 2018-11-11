@@ -3,6 +3,7 @@ package andrey.model;
 import andrey.to.MealMenu;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -11,7 +12,7 @@ import java.util.List;
 @NamedQueries({
         @NamedQuery(name = Restouran.DELETE, query = "DELETE FROM Restouran r WHERE r.id=:id"),
         @NamedQuery(name = Restouran.BY_FIND, query = "SELECT u FROM Restouran u WHERE u.id=:id"),
-        @NamedQuery(name = Restouran.ALL_SORTED, query = "SELECT u FROM Restouran u ORDER BY u.name DESC "),
+        @NamedQuery(name = Restouran.ALL_SORTED, query = "SELECT u FROM Restouran u JOIN List_of_admin list ON u.id = list.restouran.id WHERE list.user.id=:id ORDER BY u.name DESC  "),
         @NamedQuery(name = Restouran.MANU, query = "SELECT NEW andrey.to.MealMenu(r.name, m.name, h.cost) FROM Restouran r JOIN Meal m ON r.id = m.restouran.id JOIN HistoryMeal h ON m.id = h.meal.id WHERE h.date=:date")
 })
 @Entity
@@ -20,7 +21,7 @@ import java.util.List;
         {@SecondaryTable(name = "MEALS", pkJoinColumns = @PrimaryKeyJoinColumn(name = "ID" )),
          @SecondaryTable(name = "LIST_OF_ADMIN", pkJoinColumns = @PrimaryKeyJoinColumn(name = "ID" ))
         })
-@Getter @Setter
+@Getter @Setter @ToString
 public class Restouran extends AbstractNamedEntity {
 
     public static final String DELETE = "Restouran.delete";
@@ -49,15 +50,6 @@ public class Restouran extends AbstractNamedEntity {
                      ) {
         super(id, name);
     }
-
-    @Override
-    public String toString() {
-        return "Restouran{" +
-                "id=" + id +
-                '}';
-    }
-
-
 
     public boolean isNew() {
         return this.id == null;
