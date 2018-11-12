@@ -74,31 +74,6 @@ public class JpaUserRepositoryImpl implements UserRepository {
     }
 
 
-    /*
-      SELECT DISTINCT  NEW andrey.to.UserTo(u, b)  " +
-                 "FROM User u  LEFT JOIN HistoryVoting b ON b.user.id = u.id LEFT JOIN u.email WHERE u.email =:email " +
-                 "WHERE  u.email=:email AND b.dateTime = :date OR b.dateTime IS NULL  */
-    //@Override
-    public User getByEmail2(String email) {
-        List<Object[]> users = em.createNamedQuery(User.BY_EMAIL_3)
-             //   .setParameter("date", LocalDate.now())
-               // .setParameter("date_0", LocalDate.of(0000, 1,1))
-              //  .setParameter("id", 100005)
-                .setParameter("email", email )
-                .setHint(QueryHints.HINT_PASS_DISTINCT_THROUGH, false)
-                .setFirstResult(0)
-                .setMaxResults(1)
-                .getResultList();
-       // UserTo userTo = DataAccessUtils.singleResult(users);
-
-     /*   if (userTo!=null){
-            userTo.init();
-            return userTo.getUser();
-        }
-*/
-        return null;
-    }
-
     @Override
     public List<User> getAll() {
         return em.createNamedQuery(User.ALL_SORTED, User.class).getResultList();

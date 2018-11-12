@@ -32,9 +32,9 @@ public class JpaHistoryVotingRepositoryImpl implements HistoryVotingRepository {
             return null;
         }*/
 
-        if (!historyVoting.isNew() && getVotingTodayByUser(userId) == null) {
+        /*if (!historyVoting.isNew() && getVotingTodayByUser(userId) == null) {
             return null;
-        }
+        }*/
         historyVoting.setUser(em.getReference(User.class, userId));
         historyVoting.setRestouran(em.getReference(Restouran.class, restouran));
         if (historyVoting.isNew()) {
@@ -43,11 +43,6 @@ public class JpaHistoryVotingRepositoryImpl implements HistoryVotingRepository {
         } else {
             return em.merge(historyVoting);
         }
-    }
-
-    @Override
-    public HistoryVoting get(int id) {
-        return em.find(HistoryVoting.class, id);
     }
 
 

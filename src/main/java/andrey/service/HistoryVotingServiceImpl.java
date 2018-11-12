@@ -10,9 +10,13 @@ import andrey.repository.HistoryVotingRepository;
 import andrey.util.exception.AlreadyVotedException;
 
 import javax.persistence.PersistenceContext;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
+import static andrey.util.ValidationUtil.checkNotFound;
+import static andrey.util.ValidationUtil.checkNotFoundList;
 import static andrey.util.ValidationUtil.checkNotFoundWithId;
 
 @Service
@@ -33,9 +37,22 @@ public class HistoryVotingServiceImpl implements HistoryVotingService {
     }
 
     @Override
-    public HistoryVoting get(int historyVoting_id) {
-        return checkNotFoundWithId(repository.get(historyVoting_id), historyVoting_id);
+    public HistoryVoting getToday() {
+        LocalDateTime startDateTime = LocalDateTime.of(LocalDate.now(), LocalTime.MIN);
+        LocalDateTime endDateTime = LocalDateTime.of(LocalDate.now(), LocalTime.MAX);
+        List<HistoryVoting> resultList = repository.getByDateBetween(startDateTime, endDateTime);
+        checkNotFoundList (resultList, "Вы не голосовали сегодня.");
+        return resultList.get(0);
     }
+
+    @Override
+    public HistoryVoting getByDate(LocalDate date) {
+        LocalDateTime startDateTime = LocalDateTime.of(date, LocalTime.MIN);
+        LocalDateTime endDateTime = LocalDateTime.of(date, LocalTime.MAX);
+        List<HistoryVoting> resultList = repository.getByDateBetween(startDateTime, endDateTime);
+        checkNotFoundList (resultList, "Вы не голосовали эа выбранную дату.");
+        return resultList.get(0);
+}
 
     @Override
     public HistoryVoting getVotingTodayByUser(int user_id) {
@@ -65,9 +82,18 @@ public class HistoryVotingServiceImpl implements HistoryVotingService {
 
 
     @Override
-    public HistoryVoting save_a_vote(HistoryVoting historyVoting, int restouran, int userId) {
-        Assert.notNull(historyVoting, "HistoryVoting(c) must not be null");
-        return repository.save(historyVoting,  restouran,  userId);
+    public HistoryVoting save_a_vote(int restouran, int userId) {
+        LocalDate dateOfVoting = threadLocalUtil.getThreadLocalScope();
+        //проверка: голосовал ли юсер сегодня или нет. Если нет  - просто Save. Если да - ветка.
+
+        if(dateOfVoting == LocalDate.now()) {
+
+        }
+
+
+
+            threadLocalUtil.setThreadLocalScope(LocalDate.now());
+            return repository.save(new HistoryVoting(),  restouran,  userId);
     }
 
 

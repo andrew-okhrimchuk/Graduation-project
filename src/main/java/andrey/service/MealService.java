@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface MealService {
 
-    Meal get(int id, LocalDate date) throws NotFoundException;
+    Meal getToday(int id, LocalDate date) throws NotFoundException;
 
     void delete(int id) throws NotFoundException;
 

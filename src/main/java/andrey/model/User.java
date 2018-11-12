@@ -19,6 +19,7 @@ import java.util.Set;
       @NamedQuery(name = User.DELETE, query = "DELETE FROM User u WHERE u.id=:id"),
       @NamedQuery(name = User.BY_EMAIL_2, query = "SELECT u FROM User u WHERE u.email=:email"),
       @NamedQuery(name = User.BY_EMAIL_3, query = "SELECT NEW andrey.to.UserToDb(u, b.dateTime, coalesce(b.isSecondVotin, false)) FROM User u LEFT JOIN HistoryVoting b ON u.id = b.user.id WHERE u.email=:email ORDER BY b.dateTime "),
+     // @NamedQuery(name = User.BY_EMAIL_3, query = "SELECT NEW andrey.to.UserToDb(u, coalesce(b, false)) FROM User u LEFT JOIN HistoryVoting b ON u.id = b.user.id WHERE u.email=:email ORDER BY b.dateTime "),
       @NamedQuery(name = User.ALL_SORTED, query = "SELECT u FROM User u ORDER BY u.name, u.email"),
 })
 @Entity

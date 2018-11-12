@@ -14,6 +14,7 @@ public class ThreadLocalUtil {
     @Autowired
     private List_of_AdminRepository list_a;
 
+    private ThreadLocal<Boolean> threadISSECONDVOTIN = new ThreadLocal<>();
     private ThreadLocal<LocalDate> threadLocalScope = new ThreadLocal<>();
     private ThreadLocal<List<List_of_admin>> list_of_admin = new ThreadLocal<>();
 
@@ -23,6 +24,7 @@ public class ThreadLocalUtil {
     public LocalDate getThreadLocalScope() {
         return threadLocalScope.get();
     }
+    public Boolean getThreadISSECONDVOTIN() { return threadISSECONDVOTIN.get();}
 
     public void setThreadLocalScope(LocalDate dateTime) {
         threadLocalScope.set(dateTime);
@@ -34,6 +36,7 @@ public class ThreadLocalUtil {
     public void clearDate() {
         threadLocalScope.remove();
     }
+    public void clearBoolean() {threadISSECONDVOTIN.remove();}
     public void clearList() {
         list_of_admin.remove();
     }
@@ -46,6 +49,7 @@ public class ThreadLocalUtil {
                 list_of_admin.set(list_a.getByAdminId(user.getId()));
             }
             threadLocalScope.set(user.getDateVoitin());
+            threadISSECONDVOTIN.set(user.isVoting());
         }
     }
 }
