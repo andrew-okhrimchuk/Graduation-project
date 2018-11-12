@@ -35,7 +35,9 @@ public class JpaHistoryVotingRepositoryImpl implements HistoryVotingRepository {
         /*if (!historyVoting.isNew() && getVotingTodayByUser(userId) == null) {
             return null;
         }*/
-        historyVoting.setUser(em.getReference(User.class, userId));
+       // historyVoting.setUser(em.getReference(User.class, userId));
+        historyVoting.setUser( userId);
+
         historyVoting.setRestouran(em.getReference(Restouran.class, restouran));
         if (historyVoting.isNew()) {
             em.persist(historyVoting);

@@ -18,8 +18,8 @@ import java.util.Set;
 @NamedQueries({
       @NamedQuery(name = User.DELETE, query = "DELETE FROM User u WHERE u.id=:id"),
       @NamedQuery(name = User.BY_EMAIL_2, query = "SELECT u FROM User u WHERE u.email=:email"),
-      @NamedQuery(name = User.BY_EMAIL_3, query = "SELECT NEW andrey.to.UserToDb(u, b.dateTime, coalesce(b.isSecondVotin, false)) FROM User u LEFT JOIN HistoryVoting b ON u.id = b.user.id WHERE u.email=:email ORDER BY b.dateTime "),
-     // @NamedQuery(name = User.BY_EMAIL_3, query = "SELECT NEW andrey.to.UserToDb(u, coalesce(b, false)) FROM User u LEFT JOIN HistoryVoting b ON u.id = b.user.id WHERE u.email=:email ORDER BY b.dateTime "),
+      //@NamedQuery(name = User.BY_EMAIL_3, query = "SELECT NEW andrey.to.UserToDb(u, b.dateTime, coalesce(b.isSecondVotin, false)) FROM User u LEFT JOIN HistoryVoting b ON u.id = b.user.id WHERE u.email=:email ORDER BY b.dateTime "),
+      @NamedQuery(name = User.BY_EMAIL_3, query = "SELECT NEW andrey.to.UserToDb(u, b) FROM User u LEFT JOIN HistoryVoting b ON u.id = b.user.id WHERE u.email=:email ORDER BY b.dateTime "),
       @NamedQuery(name = User.ALL_SORTED, query = "SELECT u FROM User u ORDER BY u.name, u.email"),
 })
 @Entity
@@ -57,13 +57,7 @@ public class User extends AbstractNamedEntity {
     @Transient
     @JsonIgnore
     @Column(table ="HISTORY_VOTING", nullable = true)
-    private boolean issecondvoitin;
-
-    @Transient
-    @JsonIgnore
-    @Column(table ="HISTORY_VOTING", nullable = true)
-    private LocalDate dateVoitin;
-
+    private HistoryVoting historyVoting;
 
     @JsonIgnore
     public boolean isNew() {
@@ -92,20 +86,8 @@ public class User extends AbstractNamedEntity {
     this.email = user.email;
     this.password = user.password;
     this.roles = user.roles;
-    this.issecondvoitin = user.issecondvoitin;
-    this.dateVoitin = user.dateVoitin;
+    this.historyVoting = user.historyVoting;
   }
 
-    @Transient
-    @JsonIgnore
-    public boolean isVoting() {
-        return issecondvoitin;
-    }
-
-    @Transient
-    @JsonIgnore
-    public LocalDate getDateVoitin() {
-        return dateVoitin;
-    }
 
 }

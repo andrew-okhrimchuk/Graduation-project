@@ -83,17 +83,33 @@ public class HistoryVotingServiceImpl implements HistoryVotingService {
 
     @Override
     public HistoryVoting save_a_vote(int restouran, int userId) {
-        LocalDate dateOfVoting = threadLocalUtil.getThreadLocalScope();
+        HistoryVoting historyVoting = threadLocalUtil.getThread_HV();
+        //Проверка голосования до 11 АМ
+        if (LocalTime.now().getHour() >= LocalTime.of(11, 00).getHour()
+         && LocalTime.now().getMinute() >= LocalTime.of(11, 00).getMinute()) { throw new AlreadyVotedException("Время больше 11 утра. Голосование окончено!") ;}
+
         //проверка: голосовал ли юсер сегодня или нет. Если нет  - просто Save. Если да - ветка.
-
-        if(dateOfVoting == LocalDate.now()) {
-
+        if(historyVoting == null) {
+            HistoryVoting newHV = new HistoryVoting();
+            newHV.setDateTime(LocalDate.now());
+            HistoryVoting saved = repository.save(newHV,  restouran,  userId);
+            checkNotFound(saved, "Не удачное сохранение голосования");
+            threadLocalUtil.setThread_HV(saved);
+            return saved ;
         }
+        if(historyVoting.isSecondVotin() == false) {
+            historyVoting.setSecondVotin(true);
+            HistoryVoting saved = repository.save(historyVoting,  restouran,  userId);
+            checkNotFound(saved, "Не удачное сохранение повторного голосования");
+            threadLocalUtil.setThread_HV(saved);
+            return saved ;
+        }
+        return historyVoting;
 
 
 
-            threadLocalUtil.setThreadLocalScope(LocalDate.now());
-            return repository.save(new HistoryVoting(),  restouran,  userId);
+
+
     }
 
 

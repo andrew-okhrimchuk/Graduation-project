@@ -20,7 +20,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "history_voting") //id, дата, restoran, User)
-@Getter @Setter @ToString
+@Getter @Setter
 public class HistoryVoting extends AbstractBaseEntity {
 
     public static final String GET_VOTING_BY_ID = "HistoryVoting.getById";
@@ -40,15 +40,17 @@ public class HistoryVoting extends AbstractBaseEntity {
     private Restouran restouran;
 
     @NotNull
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    //@ManyToOne(fetch = FetchType.EAGER)
+    //@JoinColumn(name = "user_id", nullable = false)
+    //private User user;
+    @Column(name = "date_time", nullable = false, insertable = false, updatable = false)
+    private int user;
 
     @NotNull
     @Column(name = "isSecondVotin", nullable = false)
     private boolean isSecondVotin;
 
-    public HistoryVoting(Integer id, @NotNull LocalDate dateTime, Restouran restouran, @NotNull User user) {
+    public HistoryVoting(Integer id, @NotNull LocalDate dateTime, Restouran restouran, @NotNull int user) {
         super(id);
         this.dateTime = dateTime;
         this.restouran = restouran;
@@ -58,8 +60,14 @@ public class HistoryVoting extends AbstractBaseEntity {
     public HistoryVoting() {
     }
 
-    public void setSecondVotin(boolean secondVotin) {
-        isSecondVotin = secondVotin;
+    @Override
+    public String toString() {
+        return "HistoryVoting{" +
+                "dateTime=" + dateTime +
+                ", restouran=" + restouran +
+                ", user=" + user +
+                ", isSecondVotin=" + isSecondVotin +
+                '}';
     }
 
     public boolean isNew() {

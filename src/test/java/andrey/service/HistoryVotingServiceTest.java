@@ -14,7 +14,7 @@ public  class HistoryVotingServiceTest extends AbstractServiceTest {
     @Autowired
     protected UserService userService;
 
-    @Test
+    /*@Test
     public void get() throws Exception {
         HistoryVoting actual = service.get(HV_ID + 20);
         assertMatch(actual, hV3);
@@ -25,7 +25,7 @@ public  class HistoryVotingServiceTest extends AbstractServiceTest {
         thrown.expect(NotFoundException.class);
         service.get(HV_ID + 25);
     }
-
+*/
     @Test
     public void getAll() throws Exception {
         assertMatch(service.getAll(),   hV1,hV2,hV3,hV4,hV5);
