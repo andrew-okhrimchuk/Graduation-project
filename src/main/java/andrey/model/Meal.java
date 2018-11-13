@@ -42,8 +42,8 @@ public class Meal extends AbstractNamedEntity {
     private Restouran restouran;
 
     @Transient
-    @JsonSerialize
-    @JsonDeserialize
+  //  @JsonSerialize
+   // @JsonDeserialize
     @NotFound(action = NotFoundAction.IGNORE)
     @JoinColumn(updatable = false,insertable = false ,table = "HISTORY_MEAL", name = "COST", nullable = false)
     private long cost;

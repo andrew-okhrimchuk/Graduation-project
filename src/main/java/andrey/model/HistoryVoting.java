@@ -43,14 +43,14 @@ public class HistoryVoting extends AbstractBaseEntity {
     //@ManyToOne(fetch = FetchType.EAGER)
     //@JoinColumn(name = "user_id", nullable = false)
     //private User user;
-    @Column(name = "date_time", nullable = false, insertable = false, updatable = false)
+    @Column(name = "user_id", nullable = false) //, insertable = false, updatable = false)
     private int user;
 
     @NotNull
     @Column(name = "isSecondVotin", nullable = false)
     private boolean isSecondVotin;
 
-    public HistoryVoting(Integer id, @NotNull LocalDate dateTime, Restouran restouran, @NotNull int user) {
+    public HistoryVoting(Integer id,@NotNull int user, @NotNull LocalDate dateTime, Restouran restouran ) {
         super(id);
         this.dateTime = dateTime;
         this.restouran = restouran;
