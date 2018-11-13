@@ -26,7 +26,7 @@ import lombok.Setter;
 @Table(name = "meals")
 @DynamicUpdate
 @SecondaryTable(name = "HISTORY_MEAL", pkJoinColumns = @PrimaryKeyJoinColumn(name = "ID" ))
-@Getter @Setter @ToString
+@Getter @Setter
 public class Meal extends AbstractNamedEntity {
 
     public static final String DELETE = "Meal.delete";
@@ -42,8 +42,8 @@ public class Meal extends AbstractNamedEntity {
     private Restouran restouran;
 
     @Transient
-  //  @JsonSerialize
-   // @JsonDeserialize
+    @JsonSerialize
+    @JsonDeserialize
     @NotFound(action = NotFoundAction.IGNORE)
     @JoinColumn(updatable = false,insertable = false ,table = "HISTORY_MEAL", name = "COST", nullable = false)
     private long cost;
@@ -64,6 +64,24 @@ public class Meal extends AbstractNamedEntity {
         super(id, name);
         this.restouran = restouran;
         this.cost = cost;
+    }
+
+    @Override
+    public String toString() {
+        return "Meal{" +
+                "restouran=" + restouran +
+                ", cost=" + cost +
+                ", name='" + name + '\'' +
+                ", id=" + id +
+                '}';
+    }
+
+    public Restouran getRestouran() {
+        return restouran;
+    }
+
+    public long getCost() {
+        return cost;
     }
 
     public boolean isNew() {

@@ -18,8 +18,8 @@ public class MealsUtil {
         return new Meal(null, newMeal.getName(), null,newMeal.getCost());
     }
 
-    public static MealTo asTo(Meal user) {
-        return new MealTo(user.getId(), user.getName(), user.getRestouran().getId(), user.getCost());
+    public static MealTo asTo(Meal meal) {
+        return new MealTo(meal.getId(), meal.getName(), meal.getRestouran().getId(), meal.getCost());
     }
 
     public static Meal updateFromTo(Meal meal, MealTo mealTo) {
