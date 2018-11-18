@@ -37,9 +37,9 @@ public class MealToTestData {
         return new MealTo("Суп по-французски TO", REST3_id, 25000);
     }
     public static MealTo getUpdated() {
-        return new MealTo("Печень по-грузински, с черносивом", REST1_id, 100000);
+        return new MealTo(MEAL1.getId(),"Печень по-грузински, с черносивом", REST1_id, 100000);
     }
-    public static Meal getInvalid() { return new Meal(null,  null, REST1);
+    public static MealTo getInvalid() { return new MealTo(null,  null, REST1.getId(), 5000);
     }
 
     public static void assertMatch(Meal actual, Meal expected) {
@@ -51,7 +51,7 @@ public class MealToTestData {
     }
 
     public static void assertMatch(Iterable<Meal> actual, Iterable<Meal> expected) {
-        assertThat(actual).usingElementComparatorIgnoringFields("restouran").isEqualTo(expected);
+        assertThat(actual).usingElementComparatorIgnoringFields("restouran", "cost").isEqualTo(expected);
     }
 
 

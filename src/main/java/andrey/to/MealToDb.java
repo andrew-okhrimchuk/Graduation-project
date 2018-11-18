@@ -11,11 +11,19 @@ public class MealToDb {
 
     private Meal meal;
     private long cost;
+    private LocalDate date;
 
     public MealToDb(Meal meal, long cost) {
         this.meal = meal;
         this.cost = cost;
     }
+
+    public MealToDb(Meal meal, long cost, LocalDate date) {
+        this.meal = meal;
+        this.cost = cost;
+        this.date = date;
+    }
+
     public Meal init(){
         if (cost >= 0 ){
             meal.setCost(cost);

@@ -21,11 +21,11 @@ public class MealTo extends BaseTo implements Serializable {
     @SafeHtml// https://stackoverflow.com/questions/17480809
     private String name;
 
-    @Range(min = 1, max = 10)
+    @Range(min = 1, max = 1000000)
     @NotNull
     private Integer restouran_id;
 
-    @Range(min = 1, max = 10)
+    @Range(min = 1, max = 1000000)
     @NotNull
     private Long cost;
 
@@ -33,8 +33,8 @@ public class MealTo extends BaseTo implements Serializable {
     }
 
     public MealTo(@NotBlank @Size(min = 2, max = 100, message = "length must between 2 and 100 characters")@SafeHtml String name,
-                  @NotNull @Range(min = 1, max = 10, message = "length must between 1 and 10 characters")Integer restouran_id,
-                  @NotNull @Range(min = 1, max = 10, message = "length must between 1 and 10 characters")Long cost) {
+                  @NotNull @Range(min = 1, max = 1000000, message = "length must between 1 and 1000000 characters")Integer restouran_id,
+                  @NotNull @Range(min = 1, max = 1000000, message = "length must between 1 and 1000000 characters")Long cost) {
         this.name = name;
         this.restouran_id = restouran_id;
         this.cost = cost;
@@ -42,8 +42,8 @@ public class MealTo extends BaseTo implements Serializable {
 
     public MealTo(Integer id,
                   @NotBlank @Size(min = 2, max = 100, message = "length must between 2 and 100 characters") @SafeHtml String name,
-                  @NotNull @Range(min = 1, max = 10, message = "length must between 1 and 10 characters") Integer restouran_id,
-                  @NotNull @Range(min = 1, max = 10, message = "length must between 1 and 10 characters") Long cost) {
+                  @NotNull @Range(min = 1, max = 1000000, message = "length must between 1 and 1000000 characters") Integer restouran_id,
+                  @NotNull @Range(min = 1, max = 1000000, message = "length must between 1 and 1000000 characters") Long cost) {
         super(id);
         this.name = name;
         this.restouran_id = restouran_id;
@@ -51,8 +51,8 @@ public class MealTo extends BaseTo implements Serializable {
     }
 
     public MealTo(@NotBlank @Size(min = 2, max = 100, message = "length must between 2 and 100 characters")@SafeHtml String name,
-                  @NotNull @Range(min = 1, max = 10, message = "length must between 1 and 10 characters") Integer restouran_id,
-                  @NotNull @Range(min = 1, max = 10, message = "length must between 1 and 10 characters") long cost) {
+                  @NotNull @Range(min = 1, max = 1000000, message = "length must between 1 and 10 characters") Integer restouran_id,
+                  @NotNull @Range(min = 1, max = 1000000, message = "length must between 1 and 1000000 characters") long cost) {
         this.name = name;
         this.restouran_id = restouran_id;
         this.cost = cost;
@@ -60,8 +60,8 @@ public class MealTo extends BaseTo implements Serializable {
 
     public MealTo(Integer id,
                   @NotBlank @Size(min = 2, max = 100, message = "length must between 2 and 100 characters") @SafeHtml String name,
-                  @NotNull @Range(min = 1, max = 10, message = "length must between 1 and 10 characters") Integer restouran_id,
-                  @NotNull @Range(min = 1, max = 10, message = "length must between 1 and 10 characters") long cost) {
+                  @NotNull @Range(min = 1, max = 1000000, message = "length must between 1 and 1000000 characters") Integer restouran_id,
+                  @NotNull @Range(min = 1, max = 1000000, message = "length must between 1 and 1000000 characters") long cost) {
         super(id);
         this.name = name;
         this.restouran_id = restouran_id;

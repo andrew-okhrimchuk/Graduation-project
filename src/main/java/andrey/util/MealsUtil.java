@@ -3,6 +3,7 @@ package andrey.util;
 
 import andrey.model.Meal;
 import andrey.to.MealTo;
+import andrey.to.MealToDb;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.util.StringUtils;
 
@@ -15,7 +16,7 @@ public class MealsUtil {
     private MealsUtil() {
     }
     public static Meal createNewFromTo(MealTo newMeal) {
-        return new Meal(null, newMeal.getName(), null,newMeal.getCost());
+        return new Meal(null, newMeal.getName(), null, newMeal.getCost());
     }
 
     public static MealTo asTo(Meal meal) {
@@ -29,6 +30,14 @@ public class MealsUtil {
         return meal;
     }
 
+    public static Meal updateFromToDb(Meal meal, MealToDb mealToDb) {
+        meal.setName(mealToDb.getMeal().getName());
+        meal.setId(mealToDb.getMeal().getId());
+        meal.setCost(mealToDb.getCost());
+        meal.setRestouran(mealToDb.getMeal().getRestouran());
+
+        return meal;
+    }
 
    /* public static List<MealWithExceed> getWithExceeded(Collection<Meal> meals, int caloriesPerDay) {
         return getFilteredWithExceeded(meals, LocalTime.MIN, LocalTime.MAX, caloriesPerDay);

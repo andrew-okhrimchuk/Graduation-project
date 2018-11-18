@@ -12,7 +12,6 @@ import java.time.LocalDate;
 
 import static andrey.model.AbstractBaseEntity.START_SEQ;
 import static andrey.util.MealsUtil.asTo;
-import static andrey.util.MealsUtil.updateFromTo;
 import static org.hamcrest.core.StringContains.containsString;
 import static andrey.data.MealToTestData.*;
 import static andrey.data.MealToTestData.getCreated;

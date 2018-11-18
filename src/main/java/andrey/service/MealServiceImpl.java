@@ -17,8 +17,6 @@ import java.time.LocalDate;
 import java.util.List;
 
 import static andrey.util.MealsUtil.asTo;
-import static andrey.util.MealsUtil.createNewFromTo;
-import static andrey.util.MealsUtil.updateFromTo;
 import static andrey.util.ValidationUtil.*;
 import static andrey.util.exception.NotEnoughRightsException.ADMIN_LIST_EMPTY_EXEPTION;
 import static andrey.util.exception.NotFoundException.NOT_FOUND_EXCEPTION;

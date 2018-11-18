@@ -20,7 +20,10 @@ import lombok.Setter;
         @NamedQuery(name = Meal.BY_FIND, query = "SELECT u FROM Meal u WHERE u.id=:id"),
         @NamedQuery(name = Meal.BY_FINDDATE, query = "SELECT NEW andrey.to.MealToDb(u, coalesce(h.cost, 0)) FROM Meal u LEFT JOIN HistoryMeal h ON u.id = h.meal.id WHERE u.id=:id AND h.date=:date"),
         @NamedQuery(name = Meal.BY_FINDLastDATE, query = "SELECT NEW andrey.to.MealToDb(u, coalesce(h.cost, 0)) FROM Meal u LEFT JOIN HistoryMeal h ON u.id = h.meal.id WHERE u.id=:id ORDER BY h.date DESC"),
-        @NamedQuery(name = Meal.ALL_SORTED, query = "SELECT NEW andrey.to.MealToDb(u, coalesce(h.cost, 0)) FROM Meal u LEFT JOIN HistoryMeal h ON u.id = h.meal.id WHERE u.restouran.id=:restouranId ORDER BY h.date DESC")
+        //@NamedQuery(name = Meal.ALL_SORTED, query = "SELECT NEW andrey.to.MealToDb(u, coalesce(h.cost, 0)) FROM Meal u LEFT JOIN HistoryMeal h ON u.id = h.meal.id WHERE u.restouran.id=:restouranId ORDER BY h.date DESC")
+  // good      @NamedQuery(name = Meal.ALL_SORTED, query = "SELECT NEW andrey.to.MealToDb(u, coalesce(h.cost, 0)) FROM Meal u LEFT JOIN HistoryMeal h ON u.id = h.meal.id WHERE u.restouran.id=:restouranId GROUP BY u , h.cost HAVING MAX(h.date)IS NOT NULL")
+  //      @NamedQuery(name = Meal.ALL_SORTED, query = "SELECT NEW andrey.to.MealToDb(u, h.cost, MAX(h.date)) FROM Meal u LEFT JOIN HistoryMeal h ON u.id = h.meal.id WHERE u.restouran.id=:restouranId GROUP BY u , h.cost ")
+        @NamedQuery(name = Meal.ALL_SORTED, query = "SELECT u FROM Meal u WHERE u.restouran.id=:restouranId")
 })
 @Entity
 @Table(name = "meals")
@@ -45,7 +48,7 @@ public class Meal extends AbstractNamedEntity {
     @JsonSerialize
     @JsonDeserialize
     @NotFound(action = NotFoundAction.IGNORE)
-    @JoinColumn(updatable = false,insertable = false ,table = "HISTORY_MEAL", name = "COST", nullable = false)
+    @JoinColumn(table = "HISTORY_MEAL", name = "COST", nullable = false)
     private long cost;
 
     public Meal() {

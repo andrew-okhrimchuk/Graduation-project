@@ -84,22 +84,9 @@ public class JpaMealRepositoryImpl implements MealRepository {
 
     @Override
     public List<Meal> getAll(int restouranId) {
-        List<MealToDb> mealTo = em.createNamedQuery(Meal.ALL_SORTED, MealToDb.class)
+        List<Meal> result = em.createNamedQuery(Meal.ALL_SORTED, Meal.class)
                 .setParameter("restouranId", restouranId)
                 .getResultList();
-
-        if (mealTo!=null){
-            List<Meal> result = new ArrayList<>();
-
-            for(MealToDb x : mealTo) {
-            x.init();
-                result.add(x.getMeal());
-            }
-            return result;
-        }
-        return null;
-
+        return result;
     }
-
-
 }
