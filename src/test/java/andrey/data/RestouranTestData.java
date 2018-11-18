@@ -47,7 +47,7 @@ public class RestouranTestData {
 
 
     public static void init () {
-        REST2.setMeals(Arrays.asList(MEAL7,MEAL8,MEAL9));
+      //  REST2.setMeals(Arrays.asList(MEAL7,MEAL8,MEAL9));
         mealMenu1 = new MealMenu(REST1.getName(), MEAL1.getName(),MEAL1.getCost());
         mealMenu2 = new MealMenu(REST1.getName(), MEAL2.getName(),MEAL2.getCost());
         mealMenu3 = new MealMenu(REST1.getName(), MEAL3.getName(),MEAL3.getCost());

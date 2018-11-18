@@ -24,8 +24,8 @@ public class HistoryMealTestData {
     public static final HistoryMeal hM9 = new HistoryMeal(HM_ID + 43, MEAL9, LocalDate.now(),1490);//100010
     public static final HistoryMeal hM10 = new HistoryMeal(HM_ID + 44, MEAL10, LocalDate.now(),1490);
     public static final HistoryMeal hM11 = new HistoryMeal(HM_ID + 45, MEAL11, LocalDate.now(),1490);
-    public static final HistoryMeal hM12 = new HistoryMeal(HM_ID + 47, MEAL12, LocalDate.now(),1490);
-    public static final HistoryMeal hM13 = new HistoryMeal(HM_ID + 46, MEAL1, LocalDate.of(2018, 9,21),1490);
+    public static final HistoryMeal hM12 = new HistoryMeal(HM_ID + 46, MEAL12, LocalDate.of(2018, 11,17),1550);
+    public static final HistoryMeal hM13 = new HistoryMeal(HM_ID + 47, MEAL1, LocalDate.of(2018, 9,21),1890);
 
 
     public static HistoryMeal getCreated() {

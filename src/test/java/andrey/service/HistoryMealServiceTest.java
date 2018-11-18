@@ -38,7 +38,7 @@ public  class HistoryMealServiceTest extends AbstractServiceTest {
 
     @Test
     public void getAll() throws Exception {
-        assertMatch(service.getAll(),hM11,hM10,hM9,hM8,hM7,hM6,hM5,hM4,hM3,hM2,hM1,hM13);
+        assertMatch(service.getAll(),hM11,hM10,hM9,hM8,hM7,hM6,hM5,hM4,hM3,hM2,hM1,hM12,hM13);
     }
 
     @Test
