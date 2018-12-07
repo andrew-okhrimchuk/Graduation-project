@@ -3,6 +3,7 @@ package andrey.web;
 import andrey.util.ValidationUtil;
 import andrey.util.exception.ApplicationException;
 import andrey.util.exception.ErrorType;
+import org.hsqldb.HsqlException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,8 @@ public class GlobalControllerExceptionHandler {
     public ModelAndView defaultErrorHandler(HttpServletRequest req, Exception e) throws Exception {
         return getView(req, e, ErrorType.APP_ERROR, null);
     }
+
+
 
     public ModelAndView getView(HttpServletRequest req, Exception e, ErrorType type, String msg) throws Exception {
         Throwable rootCause = ValidationUtil.getRootCause(e);

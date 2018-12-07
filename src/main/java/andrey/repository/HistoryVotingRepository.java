@@ -11,7 +11,7 @@ public interface HistoryVotingRepository {
     HistoryVoting save(HistoryVoting historyVoting, int restouran, int userId);
 
     HistoryVoting getVotingTodayByUser(int Id);
-    List<HistoryVoting> getByDateBetween(LocalDateTime startDateTime, LocalDateTime endDateTime);
+    List<HistoryVoting> getByDateBetween(LocalDate startDate, LocalDate endDate);
     List<HistoryVoting> getByRestouranId(int Id);
     List<HistoryVoting> getByUser(int Id);
 

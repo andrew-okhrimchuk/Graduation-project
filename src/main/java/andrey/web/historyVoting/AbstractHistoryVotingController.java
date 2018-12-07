@@ -23,12 +23,12 @@ public abstract class AbstractHistoryVotingController {
     private HistoryVotingService service;
 
 
-    public HistoryVoting getToday() {
+    public List<HistoryVoting>  getToday() {
         log.info("get Voting today = {} ", LocalDate.now());
         return service.getToday();
     }
 
-    public HistoryVoting getByDate (LocalDate date) {
+    public List<HistoryVoting>  getByDate (LocalDate date) {
         log.info("get Voting {} ", date);
         return service.getByDate(date);
     }

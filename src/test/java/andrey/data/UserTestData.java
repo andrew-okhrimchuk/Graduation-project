@@ -26,7 +26,7 @@ public class UserTestData {
     public static final User USER_8 = new User(null, "TEST", "usertest@ukr.net", "test123", Collections.singleton(Role.ROLE_USER));
 
     public static void assertMatch(User actual, User expected) {
-        assertThat(actual).isEqualToIgnoringGivenFields(expected, "dateVoitin", "password");
+        assertThat(actual).isEqualToIgnoringGivenFields(expected, "historyVoting","dateVoitin", "password");
     }
 
     public static void assertMatch(Iterable<User> actual, User... expected) {
@@ -35,7 +35,7 @@ public class UserTestData {
     }
 
     public static void assertMatch(Iterable<User> actual, Iterable<User> expected) {
-        assertThat(actual).usingElementComparatorIgnoringFields("password", "dateVoitin").isEqualTo(expected);
+        assertThat(actual).usingElementComparatorIgnoringFields("historyVoting", "password", "dateVoitin").isEqualTo(expected);
     }
 
     public static ResultMatcher contentJson(User... expected) {

@@ -35,9 +35,9 @@ public class Restouran extends AbstractNamedEntity {
     //@NotNull(groups = View.Persist.class)
     private User user;*/ //
 
-    @Transient
+   /* @Transient
     @Column(table ="MEALS", nullable = true)
-    private List<Meal> meals;
+    private List<Meal> meals;*/
 
     @Transient
     @Column(table ="LIST_OF_ADMIN", nullable = true)

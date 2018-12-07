@@ -8,20 +8,22 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = HistoryVotingRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 public class HistoryVotingRestController extends AbstractHistoryVotingController {
-    static final String REST_URL = "/rest/voting";
+    public static final String REST_URL = "/rest/voting";
 
     @Override
     @GetMapping("/")
-    public HistoryVoting getToday() {
+    public List<HistoryVoting> getToday() {
         return super.getToday();
     }
+
     @Override
-    @GetMapping("/{id}")
-    public HistoryVoting getByDate(@PathVariable("date")@DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
+    @GetMapping("/{date}")
+    public List<HistoryVoting>  getByDate(@PathVariable("date")@DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
         return super.getByDate(date);
     }
 

@@ -22,12 +22,12 @@ public class HistoryVotingTestData {
             .of(2018, 9,21),REST6 );
 
     public static HistoryVoting getCreated() {
-        return new HistoryVoting(null,ADMIN.getId(),  LocalDate.now(),REST3 );
+        return new HistoryVoting(null, USER_ID + 4,  LocalDate.now(),REST4 );
     }
     public static HistoryVoting getUpdated() { return new HistoryVoting(HV_ID + 1,ADMIN.getId(), LocalDate.now(),REST1 );}
 
     public static void assertMatch(HistoryVoting actual, HistoryVoting expected) {
-        assertThat(actual).isEqualToIgnoringGivenFields(expected);
+        assertThat(actual).isEqualToIgnoringGivenFields(expected, "id");
     }
 
     public static void assertMatch(Iterable<HistoryVoting> actual, HistoryVoting... expected) {

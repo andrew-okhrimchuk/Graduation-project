@@ -22,6 +22,7 @@ import static andrey.util.ValidationUtil.checkNotFoundWithId;
 @Service
 public class HistoryVotingServiceImpl implements HistoryVotingService {
 
+    public static String massageMore11AM = "Время больше 11 утра. Голосование окончено!";
     private final HistoryVotingRepository repository;
     private ThreadLocalUtil threadLocalUtil;
 
@@ -37,21 +38,18 @@ public class HistoryVotingServiceImpl implements HistoryVotingService {
     }
 
     @Override
-    public HistoryVoting getToday() {
-        LocalDateTime startDateTime = LocalDateTime.of(LocalDate.now(), LocalTime.MIN);
-        LocalDateTime endDateTime = LocalDateTime.of(LocalDate.now(), LocalTime.MAX);
-        List<HistoryVoting> resultList = repository.getByDateBetween(startDateTime, endDateTime);
+    public List<HistoryVoting>  getToday() {
+        LocalDate dateTime = LocalDate.now();
+        List<HistoryVoting> resultList = repository.getByDateBetween(dateTime, dateTime);
         checkNotFoundList (resultList, "Вы не голосовали сегодня.");
-        return resultList.get(0);
+        return resultList;
     }
 
     @Override
-    public HistoryVoting getByDate(LocalDate date) {
-        LocalDateTime startDateTime = LocalDateTime.of(date, LocalTime.MIN);
-        LocalDateTime endDateTime = LocalDateTime.of(date, LocalTime.MAX);
-        List<HistoryVoting> resultList = repository.getByDateBetween(startDateTime, endDateTime);
+    public List<HistoryVoting>  getByDate(LocalDate date) {
+        List<HistoryVoting> resultList = repository.getByDateBetween(date, date);
         checkNotFoundList (resultList, "Вы не голосовали эа выбранную дату.");
-        return resultList.get(0);
+        return resultList;
 }
 
     @Override
@@ -70,10 +68,10 @@ public class HistoryVotingServiceImpl implements HistoryVotingService {
     }
 
     @Override
-    public List<HistoryVoting> getByDateBetween(LocalDateTime startDateTime, LocalDateTime endDateTime){
-        Assert.notNull(startDateTime, "startDateTime must not be null");
-        Assert.notNull(endDateTime, "endDateTime  must not be null");
-        return repository.getByDateBetween(startDateTime, endDateTime);}
+    public List<HistoryVoting> getByDateBetween(LocalDate startDate, LocalDate endDate){
+        Assert.notNull(startDate, "startDateTime must not be null");
+        Assert.notNull(endDate, "endDateTime  must not be null");
+        return repository.getByDateBetween(startDate, endDate);}
 
     @Override
     public List<HistoryVoting> getByRestouranId(int id){
@@ -86,9 +84,10 @@ public class HistoryVotingServiceImpl implements HistoryVotingService {
         HistoryVoting historyVoting = threadLocalUtil.getThread_HV();
         //Проверка голосования до 11 АМ
         if (LocalTime.now().getHour() >= LocalTime.of(11, 00).getHour()
-         && LocalTime.now().getMinute() >= LocalTime.of(11, 00).getMinute()) { throw new AlreadyVotedException("Время больше 11 утра. Голосование окончено!") ;}
+         && LocalTime.now().getMinute() >= LocalTime.of(11, 00).getMinute()) { throw new AlreadyVotedException(massageMore11AM) ;}
 
         //проверка: голосовал ли юсер сегодня или нет. Если нет  - просто Save. Если да - ветка.
+        //юсер не голосовал сегодня: historyVoting == null
         if(historyVoting == null) {
             HistoryVoting newHV = new HistoryVoting();
             newHV.setDateTime(LocalDate.now());
@@ -97,6 +96,7 @@ public class HistoryVotingServiceImpl implements HistoryVotingService {
             threadLocalUtil.setThread_HV(saved);
             return saved ;
         }
+        //юсер голосовал сегодня: historyVoting != null и isSecondVotin() == false
         if(historyVoting.isSecondVotin() == false) {
             historyVoting.setSecondVotin(true);
             HistoryVoting saved = repository.save(historyVoting,  restouran,  userId);

@@ -58,10 +58,10 @@ public class JpaHistoryVotingRepositoryImpl implements HistoryVotingRepository {
 
 
     @Override
-    public List<HistoryVoting>  getByDateBetween(LocalDateTime startDateTime, LocalDateTime endDateTime){
+    public List<HistoryVoting>  getByDateBetween(LocalDate startDate, LocalDate endDate){
         return em.createNamedQuery(HistoryVoting.GET_VOTING_BY_DATE_Between, HistoryVoting.class)
-                .setParameter("start", startDateTime)
-                .setParameter("end", endDateTime)
+                .setParameter("start", startDate)
+                .setParameter("end", endDate)
                 .getResultList();
     }
 

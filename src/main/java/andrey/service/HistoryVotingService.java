@@ -10,14 +10,15 @@ import java.util.List;
 
 public interface HistoryVotingService {
 
-    HistoryVoting getToday() throws NotFoundException;
+    List<HistoryVoting>  getToday() throws NotFoundException;
+    List<HistoryVoting>  getByDate(LocalDate date);
+    List<HistoryVoting> getAll();
+    HistoryVoting save_a_vote(int restouran, int userId);
+
     HistoryVoting getVotingTodayByUser(int Id);
-    List<HistoryVoting> getByDateBetween(LocalDateTime start, LocalDateTime end);
-    HistoryVoting getByDate(LocalDate date);
+    List<HistoryVoting> getByDateBetween(LocalDate start, LocalDate end);
     List<HistoryVoting> getByRestouranId(int id);
     List<HistoryVoting> getByUserId(int id);
-    List<HistoryVoting> getAll();
 
-    HistoryVoting save_a_vote(int restouran, int userId);
 
 }
