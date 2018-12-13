@@ -61,9 +61,13 @@ public  class HistoryVotingServiceTest extends AbstractServiceTest {
         userService.getByEmail("user-1@ukr.net");
         HistoryVoting created = new HistoryVoting(START_SEQ+19, USER_ID, LocalDate.now(), REST2 );
         created.setSecondVotin(true);
-        created.setId(service.save_a_vote(REST2.getId(),  USER_ID).getId());
 
-        assertMatch(service.getToday(),   hV4,hV3,hV1);
+        if (LocalTime.now().getHour() < LocalTime.of(11, 00).getHour()) {
+        created.setId(service.save_a_vote(REST2.getId(),  USER_ID).getId());
+            assertMatch(service.getToday(),   hV4,hV3,hV1);
+        }
+        else votindAfter11AM ();
+
     }
     @Test
     public void getByDate() throws Exception {

@@ -64,8 +64,7 @@ public class HVRestControllerTest extends AbstractControllerTest {
                 .with(userHttpBasic(USER_3)))
                 .andExpect(status().isOk())
                 .andDo(print())
-                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(contentJsonArray( hV4));
+                .equals(hV4);
     }
 
    /* @Test
