@@ -1,27 +1,17 @@
 package andrey.service;
 
 import andrey.model.HistoryMeal;
-import andrey.model.List_of_admin;
 import andrey.model.Meal;
-import andrey.model.Restouran;
 import andrey.repository.MealRepository;
-import andrey.util.ThreadLocalUtil;
-import andrey.util.exception.NotEnoughRightsException;
 import andrey.util.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.Assert;
 import andrey.repository.HistoryMealRepository;
 
-import javax.validation.constraints.AssertTrue;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
-import static andrey.util.ValidationUtil.checkNotFound;
 import static andrey.util.ValidationUtil.checkNotFoundWithId;
-import static andrey.util.exception.NotEnoughRightsException.ADMIN_LIST_EMPTY_EXEPTION;
-import static andrey.util.exception.NotFoundException.NOT_FOUND_EXCEPTION;
 
 @Service
 public class HistoryMealServiceImpl implements HistoryMealService {

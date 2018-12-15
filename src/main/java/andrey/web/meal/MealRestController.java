@@ -12,7 +12,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -20,12 +19,7 @@ import java.util.List;
 public class MealRestController extends AbstractMealController {
     static final String REST_URL = "/rest/profile/meals";
 
-   /* @Override
-    @GetMapping("/{id}")
-    public Meal get(@PathVariable("id") int id) {
-        return super.get(id);
-    }
-*/
+
     @GetMapping("/{id}")
     public Meal get(@PathVariable("id")int id) {
         return super.get(id, null);

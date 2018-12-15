@@ -1,9 +1,6 @@
 package andrey.repository.jpa;
 
 import andrey.model.List_of_admin;
-import andrey.model.User;
-import org.hibernate.jpa.QueryHints;
-import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import andrey.repository.List_of_AdminRepository;

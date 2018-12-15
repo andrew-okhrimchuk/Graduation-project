@@ -1,11 +1,10 @@
-package andrey.util;
+package andrey.util.threadLocal;
 
 import andrey.model.HistoryVoting;
 import andrey.model.List_of_admin;
 import andrey.model.User;
 import andrey.repository.List_of_AdminRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import java.time.LocalDate;
 import java.util.List;
 
 import static andrey.model.Role.ROLE_ADMIN;

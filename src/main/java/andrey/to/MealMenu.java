@@ -2,8 +2,6 @@ package andrey.to;
 
 import lombok.Getter;
 import lombok.Setter;
-import andrey.model.Meal;
-import andrey.model.Restouran;
 
 @Getter @Setter
 public class MealMenu {

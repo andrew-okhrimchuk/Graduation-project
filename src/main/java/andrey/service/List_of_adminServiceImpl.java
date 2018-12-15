@@ -2,7 +2,7 @@ package andrey.service;
 
 import andrey.model.List_of_admin;
 import andrey.repository.List_of_AdminRepository;
-import andrey.util.ThreadLocalUtil;
+import andrey.util.threadLocal.ThreadLocalUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;

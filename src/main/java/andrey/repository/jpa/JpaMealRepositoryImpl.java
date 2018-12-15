@@ -11,7 +11,6 @@ import andrey.repository.MealRepository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 import static andrey.util.MealsUtil.*;

@@ -1,7 +1,6 @@
 package andrey.util.exception;
 
 import org.springframework.http.HttpStatus;
-
 import java.util.Arrays;
 
 public class ApplicationException extends RuntimeException {

@@ -1,6 +1,5 @@
 package andrey.to;
 
-import andrey.model.Restouran;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;

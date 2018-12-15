@@ -4,7 +4,7 @@ import andrey.model.List_of_admin;
 import andrey.model.Restouran;
 import andrey.repository.List_of_AdminRepository;
 import andrey.to.RestouranTo;
-import andrey.util.ThreadLocalUtil;
+import andrey.util.threadLocal.ThreadLocalUtil;
 import andrey.util.exception.NotEnoughRightsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -123,7 +123,6 @@ public class RestouranServiceImpl implements RestouranService {
 
 
     public  void checkUserIsAdminOfRestouranAndRoles(int userId, String messege, Expression func, int rest_id) {
-        //проверка на:
         // 1.спсик админов не должен быть нулл иначе return null
         // 2.принадлежность админа к текущему ресторану иначе return null
         List<List_of_admin> list_of_admin = threadLocalUtil.getList_of_admin();

@@ -1,17 +1,14 @@
 package andrey.service;
 
 import andrey.model.HistoryVoting;
-import andrey.util.ThreadLocalUtil;
-import andrey.util.exception.NotEnoughRightsException;
+import andrey.util.threadLocal.ThreadLocalUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import andrey.repository.HistoryVotingRepository;
 import andrey.util.exception.AlreadyVotedException;
 
-import javax.persistence.PersistenceContext;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 
@@ -105,14 +102,7 @@ public class HistoryVotingServiceImpl implements HistoryVotingService {
             return saved ;
         }
         return historyVoting;
-
-
-
-
-
-    }
-
-
+}
     //2
     public HistoryVoting update(HistoryVoting historyVoting, int userId) {
         return repository.save(historyVoting, 0, userId);

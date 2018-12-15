@@ -3,7 +3,7 @@ package andrey.service;
 import andrey.AuthorizedUser;
 import andrey.model.User;
 import andrey.to.UserTo;
-import andrey.util.ThreadLocalUtil;
+import andrey.util.threadLocal.ThreadLocalUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;

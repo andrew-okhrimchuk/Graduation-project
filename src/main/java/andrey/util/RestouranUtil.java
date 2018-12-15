@@ -1,14 +1,7 @@
 package andrey.util;
 
 import andrey.model.Restouran;
-import andrey.model.Role;
-import andrey.model.User;
 import andrey.to.RestouranTo;
-import andrey.to.UserTo;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.util.StringUtils;
-
-import java.util.Collections;
 
 public class RestouranUtil {
 

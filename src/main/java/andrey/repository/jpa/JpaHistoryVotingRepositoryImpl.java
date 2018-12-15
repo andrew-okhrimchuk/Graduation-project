@@ -2,16 +2,13 @@ package andrey.repository.jpa;
 
 import andrey.model.HistoryVoting;
 import andrey.model.Restouran;
-import andrey.model.User;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import andrey.repository.HistoryVotingRepository;
-import andrey.repository.RestouranRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
@@ -20,22 +17,12 @@ public class JpaHistoryVotingRepositoryImpl implements HistoryVotingRepository {
 
     @PersistenceContext
     private EntityManager em;
- /*@Autowired
-    private ThreadLocal tl;
-*/
+
 
     @Override
     @Transactional
     public HistoryVoting save(HistoryVoting historyVoting, int restouran, int userId) {
-/* User user = (User)tl.get();
-        if (user.isVoting()) {
-            return null;
-        }*/
 
-        /*if (!historyVoting.isNew() && getVotingTodayByUser(userId) == null) {
-            return null;
-        }*/
-       // historyVoting.setUser(em.getReference(User.class, userId));
         historyVoting.setUser( userId);
 
         historyVoting.setRestouran(em.getReference(Restouran.class, restouran));

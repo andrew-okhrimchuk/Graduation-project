@@ -3,7 +3,6 @@ package andrey.web;
 import andrey.util.ValidationUtil;
 import andrey.util.exception.ApplicationException;
 import andrey.util.exception.ErrorType;
-import org.hsqldb.HsqlException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

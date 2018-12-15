@@ -1,27 +1,17 @@
 package andrey.repository.jpa;
 
 import andrey.to.UserToDb;
-import lombok.Getter;
-import lombok.Setter;
-import andrey.model.List_of_admin;
 import org.hibernate.jpa.QueryHints;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import andrey.model.User;
-import andrey.repository.List_of_AdminRepository;
 import andrey.repository.UserRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.validation.constraints.NotNull;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.List;
 
-import static andrey.model.Role.ROLE_ADMIN;
 
 @Repository
 @Transactional(readOnly = true)

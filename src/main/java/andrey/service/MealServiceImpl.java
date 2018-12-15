@@ -2,9 +2,8 @@ package andrey.service;
 
 import andrey.model.HistoryMeal;
 import andrey.model.List_of_admin;
-import andrey.repository.RestouranRepository;
 import andrey.to.MealTo;
-import andrey.util.ThreadLocalUtil;
+import andrey.util.threadLocal.ThreadLocalUtil;
 import andrey.util.exception.NotEnoughRightsException;
 import andrey.util.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +24,6 @@ import static andrey.util.exception.NotFoundException.NOT_FOUND_EXCEPTION;
 public class MealServiceImpl implements MealService {
 
     private final MealRepository repository;
-    private final RestouranRepository res_repository;
     private ThreadLocalUtil threadLocalUtil;
     private HistoryMealService historyMealService;
 
@@ -33,9 +31,8 @@ public class MealServiceImpl implements MealService {
 
 
     @Autowired
-    public MealServiceImpl(MealRepository repository, RestouranRepository res_repository, ThreadLocalUtil threadLocalUtil, HistoryMealService historyMealService) {
+    public MealServiceImpl(MealRepository repository, ThreadLocalUtil threadLocalUtil, HistoryMealService historyMealService) {
         this.repository = repository;
-        this.res_repository = res_repository;
         this.threadLocalUtil = threadLocalUtil;
         this.historyMealService = historyMealService;
     }
