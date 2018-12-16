@@ -13,7 +13,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.util.Set;
-
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @NamedQueries({
       @NamedQuery(name = User.DELETE, query = "DELETE FROM User u WHERE u.id=:id"),
       @NamedQuery(name = User.BY_EMAIL_2, query = "SELECT u FROM User u WHERE u.email=:email"),
@@ -64,8 +64,6 @@ public class User extends AbstractNamedEntity {
     }
 
     public User() {}
-
-
 
   public User(Integer id, String name, @Email @NotBlank @Size(max = 100) String email, @NotBlank @Size(min = 5, max = 64) String password) {
     super(id, name);

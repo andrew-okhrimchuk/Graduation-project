@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 import static andrey.TestUtil.*;
 import static andrey.data.HistoryVotingTestData.*;
@@ -60,12 +61,24 @@ public class HVRestControllerTest extends AbstractControllerTest {
 
     @Test
     public void createVoting() throws Exception {
+        if (LocalTime.now().getHour() < LocalTime.of(11, 00).getHour()){
         mockMvc.perform(post(REST_URL + REST1_id)
                 .with(userHttpBasic(USER_3)))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .equals(hV4);
+        }
+        else {
+            mockMvc.perform(post(REST_URL + REST1_id)
+                .with(userHttpBasic(USER_3)))
+                .andExpect(status().isPreconditionFailed())
+              //  .andExpect(errorType(ErrorType.VALIDATION_ERROR))
+                .andDo(print())
+                .equals(hV4);
+        }
     }
+
+
 
    /* @Test
     public void testGetWithDate() throws Exception {

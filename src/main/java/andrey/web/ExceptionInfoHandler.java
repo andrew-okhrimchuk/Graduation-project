@@ -1,6 +1,7 @@
 package andrey.web;
 
 import andrey.util.ValidationUtil;
+import andrey.util.exception.AlreadyVotedException;
 import andrey.util.exception.ApplicationException;
 import andrey.util.exception.ErrorInfo;
 import andrey.util.exception.ErrorType;

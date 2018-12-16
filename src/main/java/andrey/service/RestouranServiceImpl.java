@@ -7,6 +7,8 @@ import andrey.to.RestouranTo;
 import andrey.util.threadLocal.ThreadLocalUtil;
 import andrey.util.exception.NotEnoughRightsException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import andrey.repository.RestouranRepository;
@@ -45,6 +47,8 @@ public class RestouranServiceImpl implements RestouranService {
     public Restouran get(int id) {
         return checkNotFoundWithId(restouranRepository.get(id), id);
     }
+
+    @Cacheable("meals")
     @Override
     public List<MealMenu> getManuToday(){
        return restouranRepository.getManuToday();
@@ -55,6 +59,7 @@ public class RestouranServiceImpl implements RestouranService {
         return restouranRepository.getAll(userId);
     }
 
+    @CacheEvict(value = "meals", allEntries = true)
     @Override
     public boolean delete(int id, int userId) {
         get (id);
@@ -64,6 +69,7 @@ public class RestouranServiceImpl implements RestouranService {
         return (restouranRepository.delete(id));
     }
 
+    @CacheEvict(value = "meals", allEntries = true)
     @Override
     public Restouran update(Restouran restouran, int userId) {
         Assert.notNull(restouran, "Restouran must not be null");
@@ -73,6 +79,8 @@ public class RestouranServiceImpl implements RestouranService {
         checkUserIsAdminOfRestouranAndRoles(userId,messegecheckUserIsAdminOfRestouran+restouran.getId(),checkUserIsAdminOfRestouran, restouran.getId());
         return restouranRepository.save(restouran, userId);
     }
+
+    @CacheEvict(value = "meals", allEntries = true)
     @Override
     public RestouranTo update(RestouranTo restouranTo, int userId) {
         Assert.notNull(restouranTo, "RestouranTo must not be null");
@@ -83,6 +91,7 @@ public class RestouranServiceImpl implements RestouranService {
         return asTo(update(restouran, userId));
     }
 
+    @CacheEvict(value = "meals", allEntries = true)
     @Override
     public Restouran create(Restouran restouran, int userId) {
         Assert.notNull(restouran, "Restouran must not be null");
@@ -106,7 +115,7 @@ public class RestouranServiceImpl implements RestouranService {
 
         return create;
     }
-
+    @CacheEvict(value = "meals", allEntries = true)
     @Override
     public RestouranTo create(RestouranTo restouranTo, int userId) {
         Assert.notNull(restouranTo, "RestouranTo must not be null");

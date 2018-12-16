@@ -7,6 +7,7 @@ import andrey.util.threadLocal.ThreadLocalUtil;
 import andrey.util.exception.NotEnoughRightsException;
 import andrey.util.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import andrey.model.Meal;
@@ -50,6 +51,7 @@ public class MealServiceImpl implements MealService {
         return repository.getAll(restouran_id);
     }
 
+    @CacheEvict(value = "meals", allEntries = true)
     @Override
     public void delete(int id) {
         Meal delete = repository.getWithLastCost(id);
@@ -58,6 +60,7 @@ public class MealServiceImpl implements MealService {
         checkNotFoundWithId(repository.delete(id), id);
     }
 
+    @CacheEvict(value = "meals", allEntries = true)
     @Override
     public MealTo update(MealTo meal) {
         Assert.notNull(meal, "meal must not be null");
@@ -74,6 +77,7 @@ public class MealServiceImpl implements MealService {
         mTo.setCost(newHistoryMeal.getCost());
         return  asTo(mTo);
     }
+    @CacheEvict(value = "meals", allEntries = true)
     @Override
     public MealTo create(MealTo meal) {
         Assert.notNull(meal, "meal must not be null");

@@ -28,7 +28,7 @@ public class HistoryVotingRestController extends AbstractHistoryVotingController
     }
 
     @Override
-    @PostMapping(path = "/{restouran_id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(path = "/{restouran_id}")
     public HistoryVoting createVoting(@NotNull @NotEmpty @PathVariable("restouran_id") int restouran_id) {
         return super.createVoting(restouran_id);
     }
