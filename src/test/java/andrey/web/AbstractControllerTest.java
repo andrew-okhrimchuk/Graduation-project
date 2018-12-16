@@ -73,7 +73,7 @@ abstract public class AbstractControllerTest {
     public void setUp() {
         MealToTestData.init();     // Инициализировал MEAL1.setCost(hM1.getCost())
         RestouranTestData.init();
-        cacheManager.getCache("users").clear();
+     //   cacheManager.getCache("users").clear();
         cacheManager.getCache("meals").clear();
         if (jpaUtil != null) {
             jpaUtil.clear2ndLevelHibernateCache();

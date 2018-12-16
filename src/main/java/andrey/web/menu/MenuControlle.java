@@ -12,7 +12,7 @@ public class MenuControlle extends AbstractMenuController {
     static final String REST_URL = "/rest/menu";
 
     @Override
-    @GetMapping("/today")
+    @GetMapping(value ="/today", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<MealMenu> getToday() {
         return super.getToday();
     }

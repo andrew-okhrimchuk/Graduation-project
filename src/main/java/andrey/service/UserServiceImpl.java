@@ -40,14 +40,12 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    @CacheEvict(value = "users", allEntries = true)
     @Override
     public User create(User user) {
         Assert.notNull(user, "user must not be null");
         return repository.save(prepareToSave(user, passwordEncoder));
     }
 
-    @CacheEvict(value = "users", allEntries = true)
     @Override
     public void delete(int id) throws NotFoundException {
         checkNotFoundWithId(repository.delete(id), id);
@@ -67,7 +65,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return checkNotFound((user), "email=" + email);
     }
 
-    @Cacheable("users")
     @Override
     public List<User> getAll() {
         return repository.getAll();
@@ -79,7 +76,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         checkNotFoundWithId(repository.save(prepareToSave(user, passwordEncoder)), user.getId());
     }
 
-    @CacheEvict(value = "users", allEntries = true)
     @Transactional
     @Override
     public void update(UserTo userTo) {
