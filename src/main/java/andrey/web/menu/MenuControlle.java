@@ -7,12 +7,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = ManuControlle.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
-public class ManuControlle extends AbstractManuController {
-    public static final String REST_URL = "/rest/menu";
+@RequestMapping(value = MenuControlle.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
+public class MenuControlle extends AbstractMenuController {
+    static final String REST_URL = "/rest/menu";
 
     @Override
-    @GetMapping("/")
+    @GetMapping("/today")
     public List<MealMenu> getToday() {
         return super.getToday();
     }

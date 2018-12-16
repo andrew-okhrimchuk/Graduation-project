@@ -48,6 +48,7 @@ public class ThreadLocalUtil {
             if (user.getHistoryVoting() != null) {
                 thread_HV.set(user.getHistoryVoting());
             }
+            else if (user.getHistoryVoting() == null) {thread_HV.set(null);}// do it only for test
         }
     }
 }

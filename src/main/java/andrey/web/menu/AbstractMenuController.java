@@ -11,7 +11,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 
-public abstract class AbstractManuController {
+public abstract class AbstractMenuController {
     private final Logger log = LoggerFactory.getLogger(getClass());
     @Autowired
     private RestouranService service;
@@ -20,7 +20,7 @@ public abstract class AbstractManuController {
 
     public List<MealMenu>  getToday() {
         serviceBin.set_ThreadLoca_to_Bin();
-        log.info("get Voting today = {} ", LocalDate.now());
+        log.info("get MealMenu today = {} ", LocalDate.now());
         return service.getManuToday();
     }
 }
