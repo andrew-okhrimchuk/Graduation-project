@@ -9,8 +9,8 @@ cache:
 
 # https://docs.travis-ci.com/user/database-setup/#PostgreSQL
 before_script:
-  - psql -c 'create database topjava' -U postgres
-  - psql -c 'create user "user"; grant all privileges on database topjava to "user"' -U postgres
+  - hsql -c 'create database topjava' -U postgres
+  - hsql -c 'create user "user"; grant all privileges on database topjava to "user"' -U postgres
 
 # https://docs.travis-ci.com/user/customizing-the-build#Building-Specific-Branches
 branches:
@@ -19,7 +19,7 @@ branches:
 
 #https://docs.travis-ci.com/user/environment-variables#Default-Environment-Variables
 env:
-- TOPJAVA_ROOT=$TRAVIS_BUILD_DIR
+- My_Grad_project=$TRAVIS_BUILD_DIR
 
 # https://docs.travis-ci.com/user/notifications#Configuring-email-notifications
 #notifications:

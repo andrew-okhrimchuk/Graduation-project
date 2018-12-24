@@ -328,11 +328,6 @@
         </build>
         <dependencies>
             <dependency>
-                <groupId>org.postgresql</groupId>
-                <artifactId>postgresql</artifactId>
-                <version>${postgresql.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>org.apache.tomcat</groupId>
                 <artifactId>tomcat-jdbc</artifactId>
                 <version>${tomcat.version}</version>
@@ -387,24 +382,10 @@
                         <containerId>tomcat8x</containerId>
                         <systemProperties>
                             <file.encoding>UTF-8</file.encoding>
-                            <spring.profiles.active>tomcat,datajpa</spring.profiles.active>
                         </systemProperties>
-                        <dependencies>
-                            <dependency>
-                                <groupId>org.postgresql</groupId>
-                                <artifactId>postgresql</artifactId>
-                            </dependency>
-                        </dependencies>
+
                     </container>
-                    <configuration>
-                        <configfiles>
-                            <configfile>
-                                <file>src/main/resources/tomcat/context.xml</file>
-                                <todir>conf/Catalina/localhost/</todir>
-                                <tofile>context.xml.default</tofile>
-                            </configfile>
-                        </configfiles>
-                    </configuration>
+
                     <deployables>
                         <deployable>
                             <groupId>andrey</groupId>
