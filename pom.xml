@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>groupId</groupId>
+    <groupId>andrey</groupId>
     <artifactId>Graduation-project</artifactId>
     <version>1.0-SNAPSHOT</version>
 
@@ -295,49 +295,6 @@
 
     </dependencies>
 
-
-<profiles>
-    <profile>
-        <id>heroku</id>
-        <build>
-            <plugins>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-dependency-plugin</artifactId>
-                    <version>3.1.0</version>
-                    <executions>
-                        <execution>
-                            <phase>package</phase>
-                            <goals>
-                                <goal>copy</goal>
-                            </goals>
-                            <configuration>
-                                <artifactItems>
-                                    <artifactItem>
-                                        <groupId>com.github.jsimone</groupId>
-                                        <artifactId>webapp-runner</artifactId>
-                                        <version>8.5.11.2</version>
-                                        <destFileName>webapp-runner.jar</destFileName>
-                                    </artifactItem>
-                                </artifactItems>
-                            </configuration>
-                        </execution>
-                    </executions>
-                </plugin>
-            </plugins>
-        </build>
-        <dependencies>
-            <dependency>
-                <groupId>org.apache.tomcat</groupId>
-                <artifactId>tomcat-jdbc</artifactId>
-                <version>${tomcat.version}</version>
-            </dependency>
-        </dependencies>
-    </profile>
-
-</profiles>
-
-
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -372,6 +329,30 @@
                 </configuration>
             </plugin>
 
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>com.github.jsimone</groupId>
+                                    <artifactId>webapp-runner</artifactId>
+                                    <version>8.5.11.2</version>
+                                    <destFileName>webapp-runner.jar</destFileName>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
             <!--  http://stackoverflow.com/questions/4305935/is-it-possible-to-supply-tomcat6s-context-xml-file-via-the-maven-cargo-plugin#4417945 -->
             <plugin>
                 <groupId>org.codehaus.cargo</groupId>
@@ -397,30 +378,10 @@
                         </deployable>
                     </deployables>
                 </configuration>
+
             </plugin>
 
-            <!--
-                        <plugin>
-                            <groupId>org.apache.tomcat.maven</groupId>
-                            <artifactId>tomcat7-maven-plugin</artifactId>
-                            <version>2.2</version>
-                            <configuration>
-                                <contextFile>src/main/resources/tomcat/context.xml</contextFile>
-                                <systemProperties>
-                                    <file.encoding>UTF-8</file.encoding>
-                                    <spring1.profiles.active>tomcat,datajpa</spring1.profiles.active>
-                                </systemProperties>
-                                <protocol>org.apache.coyote.http11.Http11NioProtocol</protocol>
-                            </configuration>
-                            <dependencies>
-                                <dependency>
-                                    <groupId>org.postgresql</groupId>
-                                    <artifactId>postgresql</artifactId>
-                                    <version>${postgresql.version}</version>
-                                </dependency>
-                            </dependencies>
-                        </plugin>
-            -->
+
         </plugins>
     </build>
     
