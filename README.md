@@ -20,14 +20,18 @@ RU:
 1. Документация API
 https://documenter.getpostman.com/view/5638841/Rzn9rfwT
 
-2. Сам проект на Heroku 
+2. Сам проект на Heroku https://my-graduation-project.herokuapp.com/rest/profile/
 (для запуска немного подождите, проект безплатный, 
 логин: user-1@ukr.net и пасс user-1 или 
 логин: admin@ukr.net и пасс admin)
-https://my-graduation-project.herokuapp.com/rest/profile/
 
 3. Источник задания
 https://github.com/JavaWebinar/topjava/blob/doc/doc/graduation.md
+
+4. Kому лень читать доки, просто клик сюда:
+https://my-graduation-project.herokuapp.com/rest/profile/
+https://my-graduation-project.herokuapp.com/rest/menu/
+https://my-graduation-project.herokuapp.com/rest/profile/meals/
 
 *********************************************************************************************** 
 
@@ -57,14 +61,18 @@ P.P.S.: Asume that your API will be used by a frontend developer to build fronte
 1. API documentation
 https://documenter.getpostman.com/view/5638841/Rzn9rfwT
 
-2. The project itself on Heroku 
+2. The project itself on Heroku https://my-graduation-project.herokuapp.com/rest/profile/
 (wait a little to start, the project is free, 
 login: user-1@ukr.net and user-1 pass
 login: admin@ukr.net и admin pass )
-https://my-graduation-project.herokuapp.com/rest/profile/
+
 
 3. Quest Source
 https://github.com/JavaWebinar/topjava/blob/doc/doc/graduation.md
 
+4. Who is too lazy to read docks, just click here
+https://my-graduation-project.herokuapp.com/rest/profile/
+https://my-graduation-project.herokuapp.com/rest/menu/
+https://my-graduation-project.herokuapp.com/rest/profile/meals/
 *************************************************************************************************** 
 
