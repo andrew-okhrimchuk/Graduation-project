@@ -55,7 +55,8 @@ public class ExceptionInfoHandler {
 
     @ExceptionHandler(ApplicationException.class)
     public ResponseEntity<ErrorInfo> applicationError(HttpServletRequest req, ApplicationException appEx) {
-        ErrorInfo errorInfo = logAndGetErrorInfo(req, appEx, false, appEx.getType(), messageUtil.getMessage(appEx));
+       // ErrorInfo errorInfo = logAndGetErrorInfo(req, appEx, false, appEx.getType(), messageUtil.getMessage(appEx));
+        ErrorInfo errorInfo = logAndGetErrorInfo(req, appEx, false, appEx.getType(), appEx.toString());
         return new ResponseEntity<>(errorInfo, appEx.getHttpStatus());
     }
 
