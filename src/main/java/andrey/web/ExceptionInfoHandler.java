@@ -69,7 +69,8 @@ public class ExceptionInfoHandler {
                     .filter(it -> lowerCaseMsg.contains(it.getKey()))
                     .findAny();
             if (entry.isPresent()) {
-                return logAndGetErrorInfo(req, e, false, DATA_ERROR, messageUtil.getMessage(entry.get().getValue()));
+              //  return logAndGetErrorInfo(req, e, false, DATA_ERROR, messageUtil.getMessage(entry.get().getValue()));
+                return logAndGetErrorInfo(req, e, false, DATA_ERROR, entry.get().getValue());
             }
         }
         return logAndGetErrorInfo(req, e, true, DATA_ERROR);
