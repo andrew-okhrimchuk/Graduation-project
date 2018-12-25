@@ -15,15 +15,21 @@ RU:
     * Если это после 11:00, то уже слишком поздно, голосование не может быть изменено
 Каждый ресторан предлагает новое меню каждый день.
 
-В результате
-, укажите ссылку на репозиторий github. Он должен содержать код README.md с документацией API и пару команд curl для его проверки.
+В результате, укажите ссылку на репозиторий github. Он должен содержать код README.md с документацией API и пару команд curl для его проверки.
 
 1. Документация API
 https://documenter.getpostman.com/view/5638841/Rzn9rfwT
-2. Сам проект на Heroku (для запуска немного подождите, проект безплатный, логин: user-1@ukr.net и пасс user-1 )
+
+2. Сам проект на Heroku 
+(для запуска немного подождите, проект безплатный, 
+логин: user-1@ukr.net и пасс user-1 или 
+логин: admin@ukr.net и пасс admin)
 https://my-graduation-project.herokuapp.com/rest/profile/
+
 3. Источник задания
 https://github.com/JavaWebinar/topjava/blob/doc/doc/graduation.md
+
+*********************************************************************************************** 
 
 EN:
 Design and implement a REST API using Hibernate/Spring/SpringMVC (or Spring-Boot) without frontend.
@@ -45,15 +51,18 @@ Each restaurant provides new menu each day.
 As a result, provide a link to github repository. It should contain the code, README.md with API documentation and couple curl commands to test it.
 
 10 Best Practices for Better RESTful API
-
 P.S.: Make sure everything works with latest version that is on github :)
-
 P.P.S.: Asume that your API will be used by a frontend developer to build frontend on top of that.
 
 1. API documentation
 https://documenter.getpostman.com/view/5638841/Rzn9rfwT
-2. The project itself on Heroku (wait a little to start, the project is free, login: user-1@ukr.net and user-1 pass)
+
+2. The project itself on Heroku 
+(wait a little to start, the project is free, 
+login: user-1@ukr.net and user-1 pass
+login: admin@ukr.net и admin pass )
 https://my-graduation-project.herokuapp.com/rest/profile/
+
 3. Quest Source
 https://github.com/JavaWebinar/topjava/blob/doc/doc/graduation.md
 
