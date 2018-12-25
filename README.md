@@ -30,7 +30,9 @@ https://github.com/JavaWebinar/topjava/blob/doc/doc/graduation.md
 
 4. Kому лень читать доки, просто клик сюда:
 https://my-graduation-project.herokuapp.com/rest/profile
+
 https://my-graduation-project.herokuapp.com/rest/menu
+
 https://my-graduation-project.herokuapp.com/rest/profile/meals
 
 *********************************************************************************************** 
@@ -72,7 +74,9 @@ https://github.com/JavaWebinar/topjava/blob/doc/doc/graduation.md
 
 4. Who is too lazy to read docks, just click here
 https://my-graduation-project.herokuapp.com/rest/profile
+
 https://my-graduation-project.herokuapp.com/rest/menu
+
 https://my-graduation-project.herokuapp.com/rest/profile/meals
 *************************************************************************************************** 
 
