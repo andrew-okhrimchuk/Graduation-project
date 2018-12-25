@@ -32,9 +32,11 @@ https://github.com/JavaWebinar/topjava/blob/doc/doc/graduation.md
 
 https://my-graduation-project.herokuapp.com/rest/profile
 
-https://my-graduation-project.herokuapp.com/rest/menu
+https://my-graduation-project.herokuapp.com/rest/menu/today
 
-https://my-graduation-project.herokuapp.com/rest/profile/meals
+https://my-graduation-project.herokuapp.com/rest/profile/meals/100025
+
+https://my-graduation-project.herokuapp.com/rest/profile/meals/restouran/100008
 
 *********************************************************************************************** 
 
@@ -77,8 +79,8 @@ https://github.com/JavaWebinar/topjava/blob/doc/doc/graduation.md
 
 https://my-graduation-project.herokuapp.com/rest/profile
 
-https://my-graduation-project.herokuapp.com/rest/menu
+https://my-graduation-project.herokuapp.com/rest/menu/today
 
-https://my-graduation-project.herokuapp.com/rest/profile/meals
-*************************************************************************************************** 
+https://my-graduation-project.herokuapp.com/rest/profile/meals/100025
 
+https://my-graduation-project.herokuapp.com/rest/profile/meals/restouran/100008
