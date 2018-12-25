@@ -29,9 +29,9 @@ https://documenter.getpostman.com/view/5638841/Rzn9rfwT
 https://github.com/JavaWebinar/topjava/blob/doc/doc/graduation.md
 
 4. Kому лень читать доки, просто клик сюда:
-https://my-graduation-project.herokuapp.com/rest/profile/
-https://my-graduation-project.herokuapp.com/rest/menu/
-https://my-graduation-project.herokuapp.com/rest/profile/meals/
+https://my-graduation-project.herokuapp.com/rest/profile
+https://my-graduation-project.herokuapp.com/rest/menu
+https://my-graduation-project.herokuapp.com/rest/profile/meals
 
 *********************************************************************************************** 
 
@@ -71,8 +71,8 @@ login: admin@ukr.net и admin pass )
 https://github.com/JavaWebinar/topjava/blob/doc/doc/graduation.md
 
 4. Who is too lazy to read docks, just click here
-https://my-graduation-project.herokuapp.com/rest/profile/
-https://my-graduation-project.herokuapp.com/rest/menu/
-https://my-graduation-project.herokuapp.com/rest/profile/meals/
+https://my-graduation-project.herokuapp.com/rest/profile
+https://my-graduation-project.herokuapp.com/rest/menu
+https://my-graduation-project.herokuapp.com/rest/profile/meals
 *************************************************************************************************** 
 
