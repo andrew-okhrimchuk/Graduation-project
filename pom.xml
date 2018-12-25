@@ -312,13 +312,7 @@
                         </systemProperties>
                     </container>
                     <configuration>
-                        <configfiles>
-                            <configfile>
-                                <file>src/main/resources/tomcat/context.xml</file>
-                                <todir>conf/Catalina/localhost/</todir>
-                                <tofile>context.xml.default</tofile>
-                            </configfile>
-                        </configfiles>
+
                     </configuration>
                     <deployables>
                         <deployable>
