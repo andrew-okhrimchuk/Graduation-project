@@ -102,8 +102,11 @@ public class ExceptionInfoHandler {
         } else {
             log.warn("{} at request  {}: {}", errorType, req.getRequestURL(), rootCause.toString());
         }
-        return new ErrorInfo(req.getRequestURL(), errorType,
-                messageUtil.getMessage(errorType.getErrorCode()),
+        return new ErrorInfo(
+                req.getRequestURL(),
+                errorType,
+               // messageUtil.getMessage(errorType.getErrorCode()),
+                errorType.getErrorCode(),
                 details.length != 0 ? details : new String[]{rootCause.toString()});
     }
 }
